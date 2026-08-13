@@ -68,6 +68,29 @@
   font-weight: var(--fw-semibold);
 }
 
+/* --- Shahar tanlash ro'yxati (TZ 6.3) --- */
+.city-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.city-list__item {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  text-align: left;
+  font-weight: var(--fw-semibold);
+}
+
+.city-list__item:hover,
+.city-list__item.is-active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-bg-secondary);
+}
+
 /* --- Tugmalar --- */
 .btn {
   display: inline-flex;

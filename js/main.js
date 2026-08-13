@@ -266,11 +266,29 @@
   filterRating && filterRating.addEventListener('change', applyReviewsFilter);
 
   /* ---------- Shahar tanlash (localStorage, TZ 6.3) ---------- */
+  function applyCity(city) {
+    document.querySelectorAll('#topbar-city-name').forEach(function (el) { el.textContent = city; });
+    var heroCity = document.getElementById('hero-city');
+    if (heroCity) heroCity.textContent = city + 'dagi';
+    document.querySelectorAll('.city-list__item').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-city') === city);
+    });
+  }
+
   var cityBtn = document.getElementById('topbar-city-name');
   if (cityBtn) {
     var savedCity = localStorage.getItem('eco-service-city');
-    if (savedCity) cityBtn.textContent = savedCity;
+    if (savedCity) applyCity(savedCity);
   }
+
+  document.querySelectorAll('.city-list__item').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var city = btn.getAttribute('data-city');
+      localStorage.setItem('eco-service-city', city);
+      applyCity(city);
+      closeAllModals();
+    });
+  });
 
   /* ---------- Qidiruv — jonli natija, xatoga chidamli (TZ 4.2, 6.2) ---------- */
   var searchIndex = [

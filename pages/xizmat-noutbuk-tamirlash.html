@@ -100,7 +100,7 @@
 
   <div class="topbar">
     <div class="container topbar__inner">
-      <button class="topbar__city" type="button" aria-haspopup="true">
+      <button class="topbar__city" type="button" aria-haspopup="true" data-modal-open="modal-city">
         <span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-pin"></use></svg></span><span id="topbar-city-name">Toshkent</span><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-chevron-down"></use></svg></span>
       </button>
       <div class="topbar__promo">Diagnostika bepul</div>
@@ -413,6 +413,24 @@
         <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn btn--primary btn--block">Yuborish</button>
       </form>
+    </div>
+  </div>
+
+    <div class="modal" id="modal-city" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-city-title">
+      <button class="modal__close" type="button" data-modal-close aria-label="Yopish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg></button>
+      <h3 id="modal-city-title">Shaharni tanlang</h3>
+      <div class="city-list">
+        <button type="button" class="city-list__item" data-city="Toshkent">Toshkent</button>
+        <button type="button" class="city-list__item" data-city="Samarqand">Samarqand</button>
+        <button type="button" class="city-list__item" data-city="Buxoro">Buxoro</button>
+        <button type="button" class="city-list__item" data-city="Andijon">Andijon</button>
+        <button type="button" class="city-list__item" data-city="Farg'ona">Farg'ona</button>
+        <button type="button" class="city-list__item" data-city="Namangan">Namangan</button>
+        <button type="button" class="city-list__item" data-city="Nukus">Nukus</button>
+        <button type="button" class="city-list__item" data-city="Qarshi">Qarshi</button>
+      </div>
     </div>
   </div>
 
