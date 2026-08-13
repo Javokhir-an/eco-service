@@ -271,4 +271,175 @@
     var savedCity = localStorage.getItem('eco-service-city');
     if (savedCity) cityBtn.textContent = savedCity;
   }
+
+  /* ---------- Qidiruv — jonli natija, xatoga chidamli (TZ 4.2, 6.2) ---------- */
+  var searchIndex = [
+    { label: "Noutbuk ta'mirlash", href: 'xizmat-noutbuk-tamirlash.html' },
+    { label: "Kompyuter yig'ish", href: 'xizmat-kompyuter-yigish.html' },
+    { label: "Monobloq ta'mirlash", href: 'xizmat-monobloq-tamirlash.html' },
+    { label: "Kompyuter va noutbuk ta'mirlash", href: 'kategoriya-kompyuter.html' },
+    { label: "Wi-Fi tarmoq sozlash", href: 'xizmat-wifi-sozlash.html' },
+    { label: "Server o'rnatish", href: 'xizmat-server-ornatish.html' },
+    { label: "Video kuzatuv tizimi", href: 'xizmat-video-kuzatuv.html' },
+    { label: "Tarmoq va server xizmatlari", href: 'kategoriya-tarmoq.html' },
+    { label: "Windows o'rnatish", href: 'xizmat-windows-ornatish.html' },
+    { label: "Viruslardan tozalash", href: 'xizmat-virus-tozalash.html' },
+    { label: "Dastur o'rnatish", href: 'xizmat-dastur-ornatish.html' },
+    { label: "Dasturiy ta'minot", href: 'kategoriya-dasturiy.html' },
+    { label: "HDD/SSD dan ma'lumot tiklash", href: 'xizmat-hdd-tiklash.html' },
+    { label: "Flash-kartadan tiklash", href: 'xizmat-flash-tiklash.html' },
+    { label: "Zaxira nusxalash xizmati", href: 'xizmat-zaxira-nusxalash.html' },
+    { label: "Ma'lumotlarni tiklash", href: 'kategoriya-malumot.html' },
+    { label: "Printer ta'mirlash", href: 'xizmat-printer-tamirlash.html' },
+    { label: "Kartrij to'ldirish", href: 'xizmat-kartrij-toldirish.html' },
+    { label: "MFU xizmat ko'rsatish", href: 'xizmat-mfu-xizmat.html' },
+    { label: "Printer va ofis texnikasi", href: 'kategoriya-printer.html' },
+    { label: "Biznes uchun IT (B2B)", href: 'b2b.html' },
+    { label: 'Narxlar', href: 'narxlar.html' },
+    { label: 'Mutaxassislar', href: 'mutaxassislar.html' },
+    { label: 'Sharhlar', href: 'sharhlar.html' },
+    { label: 'Aksiyalar', href: 'aksiyalar.html' },
+    { label: 'Aloqa', href: 'aloqa.html' },
+    { label: 'Biz haqimizda', href: 'biz-haqimizda.html' },
+    { label: 'Blog', href: 'blog.html' }
+  ];
+
+  function normalizeQuery(s) {
+    return s.toLowerCase().replace(/[''`ʻʼ]/g, "'").replace(/\s+/g, ' ').trim();
+  }
+
+  function levenshtein(a, b) {
+    var m = a.length, n = b.length;
+    if (!m) return n;
+    if (!n) return m;
+    var dp = [], i, j;
+    for (i = 0; i <= m; i++) { dp.push([i]); }
+    for (j = 0; j <= n; j++) { dp[0][j] = j; }
+    for (i = 1; i <= m; i++) {
+      for (j = 1; j <= n; j++) {
+        dp[i][j] = a.charAt(i - 1) === b.charAt(j - 1)
+          ? dp[i - 1][j - 1]
+          : 1 + Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+    return dp[m][n];
+  }
+
+  function searchServices(query) {
+    var q = normalizeQuery(query);
+    if (q.length < 2) return [];
+    var results = [];
+    searchIndex.forEach(function (item) {
+      var label = normalizeQuery(item.label);
+      var pos = label.indexOf(q);
+      if (pos !== -1) {
+        results.push({ item: item, score: pos });
+        return;
+      }
+      var words = label.split(' ');
+      var minDist = Infinity;
+      words.forEach(function (w) {
+        var d = levenshtein(q, w.length > q.length + 2 ? w.substring(0, q.length + 2) : w);
+        if (d < minDist) minDist = d;
+      });
+      if (q.length >= 3 && minDist <= 2) {
+        results.push({ item: item, score: 100 + minDist });
+      }
+    });
+    results.sort(function (a, b) { return a.score - b.score; });
+    var seen = {};
+    var out = [];
+    results.forEach(function (r) {
+      if (out.length >= 8 || seen[r.item.href]) return;
+      seen[r.item.href] = true;
+      out.push(r.item);
+    });
+    return out;
+  }
+
+  function setupSearch(input) {
+    if (!input || input._ecoSearchInit) return;
+    input._ecoSearchInit = true;
+
+    var wrapper = input.closest('.site-header__search') || input.parentElement;
+    var results = document.createElement('div');
+    results.className = 'search-results';
+    results.setAttribute('role', 'listbox');
+    results.id = 'search-results-' + Math.random().toString(36).slice(2, 8);
+    wrapper.appendChild(results);
+    input.setAttribute('role', 'combobox');
+    input.setAttribute('aria-expanded', 'false');
+    input.setAttribute('aria-controls', results.id);
+    input.setAttribute('aria-autocomplete', 'list');
+
+    var activeIndex = -1;
+
+    function render(items) {
+      activeIndex = -1;
+      if (!items.length) {
+        results.innerHTML = '<div class="search-results__empty">Topilmadi — <a href="tel:+998901234567">bizga qo\'ng\'iroq qiling</a></div>';
+      } else {
+        results.innerHTML = items.map(function (item) {
+          var href = item.href === '#' ? '#' : pagesPrefix + item.href;
+          return '<a href="' + href + '" role="option">' + item.label + '</a>';
+        }).join('');
+      }
+      results.classList.add('is-open');
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    function close() {
+      results.classList.remove('is-open');
+      input.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+    }
+
+    input.addEventListener('input', function () {
+      var q = input.value;
+      if (normalizeQuery(q).length < 2) { close(); return; }
+      render(searchServices(q));
+    });
+
+    input.addEventListener('keydown', function (e) {
+      var links = results.querySelectorAll('a');
+      if (!links.length || !results.classList.contains('is-open')) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex += e.key === 'ArrowDown' ? 1 : -1;
+        if (activeIndex < 0) activeIndex = links.length - 1;
+        if (activeIndex >= links.length) activeIndex = 0;
+        links.forEach(function (a, i) { a.classList.toggle('is-active', i === activeIndex); });
+        links[activeIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        if (activeIndex > -1) {
+          e.preventDefault();
+          window.location.href = links[activeIndex].getAttribute('href');
+        }
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    input.addEventListener('blur', function () {
+      setTimeout(close, 150);
+    });
+
+    input.addEventListener('focus', function () {
+      if (normalizeQuery(input.value).length >= 2) render(searchServices(input.value));
+    });
+  }
+
+  document.querySelectorAll('.site-header__search input[type="search"]').forEach(setupSearch);
+
+  /* ---------- Mobilda qidiruv ikonkasini bosish (TZ 4.2) ---------- */
+  var mobileSearchBtn = document.querySelector('.site-header__icon-btn--search');
+  mobileSearchBtn && mobileSearchBtn.addEventListener('click', function () {
+    if (!header) return;
+    var isOpen = header.classList.toggle('is-search-open');
+    if (isOpen) {
+      var input = header.querySelector('.site-header__search input[type="search"]');
+      input && input.focus();
+    }
+  });
 })();

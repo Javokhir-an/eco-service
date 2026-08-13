@@ -2,6 +2,72 @@
    Komponentlar — tugmalar, inputlar, kartochkalar (TZ 7.5)
    ========================================================================== */
 
+/* --- Qidiruv natijalari (TZ 4.2, 6.2) --- */
+.site-header.is-search-open .site-header__search {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-width: none;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: max-content;
+  min-width: 100%;
+  max-width: min(360px, 90vw);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card-hover);
+  max-height: 340px;
+  overflow-y: auto;
+  z-index: var(--z-header);
+}
+
+.site-header.is-search-open .search-results {
+  left: var(--space-4);
+  right: var(--space-4);
+  width: auto;
+  max-width: none;
+}
+
+.search-results.is-open {
+  display: block;
+}
+
+.search-results a {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-primary);
+  font-size: var(--fs-small);
+}
+
+.search-results a:hover,
+.search-results a.is-active {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+.search-results__empty {
+  padding: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-small);
+}
+
+.search-results__empty a {
+  color: var(--color-primary);
+  font-weight: var(--fw-semibold);
+}
+
 /* --- Tugmalar --- */
 .btn {
   display: inline-flex;
