@@ -1,0 +1,372 @@
+/* ==========================================================================
+   Layout — top-bar, header, mega-menu, footer, mobil pastki panel
+   TZ bo'limlari: 4.1, 4.2, 4.3, 4.14
+   ========================================================================== */
+
+/* --- Top-bar (4.1) --- */
+.topbar {
+  height: var(--topbar-height);
+  background-color: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--fs-small);
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .topbar { display: block; }
+}
+
+.topbar__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.topbar__city {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  color: inherit;
+}
+
+.topbar__promo {
+  color: var(--color-accent);
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.topbar__social {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* --- Header (4.2) --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--header-height);
+  transition: height 0.2s ease;
+}
+
+.site-header.is-scrolled {
+  height: var(--header-height-sticky);
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.site-header__logo img {
+  height: 36px;
+  width: auto;
+}
+
+.site-header__catalog-btn {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-bg-secondary);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-button);
+  font-weight: var(--fw-semibold);
+  flex-shrink: 0;
+}
+
+@media (min-width: 992px) {
+  .site-header__catalog-btn { display: inline-flex; }
+}
+
+.site-header__search {
+  display: none;
+  flex: 1;
+  max-width: 420px;
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .site-header__search { display: block; }
+}
+
+.site-header__search input {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-secondary);
+}
+
+.site-header__nav {
+  display: none;
+  gap: var(--space-6);
+}
+
+@media (min-width: 1280px) {
+  .site-header__nav { display: flex; }
+}
+
+.site-header__nav a:hover {
+  color: var(--color-primary);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.site-header__phone {
+  display: none;
+  font-weight: var(--fw-bold);
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  .site-header__phone { display: block; }
+}
+
+.site-header__cta {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .site-header__cta { display: inline-flex; }
+}
+
+.site-header__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+@media (min-width: 1280px) {
+  .site-header__icon-btn--search { display: none; }
+}
+
+.site-header__burger {
+  display: inline-flex;
+}
+
+@media (min-width: 1280px) {
+  .site-header__burger { display: none; }
+}
+
+/* --- Mega-menu (4.3) --- */
+.megamenu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-megamenu);
+  display: none;
+}
+
+.megamenu.is-open {
+  display: block;
+}
+
+.megamenu__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 26, 26, 0.5);
+}
+
+.megamenu__panel {
+  position: relative;
+  background-color: var(--color-bg-primary);
+  margin-top: var(--header-height);
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 992px) {
+  .megamenu__panel {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+.megamenu__categories {
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-4);
+}
+
+.megamenu__category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-button);
+  text-align: left;
+}
+
+.megamenu__category:hover,
+.megamenu__category.is-active {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+.megamenu__services {
+  padding: var(--space-6);
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .megamenu__services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+/* --- Mobil pastki panel (4.2) --- */
+.mobile-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 992px) {
+  .mobile-bar { display: none; }
+}
+
+.mobile-bar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 56px;
+  font-size: var(--fs-small);
+}
+
+.mobile-bar__item--cta {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* --- Footer (4.14) --- */
+.site-footer {
+  background-color: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding-block: var(--space-16);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.site-footer__col-title {
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--space-4);
+}
+
+.site-footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.site-footer__col a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.site-footer__col a:hover {
+  color: var(--color-text-inverse);
+}
+
+.site-footer__bottom {
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .site-footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.site-footer__legal {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--fs-small);
+}
+
+/* --- Yuqoriga qaytish tugmasi --- */
+.back-to-top {
+  position: fixed;
+  right: var(--space-4);
+  bottom: calc(56px + var(--space-4));
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+  z-index: var(--z-header);
+}
+
+@media (min-width: 992px) {
+  .back-to-top { bottom: var(--space-6); }
+}
+
+.back-to-top.is-visible {
+  display: inline-flex;
+}

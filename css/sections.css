@@ -1,0 +1,511 @@
+/* ==========================================================================
+   Bosh sahifa bloklari — Hero, Xizmatlar, Nega biz, Jarayon,
+   Narxlar, Mutaxassislar, Sharhlar, FAQ, Kontaktlar
+   ========================================================================== */
+
+/* --- Hero (4.4) --- */
+.hero {
+  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, #EAF3EE 100%);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .hero__inner {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+}
+
+.hero__title {
+  margin-bottom: var(--space-4);
+}
+
+.hero__subtitle {
+  font-size: var(--fs-h3-mobile);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.hero__perks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 576px) {
+  .hero__perks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hero__perks li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__form {
+  box-shadow: var(--shadow-card);
+}
+
+.hero__form h3 {
+  margin-bottom: var(--space-4);
+}
+
+.hero__form-note {
+  text-align: center;
+  margin-top: var(--space-3);
+}
+
+/* --- Xizmatlar grid (4.5) --- */
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .services-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .services-cards { grid-template-columns: repeat(4, 1fr); }
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.service-card__icon {
+  font-size: 32px;
+  margin-bottom: var(--space-2);
+}
+
+.service-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.service-card__list a {
+  position: relative;
+  z-index: 2;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-small);
+}
+
+/* Butun kartochka bosiladigan bo'lishi uchun (TZ 4.5), sub-linklar esa
+   ustida qolib, alohida bosilishi mumkin (z-index orqali). */
+.service-card__stretched-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.service-card__list a:hover {
+  color: var(--color-primary);
+}
+
+/* --- Nega aynan biz (4.6) --- */
+.why-us__hint {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 992px) {
+  .why-us__hint { display: none; }
+}
+
+.why-us__grid {
+  display: flex;
+  gap: var(--space-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--space-2);
+  -webkit-overflow-scrolling: touch;
+}
+
+.why-us__grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+@media (min-width: 992px) {
+  .why-us__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+  }
+}
+
+.why-us__item {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 992px) {
+  .why-us__item { flex: none; }
+}
+
+.why-us__num {
+  display: block;
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.why-us__item h3 {
+  margin-bottom: var(--space-2);
+}
+
+/* --- Ish jarayoni (4.7) --- */
+.process {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  counter-reset: step;
+}
+
+@media (min-width: 768px) {
+  .process {
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+  }
+
+  .process__step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(50% + 40px);
+    width: calc(100% - 80px);
+    height: 2px;
+    background-color: var(--color-border);
+  }
+}
+
+.process__step {
+  position: relative;
+  text-align: center;
+}
+
+.process__icon {
+  width: 56px;
+  height: 56px;
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+  border-radius: 50%;
+  background-color: var(--color-bg-primary);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.process__step h3 {
+  margin-bottom: var(--space-1);
+}
+
+/* --- Narxlar (4.8) --- */
+.pricing__tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  margin-bottom: var(--space-6);
+  -webkit-overflow-scrolling: touch;
+}
+
+.pricing__tab {
+  flex: 0 0 auto;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.pricing__tab.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.pricing__panel[hidden] {
+  display: none;
+}
+
+.pricing__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing__table thead {
+  display: none;
+}
+
+.pricing__table tbody tr {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  margin-bottom: var(--space-3);
+}
+
+.pricing__table td {
+  padding: 0;
+}
+
+.pricing__table td:first-child {
+  font-weight: var(--fw-semibold);
+}
+
+.pricing__table td:last-child {
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .pricing__table thead { display: table-header-group; }
+
+  .pricing__table tbody tr {
+    display: table-row;
+    border: none;
+    margin-bottom: 0;
+  }
+
+  .pricing__table th,
+  .pricing__table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .pricing__table td:last-child {
+    margin-top: 0;
+    text-align: right;
+  }
+}
+
+.pricing__note {
+  margin-top: var(--space-6);
+}
+
+/* --- Slayder (mutaxassislar, sharhlar) --- */
+.slider {
+  display: flex;
+  gap: var(--space-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--space-2);
+  -webkit-overflow-scrolling: touch;
+}
+
+.slider > * {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+}
+
+/* --- Mutaxassis kartochkasi (4.9) --- */
+.specialist-card {
+  text-align: center;
+}
+
+.specialist-card__avatar {
+  width: 72px;
+  height: 72px;
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-bold);
+  font-size: 20px;
+}
+
+.specialist-card h3 {
+  margin-bottom: var(--space-1);
+}
+
+.specialist-card__rating {
+  color: var(--color-accent);
+  margin-top: var(--space-2);
+}
+
+/* --- Sharh kartochkasi (4.10) --- */
+.review-card {
+  position: relative;
+}
+
+.badge--source {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.review-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.review-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-semibold);
+  flex-shrink: 0;
+}
+
+.review-card__name {
+  font-weight: var(--fw-semibold);
+}
+
+.review-card__rating {
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.review-card__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+/* --- FAQ (4.12) --- */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 800px;
+}
+
+.faq__item {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4) var(--space-6);
+}
+
+.faq__item summary {
+  cursor: pointer;
+  font-weight: var(--fw-semibold);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq__item summary::after {
+  content: '+';
+  font-size: 22px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq__item p {
+  margin-top: var(--space-3);
+}
+
+/* --- Kontaktlar (4.13) --- */
+.contacts__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 992px) {
+  .contacts__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+}
+
+.contacts__info h2 {
+  margin-bottom: var(--space-6);
+}
+
+.contacts__list {
+  margin-bottom: var(--space-8);
+}
+
+.contacts__row {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contacts__row dt {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+.contacts__row dd a {
+  color: var(--color-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.contacts__map {
+  min-height: 320px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+}
+
+.contacts__map-facade {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+.contacts__map-facade span:first-child {
+  font-size: 40px;
+}
+
+.contacts__map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: none;
+}

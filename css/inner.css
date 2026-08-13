@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Ichki sahifalar — breadcrumbs, kafolat bloki, checklist, bog'liq xizmatlar
+   TZ bo'limi: 5.1, 5.2
+   ========================================================================== */
+
+/* --- Breadcrumbs --- */
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  padding-block: var(--space-4);
+}
+
+.breadcrumbs a {
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbs__sep {
+  color: var(--color-border);
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--color-text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+/* --- Xizmat sahifasi: sarlavha bloki --- */
+.service-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .service-hero {
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+  }
+}
+
+.service-hero__price {
+  display: inline-block;
+  font-size: var(--fs-h3-mobile);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-block: var(--space-4);
+}
+
+.service-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* --- Checklist (nima ta'mirlaymiz) --- */
+.checklist {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .checklist { grid-template-columns: repeat(2, 1fr); }
+}
+
+.checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-card);
+}
+
+.checklist__icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* --- Kafolat bloki --- */
+.guarantee {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+}
+
+.guarantee__icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+/* --- SEO matn bloki --- */
+.seo-text {
+  max-width: 800px;
+  color: var(--color-text-secondary);
+}
+
+.seo-text p {
+  margin-bottom: var(--space-4);
+}
+
+/* --- Bog'liq xizmatlar --- */
+.related-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.related-services a {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+}
+
+.related-services a:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* --- Sahifa ichidagi ariza formasi (inline, modalsiz) --- */
+.inline-form {
+  max-width: 480px;
+}

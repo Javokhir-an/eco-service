@@ -1,0 +1,201 @@
+/* ==========================================================================
+   Qo'shimcha sahifalar uchun stillar:
+   Biz haqimizda, Aksiyalar, B2B, Blog, Sharhlar filtri, 404, Sitemap
+   ========================================================================== */
+
+/* --- Statistika qatori (Biz haqimizda) --- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stats__item {
+  text-align: center;
+  padding: var(--space-6);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-card);
+}
+
+.stats__num {
+  display: block;
+  font-size: var(--fs-h2-mobile);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+}
+
+/* --- Grid to'ri (mutaxassislar, jamoa) --- */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .grid-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .grid-cards { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* --- Aksiya kartochkasi --- */
+.promo-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .promo-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .promo-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+.promo-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.promo-card__badge {
+  align-self: flex-start;
+}
+
+.promo-card__validity {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+/* --- Blog kartochkasi --- */
+.blog-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .blog-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .blog-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+.blog-card__meta {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.blog-card h3 {
+  margin-bottom: var(--space-2);
+}
+
+/* --- Sharhlar filtri --- */
+.reviews-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.reviews-filter select {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-primary);
+}
+
+/* --- 404 sahifasi --- */
+.error-page {
+  text-align: center;
+  padding-block: var(--space-24);
+}
+
+.error-page__code {
+  font-size: 96px;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.error-page__search {
+  max-width: 480px;
+  margin-inline: auto;
+  margin-block: var(--space-8);
+}
+
+.error-page__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+
+/* --- HTML Sitemap --- */
+.sitemap-list {
+  columns: 1;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .sitemap-list { columns: 2; }
+}
+
+@media (min-width: 1280px) {
+  .sitemap-list { columns: 3; }
+}
+
+.sitemap-list__group {
+  break-inside: avoid;
+  margin-bottom: var(--space-8);
+}
+
+.sitemap-list__group h2 {
+  margin-bottom: var(--space-3);
+}
+
+.sitemap-list__group ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sitemap-list__group a {
+  color: var(--color-text-secondary);
+}
+
+.sitemap-list__group a:hover {
+  color: var(--color-primary);
+}
+
+/* --- Yuridik sahifalar (oferta, maxfiylik) --- */
+.legal-content h2 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+}
+
+.legal-content p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.legal-content__notice {
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-bg-secondary);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-button);
+  margin-bottom: var(--space-8);
+}

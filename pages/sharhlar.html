@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijozlar sharhlari — Eco Service</title>
+  <meta name="description" content="Eco Service mijozlarining haqiqiy sharhlari va baholari. Xizmat va reyting bo'yicha filtrlang.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#1B8A5A">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/sections.css">
+  <link rel="stylesheet" href="../css/inner.css">
+  <link rel="stylesheet" href="../css/pages-extra.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Asosiy kontentga o'tish</a>
+  <div class="topbar"><div class="container topbar__inner"><button class="topbar__city" type="button" aria-haspopup="true"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-pin"></use></svg></span><span id="topbar-city-name">Toshkent</span><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-chevron-down"></use></svg></span></button><div class="topbar__promo">Diagnostika bepul</div><div class="topbar__right"><span>Dush–Yak: 09:00–21:00</span><div class="topbar__social"><a href="#" aria-label="Telegram"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></a><a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-instagram"></use></svg></a></div></div></div></div>
+
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+      <a href="../index.html" class="site-header__logo"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-leaf"></use></svg></span><span>Eco Service</span></a>
+      <button class="site-header__catalog-btn" id="megamenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megamenu"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></span><span>Xizmatlar</span></button>
+      <div class="site-header__search"><label for="header-search" class="sr-only">Xizmat qidirish</label><input type="search" id="header-search" placeholder="Xizmatni qidiring" autocomplete="off"></div>
+      <nav class="site-header__nav" aria-label="Asosiy menyu">
+        <a href="narxlar.html">Narxlar</a><a href="mutaxassislar.html">Mutaxassislar</a><a href="sharhlar.html">Sharhlar</a><a href="aksiyalar.html">Aksiyalar</a><a href="aloqa.html">Aloqa</a>
+      </nav>
+      <div class="site-header__actions">
+        <a href="tel:+998901234567" class="site-header__phone">+998 90 123-45-67</a>
+        <button class="site-header__icon-btn site-header__icon-btn--search" type="button" aria-label="Qidirish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-search"></use></svg></button>
+        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order">Ariza qoldirish</a>
+        <button class="site-header__icon-btn site-header__burger" id="mobile-menu-toggle" type="button" aria-label="Menyu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="megamenu" id="megamenu" aria-hidden="true">
+    <div class="megamenu__backdrop" data-megamenu-close></div>
+    <div class="megamenu__panel" role="dialog" aria-label="Xizmatlar katalogi">
+      <nav class="megamenu__categories" aria-label="Kategoriyalar">
+        <button class="megamenu__category is-active" type="button" data-category="kompyuter"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-computer"></use></svg> Kompyuter va noutbuk ta'mirlash</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="tarmoq"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-network"></use></svg> Tarmoq va server xizmatlari</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="dasturiy"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-tools"></use></svg> Dasturiy ta'minot</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="malumot"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-database"></use></svg> Ma'lumotlarni tiklash</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="printer"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-printer"></use></svg> Printer va ofis texnikasi</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="b2b"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-briefcase"></use></svg> Biznes uchun IT (B2B)</span><span aria-hidden="true">›</span></button>
+      </nav>
+      <div class="megamenu__services" id="megamenu-services">
+        <a href="xizmat-noutbuk-tamirlash.html">Noutbuk ta'mirlash</a><a href="#">Kompyuter yig'ish</a><a href="#">Monobloq ta'mirlash</a><a href="#">Bepul diagnostika</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Non ushoqlari"><a href="../index.html">Bosh sahifa</a><span class="breadcrumbs__sep">/</span><span aria-current="page">Sharhlar</span></nav>
+    </div>
+
+    <section class="section" style="padding-top: var(--space-4);">
+      <div class="container">
+        <div class="section__head"><h1>Mijozlar sharhlari</h1></div>
+
+        <div class="reviews-filter">
+          <select id="filter-service" aria-label="Xizmat bo'yicha filtrlash">
+            <option value="all">Barcha xizmatlar</option>
+            <option value="kompyuter">Kompyuter va noutbuk</option>
+            <option value="tarmoq">Tarmoq</option>
+            <option value="malumot">Ma'lumot tiklash</option>
+          </select>
+          <select id="filter-rating" aria-label="Reyting bo'yicha filtrlash">
+            <option value="0">Barcha reytinglar</option>
+            <option value="5">★★★★★ (5)</option>
+            <option value="4">★★★★☆ va yuqori (4+)</option>
+          </select>
+        </div>
+
+        <div class="grid-cards" id="reviews-list">
+          <div class="card review-card" data-service="kompyuter" data-rating="5">
+            <span class="badge badge--source">Google</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">B</div><div><div class="review-card__name">Bahodir T.</div><div class="text-small text-secondary">12.07.2026</div></div></div>
+            <p class="review-card__rating">★★★★★</p>
+            <p class="review-card__text">Noutbukim ekranini tez va sifatli almashtirishdi. Usta belgilangan vaqtda keldi, narx oldindan aytilgandek qoldi.</p>
+          </div>
+          <div class="card review-card" data-service="tarmoq" data-rating="5">
+            <span class="badge badge--source">Telegram</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">M</div><div><div class="review-card__name">Malika S.</div><div class="text-small text-secondary">03.07.2026</div></div></div>
+            <p class="review-card__rating">★★★★★</p>
+            <p class="review-card__text">Ofisimiz uchun tarmoqni to'liq sozlab berishdi, hozir internet tezligidan shikoyat yo'q. Tavsiya qilaman.</p>
+          </div>
+          <div class="card review-card" data-service="malumot" data-rating="4">
+            <span class="badge badge--source">Sayt</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">J</div><div><div class="review-card__name">Jasur Q.</div><div class="text-small text-secondary">28.06.2026</div></div></div>
+            <p class="review-card__rating">★★★★☆</p>
+            <p class="review-card__text">Diskim buzilib, muhim fayllarimni yo'qotgan edim — 90% ma'lumotni tiklab berishdi. Rahmat!</p>
+          </div>
+          <div class="card review-card" data-service="kompyuter" data-rating="5">
+            <span class="badge badge--source">Google</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">S</div><div><div class="review-card__name">Sitora N.</div><div class="text-small text-secondary">20.06.2026</div></div></div>
+            <p class="review-card__rating">★★★★★</p>
+            <p class="review-card__text">Kompyuter yig'ib berishdi, hammasi ishlaydi, hech qanday muammo yo'q. Narxi ham bozordagidan arzon edi.</p>
+          </div>
+          <div class="card review-card" data-service="kompyuter" data-rating="4">
+            <span class="badge badge--source">Telegram</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">A</div><div><div class="review-card__name">Aziz R.</div><div class="text-small text-secondary">15.06.2026</div></div></div>
+            <p class="review-card__rating">★★★★☆</p>
+            <p class="review-card__text">Termopasta almashtirishdi, noutbuk endi qizib ketmayapti. Biroz kutishga to'g'ri keldi, lekin sifat yaxshi.</p>
+          </div>
+          <div class="card review-card" data-service="tarmoq" data-rating="5">
+            <span class="badge badge--source">Google</span>
+            <div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">D</div><div><div class="review-card__name">Dilshod K.</div><div class="text-small text-secondary">10.06.2026</div></div></div>
+            <p class="review-card__rating">★★★★★</p>
+            <p class="review-card__text">Video kuzatuv tizimini professional o'rnatib berishdi. Barcha savollarga sabr bilan javob berishdi.</p>
+          </div>
+        </div>
+        <p class="text-secondary" id="reviews-empty" style="display:none; text-align:center; margin-top: var(--space-6);">Hozircha shu filtr bo'yicha sharh topilmadi.</p>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head"><h2>Sharh qoldiring</h2></div>
+        <form class="card inline-form" id="review-form" novalidate>
+          <div class="field"><label class="field__label" for="rev-name">Ism</label><input class="field__input" type="text" id="rev-name" name="name" required><span class="field__error">Ismni to'g'ri kiriting</span></div>
+          <div class="field">
+            <label class="field__label" for="rev-service">Xizmat</label>
+            <select class="field__input" id="rev-service" name="service">
+              <option value="kompyuter">Kompyuter va noutbuk ta'mirlash</option>
+              <option value="tarmoq">Tarmoq va server xizmatlari</option>
+              <option value="dasturiy">Dasturiy ta'minot</option>
+              <option value="malumot">Ma'lumotlarni tiklash</option>
+              <option value="printer">Printer va ofis texnikasi</option>
+              <option value="b2b">Biznes uchun IT (B2B)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="rev-rating">Baho</label>
+            <select class="field__input" id="rev-rating" name="rating">
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆</option>
+              <option value="3">★★★☆☆</option>
+            </select>
+          </div>
+          <div class="field"><label class="field__label" for="rev-text">Sharh matni</label><textarea class="field__input" id="rev-text" name="text" rows="4" required></textarea><span class="field__error">Sharh matnini kiriting</span></div>
+          <p class="text-small text-secondary">Sharhlar moderatsiyadan o'tgandan keyin saytda chop etiladi.</p>
+          <button type="submit" class="btn btn--primary btn--block">Yuborish</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__col"><div class="site-footer__col-title">Xizmatlar</div><ul><li><a href="kategoriya-kompyuter.html">Kompyuter va noutbuk ta'mirlash</a></li><li><a href="kategoriya-tarmoq.html">Tarmoq va server xizmatlari</a></li><li><a href="kategoriya-dasturiy.html">Dasturiy ta'minot</a></li><li><a href="kategoriya-malumot.html">Ma'lumotlarni tiklash</a></li></ul></div>
+        <div class="site-footer__col"><div class="site-footer__col-title">Kompaniya</div><ul><li><a href="biz-haqimizda.html">Biz haqimizda</a></li><li><a href="mutaxassislar.html">Mutaxassislar</a></li><li><a href="b2b.html">B2B mijozlar uchun</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+        <div class="site-footer__col"><div class="site-footer__col-title">Mijozlarga</div><ul><li><a href="narxlar.html">Narxlar</a></li><li><a href="aksiyalar.html">Aksiyalar</a></li><li><a href="sharhlar.html">Sharhlar</a></li><li><a href="#">Ko'p beriladigan savollar</a></li></ul></div>
+        <div class="site-footer__col"><div class="site-footer__col-title">Aloqa</div><ul><li><a href="tel:+998901234567">+998 90 123-45-67</a></li><li><a href="mailto:info@ecoservice.uz">info@ecoservice.uz</a></li><li>Toshkent sh., ko'chasi, 1-uy</li></ul></div>
+      </div>
+      <div class="site-footer__bottom"><span>© 2014–2026 Eco Service. Barcha huquqlar himoyalangan.</span><div class="site-footer__legal"><a href="oferta.html">Ommaviy oferta</a><a href="maxfiylik.html">Maxfiylik siyosati</a><a href="sitemap.html">Sayt xaritasi</a></div></div>
+    </div>
+  </footer>
+
+  <div class="mobile-bar">
+    <a href="tel:+998901234567" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg></span><span>Qo'ng'iroq</span></a>
+    <a href="https://t.me/ecoservice" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></span><span>Telegram</span></a>
+    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
+  </div>
+
+  <div class="modal" id="modal-order" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
+      <button class="modal__close" type="button" data-modal-close aria-label="Yopish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg></button>
+      <h3 id="modal-order-title">Ariza qoldirish</h3>
+      <p class="text-secondary" style="margin-top: 8px; margin-bottom: 24px;">Menejer 3 daqiqa ichida bog'lanadi</p>
+      <form id="order-form" novalidate>
+        <div class="field"><label class="field__label" for="order-name">Ism</label><input class="field__input" type="text" id="order-name" name="name" required><span class="field__error">Ismni to'g'ri kiriting</span></div>
+        <div class="field"><label class="field__label" for="order-phone">Telefon</label><input class="field__input" type="tel" id="order-phone" name="phone" placeholder="+998 (__) ___-__-__" required><span class="field__error">Telefon raqamini to'g'ri kiriting</span></div>
+        <div class="field"><div class="field__checkbox-row"><input type="checkbox" id="order-consent" name="consent" required><label for="order-consent" class="text-small">Shaxsiy ma'lumotlarni qayta ishlashga <a href="maxfiylik.html" style="color: var(--color-primary);">roziman</a></label></div></div>
+        <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn--primary btn--block">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Yuqoriga qaytish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-arrow-up"></use></svg></button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

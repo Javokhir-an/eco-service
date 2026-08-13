@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Eco Service — Dizayn tizimi (Design Tokens)
+   TZ bo'limlari: 7.2 (ranglar), 7.3 (tipografika), 7.4 (grid/oraliqlar)
+   ========================================================================== */
+
+:root {
+  /* --- Ranglar (TZ 7.2) --- */
+  --color-primary: #1B8A5A;
+  --color-primary-hover: #146B45;
+  --color-accent: #FF7A00;
+
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B7280;
+  --color-text-inverse: #FFFFFF;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F5F7F6;
+
+  --color-border: #E5E7EB;
+  --color-error: #DC2626;
+
+  /* --- Tipografika (TZ 7.3) --- */
+  --font-family-base: 'Inter', 'Manrope', system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --fs-h1: 48px;
+  --fs-h1-mobile: 32px;
+  --fs-h2: 36px;
+  --fs-h2-mobile: 26px;
+  --fs-h3: 24px;
+  --fs-h3-mobile: 20px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-body: 1.6;
+
+  /* --- Oraliqlar, 4px karrali (TZ 7.4) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  --section-gap-desktop: var(--space-24);
+  --section-gap-mobile: var(--space-12);
+
+  /* --- Radiuslar --- */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-input: 8px;
+
+  /* --- Grid --- */
+  --grid-gutter: 24px;
+  --container-tablet: 720px;
+  --container-laptop: 960px;
+  --container-desktop: 1200px;
+  --container-desktop-xl: 1400px;
+
+  /* --- Soyalar --- */
+  --shadow-card: 0 4px 16px rgba(26, 26, 26, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(26, 26, 26, 0.12);
+
+  /* --- Header --- */
+  --header-height: 88px;
+  --header-height-sticky: 64px;
+  --topbar-height: 40px;
+
+  /* --- Z-index qatlamlari --- */
+  --z-header: 100;
+  --z-megamenu: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}
+
+/* ==========================================================================
+   Breakpoint'lar (TZ 2.5) — ma'lumot uchun, media query'larda qo'lda ishlatiladi:
+   Mobile:      320–575px
+   Mobile L:    576–767px
+   Tablet:      768–991px
+   Laptop:      992–1279px
+   Desktop:     1280–1599px
+   Desktop XL:  1600px+
+   Yondashuv: Mobile First
+   ========================================================================== */

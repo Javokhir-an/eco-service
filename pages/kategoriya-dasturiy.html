@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dasturiy ta'minot xizmatlari Toshkentda — Eco Service</title>
+  <meta name="description" content="Windows o'rnatish, viruslardan tozalash, dastur o'rnatish va sozlash. Kompyuteringizni tez va xavfsiz ishlashini ta'minlaymiz.">
+  <link rel="canonical" href="https://ecoservice.uz/xizmatlar/dasturiy/">
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#1B8A5A">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/sections.css">
+  <link rel="stylesheet" href="../css/inner.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Asosiy kontentga o'tish</a>
+
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <button class="topbar__city" type="button" aria-haspopup="true">
+        <span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-pin"></use></svg></span><span id="topbar-city-name">Toshkent</span><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-chevron-down"></use></svg></span>
+      </button>
+      <div class="topbar__promo">Diagnostika bepul</div>
+      <div class="topbar__right">
+        <span>Dush–Yak: 09:00–21:00</span>
+        <div class="topbar__social">
+          <a href="#" aria-label="Telegram"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></a>
+          <a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-instagram"></use></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+      <a href="../index.html" class="site-header__logo">
+        <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-leaf"></use></svg></span><span>Eco Service</span>
+      </a>
+      <button class="site-header__catalog-btn" id="megamenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megamenu">
+        <span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></span><span>Xizmatlar</span>
+      </button>
+      <div class="site-header__search">
+        <label for="header-search" class="sr-only">Xizmat qidirish</label>
+        <input type="search" id="header-search" placeholder="Xizmatni qidiring, masalan: noutbuk ta'mirlash" autocomplete="off">
+      </div>
+      <nav class="site-header__nav" aria-label="Asosiy menyu">
+        <a href="narxlar.html">Narxlar</a>
+        <a href="mutaxassislar.html">Mutaxassislar</a>
+        <a href="sharhlar.html">Sharhlar</a>
+        <a href="aksiyalar.html">Aksiyalar</a>
+        <a href="aloqa.html">Aloqa</a>
+      </nav>
+      <div class="site-header__actions">
+        <a href="tel:+998901234567" class="site-header__phone">+998 90 123-45-67</a>
+        <button class="site-header__icon-btn site-header__icon-btn--search" type="button" aria-label="Qidirish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-search"></use></svg></button>
+        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order">Ariza qoldirish</a>
+        <button class="site-header__icon-btn site-header__burger" id="mobile-menu-toggle" type="button" aria-label="Menyu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="megamenu" id="megamenu" aria-hidden="true">
+    <div class="megamenu__backdrop" data-megamenu-close></div>
+    <div class="megamenu__panel" role="dialog" aria-label="Xizmatlar katalogi">
+      <nav class="megamenu__categories" aria-label="Kategoriyalar">
+        <button class="megamenu__category is-active" type="button" data-category="kompyuter"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-computer"></use></svg> Kompyuter va noutbuk ta'mirlash</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="tarmoq"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-network"></use></svg> Tarmoq va server xizmatlari</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="dasturiy"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-tools"></use></svg> Dasturiy ta'minot</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="malumot"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-database"></use></svg> Ma'lumotlarni tiklash</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="printer"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-printer"></use></svg> Printer va ofis texnikasi</span><span aria-hidden="true">›</span></button>
+        <button class="megamenu__category" type="button" data-category="b2b"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-briefcase"></use></svg> Biznes uchun IT (B2B)</span><span aria-hidden="true">›</span></button>
+      </nav>
+      <div class="megamenu__services" id="megamenu-services">
+        <a href="xizmat-noutbuk-tamirlash.html">Noutbuk ta'mirlash</a>
+        <a href="xizmat-kompyuter-yigish.html">Kompyuter yig'ish</a>
+        <a href="xizmat-monobloq-tamirlash.html">Monobloq ta'mirlash</a>
+        <a href="#">Bepul diagnostika</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Non ushoqlari">
+<a href="../index.html">Bosh sahifa</a><span class="breadcrumbs__sep">/</span><a href="../index.html#services-grid">Xizmatlar</a><span class="breadcrumbs__sep">/</span><span aria-current="page">Dasturiy ta'minot</span>
+</nav>
+  </div>
+
+    <!-- ============ 5.2: Sarlavha + qisqa SEO matn ============ -->
+    <section class="section" style="padding-top: var(--space-4);">
+      <div class="container">
+        <h1>Dasturiy ta'minot</h1>
+        <div class="seo-text">
+          <p>Operatsion tizim va dasturlar bilan bog'liq har qanday muammoni hal qilamiz — Windows o'rnatishdan tortib, viruslardan tozalash va zarur dasturlarni sozlashgacha.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Xizmat kartochkalari to'ri ============ -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="services-cards">
+          <a href="xizmat-windows-ornatish.html" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-window"></use></svg></div>
+            <h3>Windows o'rnatish</h3>
+            <p class="text-secondary text-small">Tozalab o'rnatish, drayverlar va litsenziyalash</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+          <a href="xizmat-virus-tozalash.html" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-virus"></use></svg></div>
+            <h3>Viruslardan tozalash</h3>
+            <p class="text-secondary text-small">Zararli dasturlarni yo'qotish va antivirus o'rnatish</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+          <a href="xizmat-dastur-ornatish.html" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-package"></use></svg></div>
+            <h3>Dastur o'rnatish</h3>
+            <p class="text-secondary text-small">Ofis, dizayn va buxgalteriya dasturlarini sozlash</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+          <a href="#" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-key"></use></svg></div>
+            <h3>Litsenziyalash bo'yicha maslahat</h3>
+            <p class="text-secondary text-small">Dasturlarni qonuniy foydalanish bo'yicha konsultatsiya</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+          <a href="#" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-database"></use></svg></div>
+            <h3>Ma'lumotlar bazasini sozlash</h3>
+            <p class="text-secondary text-small">Kichik biznes uchun ma'lumotlar bazasini o'rnatish</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+          <a href="#" class="card card--interactive service-card">
+            <div class="service-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-refresh"></use></svg></div>
+            <h3>Kompyuterni tezlashtirish</h3>
+            <p class="text-secondary text-small">Sekinlashgan tizimni optimallashtirish</p>
+            <span class="btn btn--text">Batafsil</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Uzun SEO matn (1500-3000 belgi) ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="seo-text">
+          <p>Dasturiy ta'minot bilan bog'liq muammolar — kompyuter foydalanuvchilari eng ko'p duch keladigan qiyinchiliklardan biri. Operatsion tizimning buzilishi, viruslar yoki zarur dasturning noto'g'ri sozlanishi ish jarayonini butunlay to'xtatib qo'yishi mumkin.</p>
+          <p>Eco Service ustalari Windows operatsion tizimini toza o'rnatishdan tortib, murakkab dasturiy sozlamalargacha bo'lgan keng doiradagi xizmatlarni taqdim etadi. Har bir buyurtma bo'yicha avval muammo diagnostika qilinadi, so'ngra eng maqbul yechim taklif etiladi.</p>
+          <p>Viruslar va zararli dasturlar tufayli yuzaga keladigan muammolar alohida e'tiborni talab qiladi — biz nafaqat mavjud viruslarni tozalaymiz, balki kelajakda takroriy yuqishning oldini olish uchun ishonchli antivirus dasturini ham sozlab beramiz.</p>
+          <p>Ofis, dizayn yoki buxgalteriya dasturlaridan foydalanish zarur bo'lsa, ularni to'g'ri o'rnatish va sozlashda ham yordam beramiz. Litsenziyalash masalalarida maslahat berib, mijozning qonuniy va uzoq muddatli foydalanishini ta'minlaymiz.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head"><h2>Ko'p beriladigan savollar</h2></div>
+        <div class="faq">
+          <details class="faq__item"><summary>Masofadan yordam bera olasizmi?</summary><p class="text-secondary">Ba'zi sodda muammolarni masofadan hal qilish mumkin, murakkabroq holatlarda usta manzilingizga boradi.</p></details>
+          <details class="faq__item"><summary>Fayllarim xavfsiz qoladimi?</summary><p class="text-secondary">Ha, barcha ishlarda fayllaringizni saqlab qolishga alohida e'tibor beramiz.</p></details>
+          <details class="faq__item"><summary>Qaysi dasturlar bilan ishlaysiz?</summary><p class="text-secondary">Windows, ofis dasturlari, dizayn va buxgalteriya dasturlari kabi keng turdagi dasturiy ta'minot bilan ishlaymiz.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Ariza formasi ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head"><h2>Ariza qoldiring</h2></div>
+        <form class="card inline-form" novalidate>
+          <div class="field">
+            <label class="field__label" for="cat-dasturiy-form-name">Ism</label>
+            <input class="field__input" type="text" id="cat-dasturiy-form-name" name="name" required>
+            <span class="field__error">Ismni to'g'ri kiriting</span>
+          </div>
+          <div class="field">
+            <label class="field__label" for="cat-dasturiy-form-phone">Telefon</label>
+            <input class="field__input" type="tel" id="cat-dasturiy-form-phone" name="phone" placeholder="+998 (__) ___-__-__" required>
+            <span class="field__error">Telefon raqamini to'g'ri kiriting</span>
+          </div>
+          <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn btn--primary btn--block">Yuborish</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Xizmatlar</div>
+          <ul>
+            <li><a href="kategoriya-kompyuter.html">Kompyuter va noutbuk ta'mirlash</a></li>
+            <li><a href="kategoriya-tarmoq.html">Tarmoq va server xizmatlari</a></li>
+            <li><a href="kategoriya-dasturiy.html">Dasturiy ta'minot</a></li>
+            <li><a href="kategoriya-malumot.html">Ma'lumotlarni tiklash</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Kompaniya</div>
+          <ul>
+            <li><a href="biz-haqimizda.html">Biz haqimizda</a></li>
+            <li><a href="mutaxassislar.html">Mutaxassislar</a></li>
+            <li><a href="b2b.html">B2B mijozlar uchun</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Mijozlarga</div>
+          <ul>
+            <li><a href="narxlar.html">Narxlar</a></li>
+            <li><a href="aksiyalar.html">Aksiyalar</a></li>
+            <li><a href="sharhlar.html">Sharhlar</a></li>
+            <li><a href="#">Ko'p beriladigan savollar</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Aloqa</div>
+          <ul>
+            <li><a href="tel:+998901234567">+998 90 123-45-67</a></li>
+            <li><a href="mailto:info@ecoservice.uz">info@ecoservice.uz</a></li>
+            <li>Toshkent sh., ko'chasi, 1-uy</li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© 2014–2026 Eco Service. Barcha huquqlar himoyalangan.</span>
+        <div class="site-footer__legal">
+          <a href="oferta.html">Ommaviy oferta</a>
+          <a href="maxfiylik.html">Maxfiylik siyosati</a>
+          <a href="sitemap.html">Sayt xaritasi</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-bar">
+    <a href="tel:+998901234567" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg></span><span>Qo'ng'iroq</span></a>
+    <a href="https://t.me/ecoservice" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></span><span>Telegram</span></a>
+    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
+  </div>
+
+  <div class="modal" id="modal-order" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
+      <button class="modal__close" type="button" data-modal-close aria-label="Yopish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg></button>
+      <h3 id="modal-order-title">Ariza qoldirish</h3>
+      <p class="text-secondary" style="margin-top: 8px; margin-bottom: 24px;">Menejer 3 daqiqa ichida bog'lanadi</p>
+      <form id="order-form" novalidate>
+        <div class="field">
+          <label class="field__label" for="order-name">Ism</label>
+          <input class="field__input" type="text" id="order-name" name="name" required>
+          <span class="field__error">Ismni to'g'ri kiriting</span>
+        </div>
+        <div class="field">
+          <label class="field__label" for="order-phone">Telefon</label>
+          <input class="field__input" type="tel" id="order-phone" name="phone" placeholder="+998 (__) ___-__-__" required>
+          <span class="field__error">Telefon raqamini to'g'ri kiriting</span>
+        </div>
+        <div class="field">
+          <div class="field__checkbox-row">
+            <input type="checkbox" id="order-consent" name="consent" required>
+            <label for="order-consent" class="text-small">Shaxsiy ma'lumotlarni qayta ishlashga <a href="maxfiylik.html" style="color: var(--color-primary);">roziman</a></label>
+          </div>
+        </div>
+        <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn--primary btn--block">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Yuqoriga qaytish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-arrow-up"></use></svg></button>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Komponentlar — tugmalar, inputlar, kartochkalar (TZ 7.5)
+   ========================================================================== */
+
+/* --- Tugmalar --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-button);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.btn--text {
+  color: var(--color-primary);
+  min-height: auto;
+  padding: 0;
+  font-weight: var(--fw-semibold);
+}
+
+.btn--text::after {
+  content: '→';
+  margin-left: var(--space-1);
+  transition: transform 0.2s ease;
+}
+
+.btn--text:hover::after {
+  transform: translateX(4px);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* --- Kartochka --- */
+.card {
+  position: relative;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* --- Forma elementlari --- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.field__label {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+}
+
+.field__input {
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-primary);
+}
+
+.field__input:focus {
+  border-color: var(--color-primary);
+}
+
+.field__error {
+  font-size: var(--fs-small);
+  color: var(--color-error);
+  display: none;
+}
+
+.field--invalid .field__input {
+  border-color: var(--color-error);
+}
+
+.field--invalid .field__error {
+  display: block;
+}
+
+.field__checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+/* --- Badge (masalan aksiya belgisi) --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+/* --- Modal --- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 26, 26, 0.5);
+}
+
+.modal__panel {
+  position: relative;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: 24px;
+  line-height: 1;
+}
