@@ -239,6 +239,89 @@
     mapContainer.appendChild(iframe);
   });
 
+  /* ---------- Narx kalkulyatori (TZ 4.11) ---------- */
+  var calculatorData = {
+    kompyuter: [
+      { label: "Noutbukni tozalash va termopasta", price: 120000 },
+      { label: 'Termopasta almashtirish', price: 80000 },
+      { label: "Kompyuter yig'ish (konfiguratsiya)", price: 200000 },
+      { label: 'Noutbuk ekranini almashtirish', price: 350000 }
+    ],
+    tarmoq: [
+      { label: 'Wi-Fi tarmoq sozlash', price: 150000 },
+      { label: 'Video kuzatuv o\'rnatish (1 kamera)', price: 300000 },
+      { label: 'Server o\'rnatish va sozlash', price: 800000 }
+    ],
+    dasturiy: [
+      { label: 'Ofis dasturlarini o\'rnatish', price: 70000 },
+      { label: 'Viruslardan tozalash', price: 90000 },
+      { label: 'Windows o\'rnatish', price: 100000 }
+    ],
+    malumot: [
+      { label: 'Flash-kartadan tiklash', price: 120000 },
+      { label: 'Zaxira nusxalash tizimini sozlash', price: 200000 },
+      { label: 'HDD/SSD dan ma\'lumot tiklash', price: 250000 }
+    ],
+    printer: [
+      { label: 'Kartrij to\'ldirish', price: 40000 },
+      { label: 'MFU ta\'mirlash', price: 150000 }
+    ]
+  };
+
+  var calcCategory = document.getElementById('calc-category');
+  var calcService = document.getElementById('calc-service');
+  var calcComplexity = document.getElementById('calc-complexity');
+  var calcSubmit = document.getElementById('calc-submit');
+  var calcResult = document.getElementById('calc-result');
+  var calcPrice = document.getElementById('calc-price');
+  var calcOrderBtn = document.getElementById('calc-order-btn');
+  var orderServiceSelect = document.getElementById('order-service');
+
+  function formatSum(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + " so'm";
+  }
+
+  calcCategory && calcCategory.addEventListener('change', function () {
+    var items = calculatorData[calcCategory.value] || [];
+    calcResult.hidden = true;
+    calcSubmit.disabled = true;
+
+    if (!items.length) {
+      calcService.innerHTML = '<option value="">Avval kategoriyani tanlang</option>';
+      calcService.disabled = true;
+      return;
+    }
+
+    calcService.innerHTML = '<option value="">Tanlang</option>' + items.map(function (item, i) {
+      return '<option value="' + i + '">' + item.label + '</option>';
+    }).join('');
+    calcService.disabled = false;
+  });
+
+  calcService && calcService.addEventListener('change', function () {
+    calcSubmit.disabled = calcService.value === '';
+    calcResult.hidden = true;
+  });
+
+  calcSubmit && calcSubmit.addEventListener('click', function () {
+    var items = calculatorData[calcCategory.value] || [];
+    var item = items[calcService.value];
+    if (!item) return;
+
+    var multiplier = parseFloat(calcComplexity.value) || 1;
+    var minPrice = Math.round((item.price * multiplier) / 1000) * 1000;
+    var maxPrice = Math.round((minPrice * 1.15) / 1000) * 1000;
+
+    calcPrice.textContent = formatSum(minPrice) + ' – ' + formatSum(maxPrice);
+    calcResult.hidden = false;
+  });
+
+  calcOrderBtn && calcOrderBtn.addEventListener('click', function () {
+    if (orderServiceSelect && calcCategory.value) {
+      orderServiceSelect.value = calcCategory.value;
+    }
+  });
+
   /* ---------- Sharhlar filtri (TZ 6.2 uslubida, sharhlar.html) ---------- */
   var filterService = document.getElementById('filter-service');
   var filterRating = document.getElementById('filter-rating');

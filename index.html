@@ -559,6 +559,54 @@
       </div>
     </section>
 
+    <!-- ============ BLOK 11: Narx kalkulyatori (TZ 4.11) ============ -->
+    <section class="section" id="calculator" aria-label="Narx kalkulyatori">
+      <div class="container">
+        <div class="section__head">
+          <h2>Narx kalkulyatori</h2>
+          <p class="text-secondary">Xizmat turini tanlang — taxminiy narxni bir zumda bilib oling</p>
+        </div>
+
+        <div class="card calculator">
+          <div class="calculator__fields">
+            <div class="field">
+              <label class="field__label" for="calc-category">Xizmat kategoriyasi</label>
+              <select class="field__input" id="calc-category">
+                <option value="">Tanlang</option>
+                <option value="kompyuter">Kompyuter va noutbuk</option>
+                <option value="tarmoq">Tarmoq va server</option>
+                <option value="dasturiy">Dasturiy ta'minot</option>
+                <option value="malumot">Ma'lumotlarni tiklash</option>
+                <option value="printer">Printer va ofis texnikasi</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="calc-service">Aniq xizmat</label>
+              <select class="field__input" id="calc-service" disabled>
+                <option value="">Avval kategoriyani tanlang</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="calc-complexity">Murakkablik darajasi</label>
+              <select class="field__input" id="calc-complexity">
+                <option value="1">Oddiy</option>
+                <option value="1.3">O'rtacha</option>
+                <option value="1.6">Murakkab</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn--primary btn--block" id="calc-submit" disabled>Hisoblash</button>
+          </div>
+
+          <div class="calculator__result" id="calc-result" hidden aria-live="polite">
+            <p class="text-secondary">Taxminiy narx:</p>
+            <p class="calculator__price" id="calc-price"></p>
+            <p class="text-small text-secondary">Aniq narx diagnostikadan keyin belgilanadi, qo'shimcha to'lov so'ralmaydi</p>
+            <button type="button" class="btn btn--secondary" id="calc-order-btn" data-modal-open="modal-order">Aniq narxni bilish</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ BLOK 12: FAQ (TZ 4.12) ============ -->
     <section class="section section--alt" id="faq" aria-label="Ko'p beriladigan savollar">
       <div class="container">

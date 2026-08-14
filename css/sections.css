@@ -509,3 +509,37 @@
   min-height: 320px;
   border: none;
 }
+
+/* --- Narx kalkulyatori (TZ 4.11) --- */
+.calculator {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.calculator__fields .field:last-of-type {
+  margin-bottom: var(--space-6);
+}
+
+.calculator__result {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.calculator__price {
+  font-size: var(--fs-h2-mobile);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .calculator {
+    padding: var(--space-8);
+  }
+
+  .calculator__price {
+    font-size: var(--fs-h2);
+  }
+}
