@@ -117,12 +117,25 @@
     expanded ? closeMegamenu() : openMegamenu();
   });
 
-  /* ---------- Modallar ---------- */
+  /* ---------- Modallar (fokus-tuzoq bilan, TZ 6.4) ---------- */
+  var lastFocusedBeforeModal = null;
+
+  function getFocusable(container) {
+    var selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    return Array.prototype.slice.call(container.querySelectorAll(selector)).filter(function (el) {
+      return el.offsetParent !== null;
+    });
+  }
+
   function closeAllModals() {
     document.querySelectorAll('.modal.is-open').forEach(function (m) {
       m.classList.remove('is-open');
       m.setAttribute('aria-hidden', 'true');
     });
+    if (lastFocusedBeforeModal) {
+      lastFocusedBeforeModal.focus();
+      lastFocusedBeforeModal = null;
+    }
   }
 
   document.querySelectorAll('[data-modal-open]').forEach(function (trigger) {
@@ -131,6 +144,7 @@
       var id = trigger.getAttribute('data-modal-open');
       var modal = document.getElementById(id);
       if (modal) {
+        lastFocusedBeforeModal = trigger;
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         var firstField = modal.querySelector('input, select, textarea');
@@ -141,6 +155,27 @@
 
   document.querySelectorAll('[data-modal-close]').forEach(function (el) {
     el.addEventListener('click', closeAllModals);
+  });
+
+  // Ochiq modal ichida Tab bilan fokusni ushlab turish — orqa fon elementlariga chiqmaydi
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var openModal = document.querySelector('.modal.is-open');
+    if (!openModal) return;
+    var panel = openModal.querySelector('.modal__panel');
+    if (!panel) return;
+    var focusable = getFocusable(panel);
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 
   /* ---------- Telefon maskasi (+998 (__) ___-__-__) ---------- */
