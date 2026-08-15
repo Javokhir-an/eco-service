@@ -248,7 +248,8 @@
     var data = {
       page: window.location.pathname,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      status: 'yangi'
+      status: 'yangi',
+      notified: false
     };
 
     new FormData(form).forEach(function (value, key) {

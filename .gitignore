@@ -2,3 +2,5 @@
 Thumbs.db
 *.log
 .build/
+__pycache__/
+*.pyc
