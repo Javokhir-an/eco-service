@@ -6,12 +6,13 @@
    ========================================================================== */
 
 var firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCJWM6-L0l6eAubFPhN2UR35z2xpjm55QM",
+  authDomain: "service-eco-599ca.firebaseapp.com",
+  projectId: "service-eco-599ca",
+  storageBucket: "service-eco-599ca.firebasestorage.app",
+  messagingSenderId: "195308248557",
+  appId: "1:195308248557:web:5f4d720d763585b59bdbe4",
+  measurementId: "G-X5C6X93E0V"
 };
 
 // Konfiguratsiya to'ldirilganmi yo'qmi — to'ldirilmagan bo'lsa,
