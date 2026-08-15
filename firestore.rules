@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Ariza (lead) formalari — sayt tashrifchilari yoza oladi (create),
+    // lekin faqat tizimga kirgan admin o'qiy/yangilay/o'chira oladi.
+    match /submissions/{docId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Mijoz sharhlari — xuddi shu mantiq.
+    match /reviews/{docId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Narxlar — hamma o'qiy oladi (sayt shu yerdan narxni ko'rsatadi),
+    // faqat admin yoza oladi.
+    match /prices/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

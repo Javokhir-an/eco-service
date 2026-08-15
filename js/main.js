@@ -149,6 +149,11 @@
         modal.setAttribute('aria-hidden', 'false');
         var firstField = modal.querySelector('input, select, textarea');
         firstField && firstField.focus();
+
+        var sourceField = modal.querySelector('#order-source');
+        if (sourceField) {
+          sourceField.value = trigger.getAttribute('data-source') || 'modal-order';
+        }
       }
     });
   });
@@ -221,7 +226,8 @@
         submitBtn.textContent = 'Yuborilmoqda...';
       }
 
-      // TODO: backend/CRM integratsiyasi ulanganda shu yerga fetch() qo'shiladi
+      submitFormToFirestore(form);
+
       setTimeout(function () {
         alert("Rahmat! Menejer 3 daqiqa ichida bog'lanadi.");
         form.reset();
@@ -233,6 +239,49 @@
       }, 600);
     });
   });
+
+  /* ---------- Firestore'ga forma ma'lumotlarini yozish (admin panel uchun, TZ 6.1) ---------- */
+  function submitFormToFirestore(form) {
+    if (!window.ecoDb || typeof firebase === 'undefined') return;
+
+    var collectionName = form.id === 'review-form' ? 'reviews' : 'submissions';
+    var data = {
+      page: window.location.pathname,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      status: 'yangi'
+    };
+
+    new FormData(form).forEach(function (value, key) {
+      if (key === 'website') return; // honeypot maydonini yozmaymiz
+      data[key] = value;
+    });
+
+    if (!data.source) {
+      data.source = form.getAttribute('data-source') || form.id || 'boshqa';
+    }
+
+    window.ecoDb.collection(collectionName).add(data).catch(function (err) {
+      console.error('Firestore write error:', err);
+    });
+  }
+
+  /* ---------- Narxlarni Firestore'dan dinamik yuklash (admin panelda tahrirlangan bo'lsa) ---------- */
+  if (window.ecoDb && document.querySelector('[data-price-id]')) {
+    window.ecoDb.collection('prices').doc('services').get().then(function (doc) {
+      if (!doc.exists) return;
+      var data = doc.data();
+      Object.keys(data).forEach(function (id) {
+        var rows = document.querySelectorAll('[data-price-id="' + id + '"]');
+        rows.forEach(function (row) {
+          var cells = row.querySelectorAll('td');
+          if (cells[1] && data[id].price) cells[1].textContent = data[id].price;
+          if (cells[2] && data[id].duration) cells[2].textContent = data[id].duration;
+        });
+      });
+    }).catch(function (err) {
+      console.error('Narxlarni yuklashda xatolik:', err);
+    });
+  }
 
   /* ---------- Yuqoriga qaytish ---------- */
   var backToTop = document.getElementById('back-to-top');

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin panel — Eco Service</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#10241A">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/sections.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__logo">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-leaf"></use></svg>
+        <span>Eco Service</span>
+      </div>
+
+      <nav class="admin-nav">
+        <button type="button" class="admin-nav__item is-active" data-view="stats">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-chart"></use></svg>
+          <span>Statistika</span>
+        </button>
+        <button type="button" class="admin-nav__item" data-view="submissions">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg>
+          <span>Arizalar</span>
+        </button>
+        <button type="button" class="admin-nav__item" data-view="prices">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-receipt"></use></svg>
+          <span>Narxlar</span>
+        </button>
+      </nav>
+
+      <div class="admin-sidebar__footer">
+        <a href="../index.html" class="admin-nav__item" style="display: inline-flex; margin-bottom: var(--space-2);" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-monitor"></use></svg>
+          <span>Saytni ko'rish</span>
+        </a>
+        <div class="admin-sidebar__user" id="admin-user-email">—</div>
+        <button type="button" class="admin-nav__item" id="admin-logout">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-lock"></use></svg>
+          <span>Chiqish</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <!-- ============ Statistika ============ -->
+      <section class="admin-view is-active" id="view-stats">
+        <div class="admin-header"><h1>Statistika</h1></div>
+
+        <div class="admin-stats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-card__label">Jami arizalar</div>
+            <div class="admin-stat-card__value is-accent" id="stat-total">0</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-card__label">Bugungi arizalar</div>
+            <div class="admin-stat-card__value" id="stat-today">0</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-card__label">Bu hafta</div>
+            <div class="admin-stat-card__value" id="stat-week">0</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-card__label">Eng ko'p bo'lim</div>
+            <div class="admin-stat-card__value" style="font-size: 20px;" id="stat-top-source">—</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title">Bo'lim bo'yicha taqsimot</div>
+          <div id="source-breakdown"></div>
+        </div>
+      </section>
+
+      <!-- ============ Arizalar ============ -->
+      <section class="admin-view" id="view-submissions">
+        <div class="admin-header"><h1>Arizalar</h1></div>
+
+        <div class="admin-filters">
+          <select id="filter-source"></select>
+          <select id="filter-status">
+            <option value="">Barcha holatlar</option>
+            <option value="yangi">Yangi</option>
+            <option value="bog_langan">Bog'lanildi</option>
+            <option value="bajarildi">Bajarildi</option>
+          </select>
+          <input type="text" id="filter-search" placeholder="Ism yoki telefon bo'yicha qidirish">
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Ism</th>
+                <th>Telefon</th>
+                <th>Xizmat</th>
+                <th>Bo'lim</th>
+                <th>Sahifa</th>
+                <th>Sana</th>
+                <th>Holat</th>
+              </tr>
+            </thead>
+            <tbody id="submissions-tbody">
+              <tr><td colspan="7" class="admin-empty">Yuklanmoqda...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ Narxlar ============ -->
+      <section class="admin-view" id="view-prices">
+        <div class="admin-header"><h1>Narxlarni boshqarish</h1></div>
+        <p class="text-secondary" style="margin-bottom: var(--space-6);">O'zgartirilgan narxlar saqlangandan so'ng saytdagi bosh sahifa va Narxlar sahifasida avtomatik yangilanadi.</p>
+
+        <div class="pricing__tabs" role="tablist" id="price-tabs"></div>
+        <div id="price-panels"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

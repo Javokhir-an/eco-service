@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://yandex.uz; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://yandex.uz; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maxfiylik siyosati — Eco Service shaxsiy ma'lumotlar</title>
   <meta name="description" content="Eco Service shaxsiy ma'lumotlarni qanday yig'ishi, saqlashi va qayta ishlashi haqida siyosat. O'zbekiston qonunchiligiga muvofiq ma'lumotlar himoyasi.">
@@ -48,7 +48,7 @@
       <div class="site-header__actions">
         <a href="tel:+998901234567" class="site-header__phone">+998 90 123-45-67</a>
         <button class="site-header__icon-btn site-header__icon-btn--search" type="button" aria-label="Qidirish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-search"></use></svg></button>
-        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order">Ariza qoldirish</a>
+        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order" data-source="header-cta">Ariza qoldirish</a>
         <button class="site-header__icon-btn site-header__burger" id="mobile-menu-toggle" type="button" aria-label="Menyu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></button>
       </div>
     </div>
@@ -113,7 +113,7 @@
   <div class="mobile-bar">
     <a href="tel:+998901234567" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg></span><span>Qo'ng'iroq</span></a>
     <a href="https://t.me/ecoservice" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></span><span>Telegram</span></a>
-    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
+    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order" data-source="mobile-bar"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
   </div>
 
   <div class="modal" id="modal-order" aria-hidden="true">
@@ -123,6 +123,7 @@
       <h3 id="modal-order-title">Ariza qoldirish</h3>
       <p class="text-secondary" style="margin-top: 8px; margin-bottom: 24px;">Menejer 3 daqiqa ichida bog'lanadi</p>
       <form id="order-form" novalidate>
+        <input type="hidden" id="order-source" name="source" value="modal-order">
         <div class="field"><label class="field__label" for="order-name">Ism</label><input class="field__input" type="text" id="order-name" name="name" required><span class="field__error">Ismni to'g'ri kiriting</span></div>
         <div class="field"><label class="field__label" for="order-phone">Telefon</label><input class="field__input" type="tel" id="order-phone" name="phone" placeholder="+998 (__) ___-__-__" required><span class="field__error">Telefon raqamini to'g'ri kiriting</span></div>
         <div class="field"><div class="field__checkbox-row"><input type="checkbox" id="order-consent" name="consent" required><label for="order-consent" class="text-small">Shaxsiy ma'lumotlarni qayta ishlashga <a href="maxfiylik.html" style="color: var(--color-primary);">roziman</a></label></div></div>
@@ -151,6 +152,10 @@
   </div>
 
   <button class="back-to-top" id="back-to-top" type="button" aria-label="Yuqoriga qaytish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-arrow-up"></use></svg></button>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin panelga kirish — Eco Service</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#10241A">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-login">
+    <div class="admin-login__card">
+      <div class="admin-login__logo">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-leaf"></use></svg>
+        <span>Eco Service</span>
+      </div>
+      <h1>Admin panelga kirish</h1>
+      <p>Arizalar, statistika va narxlarni boshqarish uchun tizimga kiring</p>
+
+      <div class="admin-login__error" id="login-error">Email yoki parol noto'g'ri</div>
+
+      <form id="admin-login-form" novalidate>
+        <div class="field">
+          <label class="field__label" for="login-email">Email</label>
+          <input class="field__input" type="email" id="login-email" name="email" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label class="field__label" for="login-password">Parol</label>
+          <input class="field__input" type="password" id="login-password" name="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn--primary btn--block" id="login-submit">Kirish</button>
+      </form>
+
+      <p class="admin-login__note">Faqat Eco Service jamoasi uchun. Kirish ma'lumotlarini unutgan bo'lsangiz, saytni sozlagan mas'ul shaxsga murojaat qiling.</p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/admin-login.js"></script>
+</body>
+</html>

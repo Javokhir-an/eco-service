@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://yandex.uz; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://yandex.uz; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Printer ta'mirlash Toshkentda — barcha brendlar | Eco</title>
   <meta name="description" content="Printer va MFU qurilmalarini ta'mirlash: qog'oz qisilishi, bosib chiqarish sifati, tarmoq ulanishi. Toshkentda bepul diagnostika va kafolatli xizmat.">
@@ -132,7 +132,7 @@
       <div class="site-header__actions">
         <a href="tel:+998901234567" class="site-header__phone">+998 90 123-45-67</a>
         <button class="site-header__icon-btn site-header__icon-btn--search" type="button" aria-label="Qidirish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-search"></use></svg></button>
-        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order">Ariza qoldirish</a>
+        <a href="#modal-order" class="btn btn--primary site-header__cta" data-modal-open="modal-order" data-source="header-cta">Ariza qoldirish</a>
         <button class="site-header__icon-btn site-header__burger" id="mobile-menu-toggle" type="button" aria-label="Menyu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-menu"></use></svg></button>
       </div>
     </div>
@@ -174,11 +174,11 @@
             <p class="text-secondary">Printeringiz qog'ozni qisib qolyaptimi, chop etmayaptimi yoki chiziqlar bilan bosayaptimi? Barcha brendlar bo'yicha tez va sifatli ta'mirlaymiz.</p>
             <span class="service-hero__price">Diagnostika bepul, ta'mirlash 100 000 so'mdan</span>
             <div class="service-hero__actions">
-              <a href="#modal-order" class="btn btn--primary" data-modal-open="modal-order">Ariza qoldirish</a>
+              <a href="#modal-order" class="btn btn--primary" data-modal-open="modal-order" data-source="service-page-hero">Ariza qoldirish</a>
               <a href="tel:+998901234567" class="btn btn--secondary">Qo'ng'iroq qilish</a>
             </div>
           </div>
-          <form class="card inline-form" novalidate>
+          <form class="card inline-form" data-source="service-page-form" novalidate>
             <h3 style="margin-bottom: var(--space-4);">Tezkor qo'ng'iroq</h3>
             <div class="field">
               <label class="field__label" for="pt-hero-name">Ism</label>
@@ -217,10 +217,10 @@
         <table class="pricing__table">
           <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
           <tbody>
-              <tr><td>Diagnostika</td><td>Bepul</td><td>30 daqiqa</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order">Buyurtma</button></td></tr>
-              <tr><td>Qog'oz uzatish mexanizmini ta'mirlash</td><td>100 000 so'mdan</td><td>1 kun</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order">Buyurtma</button></td></tr>
-              <tr><td>Bosib chiqarish boshini tozalash</td><td>80 000 so'mdan</td><td>1 soat</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order">Buyurtma</button></td></tr>
-              <tr><td>Tarmoqqa ulash va sozlash</td><td>50 000 so'mdan</td><td>30 daqiqa</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order">Buyurtma</button></td></tr>
+              <tr><td>Diagnostika</td><td>Bepul</td><td>30 daqiqa</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order" data-source="pricing-table">Buyurtma</button></td></tr>
+              <tr><td>Qog'oz uzatish mexanizmini ta'mirlash</td><td>100 000 so'mdan</td><td>1 kun</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order" data-source="pricing-table">Buyurtma</button></td></tr>
+              <tr><td>Bosib chiqarish boshini tozalash</td><td>80 000 so'mdan</td><td>1 soat</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order" data-source="pricing-table">Buyurtma</button></td></tr>
+              <tr><td>Tarmoqqa ulash va sozlash</td><td>50 000 so'mdan</td><td>30 daqiqa</td><td><button class="btn btn--secondary" type="button" data-modal-open="modal-order" data-source="pricing-table">Buyurtma</button></td></tr>
           </tbody>
         </table>
         <p class="text-small text-secondary pricing__note">Narxlar diagnostikadan keyin aniqlanadi, ustadan qo'shimcha to'lov so'ralmaydi.</p>
@@ -300,7 +300,7 @@
     <section class="section section--alt">
       <div class="container">
         <div class="section__head"><h2>Ariza qoldiring</h2></div>
-        <form class="card inline-form" novalidate>
+        <form class="card inline-form" data-source="service-page-form" novalidate>
           <div class="field">
             <label class="field__label" for="pt-form-name">Ism</label>
             <input class="field__input" type="text" id="pt-form-name" name="name" required>
@@ -379,7 +379,7 @@
   <div class="mobile-bar">
     <a href="tel:+998901234567" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg></span><span>Qo'ng'iroq</span></a>
     <a href="https://t.me/ecoservice" class="mobile-bar__item"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-telegram"></use></svg></span><span>Telegram</span></a>
-    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
+    <a href="#modal-order" class="mobile-bar__item mobile-bar__item--cta" data-modal-open="modal-order" data-source="mobile-bar"><span aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></span><span>Ariza</span></a>
   </div>
 
   <div class="modal" id="modal-order" aria-hidden="true">
@@ -389,6 +389,7 @@
       <h3 id="modal-order-title">Ariza qoldirish</h3>
       <p class="text-secondary" style="margin-top: 8px; margin-bottom: 24px;">Menejer 3 daqiqa ichida bog'lanadi</p>
       <form id="order-form" novalidate>
+        <input type="hidden" id="order-source" name="source" value="modal-order">
         <div class="field">
           <label class="field__label" for="order-name">Ism</label>
           <input class="field__input" type="text" id="order-name" name="name" required>
@@ -431,6 +432,10 @@
 
   <button class="back-to-top" id="back-to-top" type="button" aria-label="Yuqoriga qaytish"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-arrow-up"></use></svg></button>
 
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

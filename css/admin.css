@@ -1,0 +1,440 @@
+/* ==========================================================================
+   Eco Service — Admin panel (premium dizayn)
+   Faqat pages/admin-login.html va pages/admin-dashboard.html sahifalarida
+   ishlatiladi. Asosiy sayt uslubidan mustaqil, lekin bir xil rang
+   tokenlaridan (variables.css) foydalanadi.
+   ========================================================================== */
+
+:root {
+  --admin-bg: #F3F5F4;
+  --admin-sidebar-bg: #10241A;
+  --admin-sidebar-text: rgba(255, 255, 255, 0.72);
+  --admin-sidebar-text-active: #FFFFFF;
+  --admin-card-shadow: 0 1px 2px rgba(16, 36, 26, 0.06), 0 8px 24px rgba(16, 36, 26, 0.06);
+  --admin-radius: 16px;
+}
+
+html, body.admin-body {
+  background-color: var(--admin-bg);
+}
+
+/* ---------- Login sahifasi ---------- */
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(27, 138, 90, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(255, 122, 0, 0.10), transparent 45%),
+    var(--admin-sidebar-bg);
+}
+
+.admin-login__card {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--admin-radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  padding: var(--space-8);
+}
+
+.admin-login__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--fw-bold);
+  font-size: 20px;
+  color: var(--color-primary);
+  margin-bottom: var(--space-8);
+}
+
+.admin-login__logo .icon {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-login__card h1 {
+  font-size: 24px;
+  margin-bottom: var(--space-2);
+}
+
+.admin-login__card > p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-6);
+}
+
+.admin-login__error {
+  display: none;
+  background-color: #FEF2F2;
+  color: var(--color-error);
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius-button);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-4);
+}
+
+.admin-login__error.is-visible {
+  display: block;
+}
+
+.admin-login__note {
+  margin-top: var(--space-6);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* ---------- Dashboard layout ---------- */
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: var(--admin-sidebar-bg);
+  color: var(--admin-sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6) var(--space-4);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.admin-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #FFFFFF;
+  font-weight: var(--fw-bold);
+  font-size: 18px;
+  padding: 0 var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.admin-sidebar__logo .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.admin-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-button);
+  color: var(--admin-sidebar-text);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.admin-nav__item .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.admin-nav__item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--admin-sidebar-text-active);
+}
+
+.admin-nav__item.is-active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.admin-sidebar__footer {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar__user {
+  font-size: var(--fs-small);
+  color: var(--admin-sidebar-text);
+  margin-bottom: var(--space-3);
+  word-break: break-all;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-8);
+}
+
+.admin-view {
+  display: none;
+}
+
+.admin-view.is-active {
+  display: block;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.admin-header h1 {
+  font-size: 28px;
+}
+
+/* ---------- Stat kartochkalar ---------- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.admin-stat-card {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
+  padding: var(--space-6);
+}
+
+.admin-stat-card__label {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.admin-stat-card__value {
+  font-size: 32px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
+}
+
+.admin-stat-card__value.is-accent {
+  color: var(--color-primary);
+}
+
+/* ---------- Bo'lim bo'yicha taqsimot (CSS bar chart) ---------- */
+.admin-card {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.admin-card__title {
+  font-size: 16px;
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--space-6);
+}
+
+.admin-bar-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 48px;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.admin-bar-row__track {
+  display: block;
+  height: 10px;
+  background-color: var(--color-bg-secondary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.admin-bar-row__fill {
+  display: block;
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: 999px;
+}
+
+.admin-bar-row__count {
+  text-align: right;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Filtrlar ---------- */
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.admin-filters select,
+.admin-filters input {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-primary);
+  font-size: var(--fs-small);
+}
+
+/* ---------- Jadval ---------- */
+.admin-table-wrap {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
+  overflow: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  min-width: 720px;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background-color: var(--color-bg-secondary);
+}
+
+.admin-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+}
+
+.admin-status--yangi { background-color: #FFF3E0; color: #B45309; }
+.admin-status--bog_langan { background-color: #E0F2FE; color: #0369A1; }
+.admin-status--bajarildi { background-color: #DCFCE7; color: #15803D; }
+
+.admin-table select.admin-status-select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: var(--color-bg-primary);
+}
+
+.admin-empty {
+  padding: var(--space-16);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Narxlarni boshqarish ---------- */
+.admin-price-row {
+  display: grid;
+  grid-template-columns: 1fr 160px 140px;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.admin-price-row:first-child {
+  border-top: none;
+}
+
+.admin-price-row input {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  font-size: var(--fs-small);
+}
+
+.admin-save-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.admin-save-bar__status {
+  font-size: var(--fs-small);
+  color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.admin-save-bar__status.is-visible {
+  opacity: 1;
+}
+
+@media (max-width: 991px) {
+  .admin-shell {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .admin-sidebar__logo {
+    margin-bottom: 0;
+    margin-right: auto;
+  }
+
+  .admin-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin-sidebar__footer {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    margin-left: auto;
+  }
+
+  .admin-main {
+    padding: var(--space-4);
+  }
+
+  .admin-price-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}
