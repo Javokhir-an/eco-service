@@ -199,3 +199,59 @@
   border-radius: var(--radius-button);
   margin-bottom: var(--space-8);
 }
+
+/* --- Blog maqolasi --- */
+.article-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-card);
+  margin-bottom: var(--space-6);
+}
+
+.article-cover .icon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-primary);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.article-share {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.article-share__label {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+.article-share a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+.article-share a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
