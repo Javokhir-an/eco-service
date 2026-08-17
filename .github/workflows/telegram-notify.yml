@@ -2,7 +2,7 @@ name: Telegram'ga yangi arizalarni yuborish
 
 on:
   schedule:
-    - cron: "*/3 * * * *"
+    - cron: "*/2 * * * *"
   workflow_dispatch: {}
 
 jobs:
