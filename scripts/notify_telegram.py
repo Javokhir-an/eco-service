@@ -171,6 +171,12 @@ def main():
             "chat_id": group_id,
             "text": message,
             "parse_mode": "HTML",
+            "reply_markup": {
+                "inline_keyboard": [[
+                    {"text": "📞 Bog'landim", "callback_data": "st:bog_langan:" + doc.id},
+                    {"text": "✅ Bajarildi", "callback_data": "st:bajarildi:" + doc.id},
+                ]]
+            },
         }
         if topic_id:
             payload["message_thread_id"] = topic_id
