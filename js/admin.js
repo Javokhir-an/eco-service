@@ -461,6 +461,7 @@
       var item = submissionsCache.filter(function (s) { return s.id === id; })[0];
       if (item) item.status = newStatus;
       renderSubmissionsTable();
+      renderStats();
     }).catch(function (err) {
       console.error('Holatni yangilashda xatolik:', err);
       showToast('Holatni yangilab bo\'lmadi', 'error');
