@@ -14,17 +14,19 @@
   }
 
   var SOURCE_LABELS = {
-    'header-cta': 'Header tugmasi',
+    'header-cta': "Tepadagi 'Ariza qoldirish' tugmasi",
     'mobile-bar': 'Mobil pastki panel',
-    'hero-order-form': 'Bosh sahifa formasi',
-    'pricing-table': 'Narxlar jadvali',
-    'calculator': 'Kalkulyator',
-    'service-page-hero': 'Xizmat sahifasi (yuqori CTA)',
-    'service-page-form': 'Xizmat sahifasi formasi',
-    'category-page-form': 'Kategoriya sahifasi formasi',
-    'aloqa-page-form': 'Aloqa sahifasi',
-    'b2b-form': 'B2B murojaat',
-    'modal-order': "Ariza modali (umumiy)"
+    'hero-order-form': "Tezkor qo'ng'iroq formasi",
+    'pricing-table': 'Narxlar jadvalidagi tugma',
+    'calculator': 'Narx kalkulyatori',
+    'service-page-hero': 'Sahifa yuqorisidagi tugma',
+    'service-page-form': 'Sahifa pastidagi forma',
+    'category-page-form': 'Sahifa pastidagi forma',
+    'category-page-card': 'Xizmat kartochkasi',
+    'aloqa-page-form': 'Aloqa formasi',
+    'b2b-form': 'B2B murojaat formasi',
+    'b2b-checklist': 'Afzallik kartochkasi',
+    'modal-order': 'Ariza tugmasi'
   };
 
   var STATUS_LABELS = {
