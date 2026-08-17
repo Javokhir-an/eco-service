@@ -36,10 +36,43 @@ SOURCE_LABELS = {
     "service-page-hero": "Xizmat sahifasi (yuqori CTA)",
     "service-page-form": "Xizmat sahifasi formasi",
     "category-page-form": "Kategoriya sahifasi formasi",
+    "category-page-card": "Kategoriya sahifasi kartochkasi",
     "aloqa-page-form": "Aloqa sahifasi",
     "b2b-form": "B2B murojaat",
+    "b2b-checklist": "B2B afzalliklar kartochkasi",
     "modal-order": "Ariza modali (umumiy)",
 }
+
+# Forma "service" maydonini to'ldirmaydi (masalan xizmat sahifasidagi
+# qisqa forma) — bunday holda sahifa manzilidan xizmat turini aniqlaymiz.
+PAGE_TO_SERVICE = {
+    "xizmat-noutbuk-tamirlash.html": "kompyuter",
+    "xizmat-kompyuter-yigish.html": "kompyuter",
+    "xizmat-monobloq-tamirlash.html": "kompyuter",
+    "kategoriya-kompyuter.html": "kompyuter",
+    "xizmat-wifi-sozlash.html": "tarmoq",
+    "xizmat-server-ornatish.html": "tarmoq",
+    "xizmat-video-kuzatuv.html": "tarmoq",
+    "kategoriya-tarmoq.html": "tarmoq",
+    "xizmat-windows-ornatish.html": "dasturiy",
+    "xizmat-virus-tozalash.html": "dasturiy",
+    "xizmat-dastur-ornatish.html": "dasturiy",
+    "kategoriya-dasturiy.html": "dasturiy",
+    "xizmat-hdd-tiklash.html": "malumot",
+    "xizmat-flash-tiklash.html": "malumot",
+    "xizmat-zaxira-nusxalash.html": "malumot",
+    "kategoriya-malumot.html": "malumot",
+    "xizmat-printer-tamirlash.html": "printer",
+    "xizmat-kartrij-toldirish.html": "printer",
+    "xizmat-mfu-xizmat.html": "printer",
+    "kategoriya-printer.html": "printer",
+    "b2b.html": "b2b",
+}
+
+
+def infer_service_from_page(page):
+    basename = page.rstrip("/").rsplit("/", 1)[-1]
+    return PAGE_TO_SERVICE.get(basename, "")
 
 
 REQUIRED_VARS = [
@@ -79,10 +112,10 @@ def main():
 
     for doc in docs:
         data = doc.to_dict()
-        service_key = data.get("service", "")
+        service_key = data.get("service") or infer_service_from_page(data.get("page", ""))
         topic_id = topics.get(service_key) or topics.get("umumiy")
 
-        message = build_message(data)
+        message = build_message(data, service_key)
 
         payload = {
             "chat_id": group_id,
@@ -105,10 +138,9 @@ def main():
             print(f"  [XATO] {doc.id}: {resp.status_code} {resp.text}", file=sys.stderr)
 
 
-def build_message(data):
+def build_message(data, service_key=""):
     name = data.get("name") or data.get("organization") or "—"
     phone = data.get("phone", "—")
-    service_key = data.get("service", "")
     service_label = SERVICE_LABELS.get(service_key, service_key or "—")
     source_label = SOURCE_LABELS.get(data.get("source", ""), data.get("source", "—"))
     page = data.get("page", "—")
