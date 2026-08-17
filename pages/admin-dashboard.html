@@ -43,7 +43,10 @@
           <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-monitor"></use></svg>
           <span>Saytni ko'rish</span>
         </a>
-        <div class="admin-sidebar__user" id="admin-user-email">—</div>
+        <div class="admin-sidebar__user">
+          <div class="admin-avatar" id="admin-avatar">—</div>
+          <div class="admin-sidebar__user-email" id="admin-user-email">—</div>
+        </div>
         <button type="button" class="admin-nav__item" id="admin-logout">
           <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-lock"></use></svg>
           <span>Chiqish</span>
@@ -54,24 +57,39 @@
     <main class="admin-main">
       <!-- ============ Statistika ============ -->
       <section class="admin-view is-active" id="view-stats">
-        <div class="admin-header"><h1>Statistika</h1></div>
+        <div class="admin-header">
+          <div>
+            <h1>Statistika</h1>
+            <div class="admin-header__meta">Yangilangan: <span id="stats-updated-at">—</span></div>
+          </div>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn" id="stats-refresh">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-refresh"></use></svg>
+              <span>Yangilash</span>
+            </button>
+          </div>
+        </div>
 
         <div class="admin-stats">
           <div class="admin-stat-card">
+            <div class="admin-stat-card__icon admin-stat-card__icon--green"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-clipboard"></use></svg></div>
             <div class="admin-stat-card__label">Jami arizalar</div>
             <div class="admin-stat-card__value is-accent" id="stat-total">0</div>
           </div>
           <div class="admin-stat-card">
+            <div class="admin-stat-card__icon admin-stat-card__icon--blue"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-timer"></use></svg></div>
             <div class="admin-stat-card__label">Bugungi arizalar</div>
             <div class="admin-stat-card__value" id="stat-today">0</div>
           </div>
           <div class="admin-stat-card">
+            <div class="admin-stat-card__icon admin-stat-card__icon--amber"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-chart"></use></svg></div>
             <div class="admin-stat-card__label">Bu hafta</div>
             <div class="admin-stat-card__value" id="stat-week">0</div>
           </div>
           <div class="admin-stat-card">
+            <div class="admin-stat-card__icon admin-stat-card__icon--violet"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-pin"></use></svg></div>
             <div class="admin-stat-card__label">Eng ko'p bo'lim</div>
-            <div class="admin-stat-card__value" style="font-size: 20px;" id="stat-top-source">—</div>
+            <div class="admin-stat-card__value" style="font-size: 18px;" id="stat-top-source">—</div>
           </div>
         </div>
 
@@ -83,7 +101,22 @@
 
       <!-- ============ Arizalar ============ -->
       <section class="admin-view" id="view-submissions">
-        <div class="admin-header"><h1>Arizalar</h1></div>
+        <div class="admin-header">
+          <div>
+            <h1>Arizalar</h1>
+            <div class="admin-header__meta">Yangilangan: <span id="submissions-updated-at">—</span></div>
+          </div>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn" id="submissions-export">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-document"></use></svg>
+              <span>CSV yuklab olish</span>
+            </button>
+            <button type="button" class="admin-btn" id="submissions-refresh">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-refresh"></use></svg>
+              <span>Yangilash</span>
+            </button>
+          </div>
+        </div>
 
         <div class="admin-filters">
           <select id="filter-source"></select>
@@ -92,6 +125,12 @@
             <option value="yangi">Yangi</option>
             <option value="bog_langan">Bog'lanildi</option>
             <option value="bajarildi">Bajarildi</option>
+          </select>
+          <select id="filter-date">
+            <option value="">Barcha vaqt</option>
+            <option value="today">Bugun</option>
+            <option value="week">Bu hafta</option>
+            <option value="month">Bu oy</option>
           </select>
           <input type="text" id="filter-search" placeholder="Ism yoki telefon bo'yicha qidirish">
         </div>
@@ -126,6 +165,25 @@
       </section>
     </main>
   </div>
+
+  <div class="admin-detail-backdrop" id="detail-backdrop"></div>
+  <aside class="admin-detail-panel" id="detail-panel" aria-hidden="true">
+    <div class="admin-detail-panel__header">
+      <h2>Ariza tafsilotlari</h2>
+      <button type="button" class="admin-detail-panel__close" id="detail-close" aria-label="Yopish">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg>
+      </button>
+    </div>
+    <div class="admin-detail-panel__body" id="detail-body"></div>
+    <div class="admin-detail-panel__footer">
+      <a href="#" class="admin-btn admin-btn--primary" id="detail-call-btn">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg>
+        <span>Qo'ng'iroq qilish</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="admin-toast-container" id="toast-container"></div>
 
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>

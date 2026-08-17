@@ -35,6 +35,87 @@
     'bajarildi': 'Bajarildi'
   };
 
+  var SERVICE_LABELS = {
+    kompyuter: 'Kompyuter va noutbuk',
+    tarmoq: 'Tarmoq va server',
+    dasturiy: "Dasturiy ta'minot",
+    malumot: "Ma'lumotlarni tiklash",
+    printer: 'Printer va ofis texnikasi',
+    b2b: 'Biznes uchun IT (B2B)'
+  };
+
+  // Forma "service" maydonini to'ldirmagan hollarda (xizmat sahifasidagi
+  // qisqa formalar) sahifa manzilidan xizmat turini aniqlaymiz — Telegram
+  // xabarnomasidagi mantiq bilan bir xil.
+  var PAGE_TO_SERVICE = {
+    'xizmat-noutbuk-tamirlash.html': 'kompyuter',
+    'xizmat-kompyuter-yigish.html': 'kompyuter',
+    'xizmat-monobloq-tamirlash.html': 'kompyuter',
+    'kategoriya-kompyuter.html': 'kompyuter',
+    'xizmat-wifi-sozlash.html': 'tarmoq',
+    'xizmat-server-ornatish.html': 'tarmoq',
+    'xizmat-video-kuzatuv.html': 'tarmoq',
+    'kategoriya-tarmoq.html': 'tarmoq',
+    'xizmat-windows-ornatish.html': 'dasturiy',
+    'xizmat-virus-tozalash.html': 'dasturiy',
+    'xizmat-dastur-ornatish.html': 'dasturiy',
+    'kategoriya-dasturiy.html': 'dasturiy',
+    'xizmat-hdd-tiklash.html': 'malumot',
+    'xizmat-flash-tiklash.html': 'malumot',
+    'xizmat-zaxira-nusxalash.html': 'malumot',
+    'kategoriya-malumot.html': 'malumot',
+    'xizmat-printer-tamirlash.html': 'printer',
+    'xizmat-kartrij-toldirish.html': 'printer',
+    'xizmat-mfu-xizmat.html': 'printer',
+    'kategoriya-printer.html': 'printer',
+    'b2b.html': 'b2b'
+  };
+
+  var PAGE_LABELS = {
+    '': 'Bosh sahifa',
+    'index.html': 'Bosh sahifa',
+    'narxlar.html': 'Narxlar',
+    'mutaxassislar.html': 'Mutaxassislar',
+    'sharhlar.html': 'Sharhlar',
+    'aksiyalar.html': 'Aksiyalar',
+    'aloqa.html': 'Aloqa',
+    'biz-haqimizda.html': 'Biz haqimizda',
+    'blog.html': 'Blog',
+    'b2b.html': 'B2B',
+    'kategoriya-kompyuter.html': 'Kategoriya: Kompyuter va noutbuk',
+    'kategoriya-tarmoq.html': 'Kategoriya: Tarmoq',
+    'kategoriya-dasturiy.html': "Kategoriya: Dasturiy ta'minot",
+    'kategoriya-malumot.html': "Kategoriya: Ma'lumotlarni tiklash",
+    'kategoriya-printer.html': 'Kategoriya: Printer',
+    'xizmat-noutbuk-tamirlash.html': "Noutbuk ta'mirlash",
+    'xizmat-kompyuter-yigish.html': "Kompyuter yig'ish",
+    'xizmat-monobloq-tamirlash.html': "Monobloq ta'mirlash",
+    'xizmat-wifi-sozlash.html': 'Wi-Fi tarmoq sozlash',
+    'xizmat-server-ornatish.html': "Server o'rnatish",
+    'xizmat-video-kuzatuv.html': 'Video kuzatuv tizimi',
+    'xizmat-windows-ornatish.html': "Windows o'rnatish",
+    'xizmat-virus-tozalash.html': 'Viruslardan tozalash',
+    'xizmat-dastur-ornatish.html': "Dastur o'rnatish",
+    'xizmat-hdd-tiklash.html': "HDD/SSD dan ma'lumot tiklash",
+    'xizmat-flash-tiklash.html': 'Flash-kartadan tiklash',
+    'xizmat-zaxira-nusxalash.html': 'Zaxira nusxalash xizmati',
+    'xizmat-printer-tamirlash.html': "Printer ta'mirlash",
+    'xizmat-kartrij-toldirish.html': "Kartrij to'ldirish",
+    'xizmat-mfu-xizmat.html': "MFU xizmat ko'rsatish"
+  };
+
+  function pageBasename(page) {
+    return (page || '').replace(/\/$/, '').split('/').pop();
+  }
+
+  function inferServiceFromPage(page) {
+    return PAGE_TO_SERVICE[pageBasename(page)] || '';
+  }
+
+  function getPageLabel(page) {
+    return PAGE_LABELS[pageBasename(page)] || page || '—';
+  }
+
   var PRICE_CATALOG = {
     kompyuter: {
       label: 'Kompyuter va noutbuk',
@@ -94,6 +175,8 @@
       return;
     }
     document.getElementById('admin-user-email').textContent = user.email;
+    var avatarEl = document.getElementById('admin-avatar');
+    if (avatarEl) avatarEl.textContent = (user.email || '?').substring(0, 2).toUpperCase();
     initDashboard();
   });
 
@@ -121,33 +204,66 @@
     renderPriceEditor();
   }
 
+  function setUpdatedNow() {
+    var now = formatDate(new Date());
+    var a = document.getElementById('stats-updated-at');
+    var b = document.getElementById('submissions-updated-at');
+    if (a) a.textContent = now;
+    if (b) b.textContent = now;
+  }
+
   /* ---------- Arizalarni yuklash ---------- */
-  function loadSubmissions() {
+  function loadSubmissions(onDone) {
     window.ecoDb.collection('submissions').orderBy('createdAt', 'desc').limit(300).get()
       .then(function (snapshot) {
         submissionsCache = [];
         snapshot.forEach(function (doc) {
           var d = doc.data();
+          var serviceKey = d.service || inferServiceFromPage(d.page || '');
           submissionsCache.push({
             id: doc.id,
             name: d.name || d.organization || '—',
             phone: d.phone || '—',
-            service: d.service || d.message || '—',
+            serviceKey: serviceKey,
+            service: SERVICE_LABELS[serviceKey] || serviceKey || '—',
             source: d.source || 'boshqa',
-            page: d.page || '—',
+            page: getPageLabel(d.page || ''),
+            pageRaw: d.page || '—',
+            message: d.message || '',
+            organization: d.organization || '',
+            email: d.email || '',
             status: d.status || 'yangi',
             createdAt: d.createdAt && d.createdAt.toDate ? d.createdAt.toDate() : null
           });
         });
         renderStats();
         renderSubmissionsTable();
+        setUpdatedNow();
+        if (onDone) onDone();
       })
       .catch(function (err) {
         console.error('Arizalarni yuklashda xatolik:', err);
         document.getElementById('submissions-tbody').innerHTML =
           '<tr><td colspan="7" class="admin-empty">Ma\'lumotlarni yuklab bo\'lmadi. Firestore qoidalarini (rules) tekshiring.</td></tr>';
+        if (onDone) onDone();
       });
   }
+
+  function bindRefreshButton(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      btn.classList.add('is-loading');
+      btn.disabled = true;
+      loadSubmissions(function () {
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+        showToast("Ma'lumotlar yangilandi");
+      });
+    });
+  }
+  bindRefreshButton('stats-refresh');
+  bindRefreshButton('submissions-refresh');
 
   function startOfDay(d) {
     var x = new Date(d);
@@ -200,6 +316,24 @@
     return div.innerHTML;
   }
 
+  /* ---------- Toast bildirishnomalar ---------- */
+  function showToast(message, type) {
+    var container = document.getElementById('toast-container');
+    if (!container) return;
+    var toast = document.createElement('div');
+    toast.className = 'admin-toast' + (type === 'error' ? ' admin-toast--error' : '');
+    toast.innerHTML =
+      '<svg class="icon admin-toast__icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-' +
+      (type === 'error' ? 'close' : 'check') + '"></use></svg><span>' + escapeHtml(message) + '</span>';
+    container.appendChild(toast);
+    setTimeout(function () {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(8px)';
+      toast.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      setTimeout(function () { toast.remove(); }, 200);
+    }, 3200);
+  }
+
   function formatDate(d) {
     if (!d) return '—';
     var pad = function (n) { return n < 10 ? '0' + n : n; };
@@ -209,6 +343,7 @@
   /* ---------- Arizalar jadvali + filtrlar ---------- */
   var filterSource = document.getElementById('filter-source');
   var filterStatus = document.getElementById('filter-status');
+  var filterDate = document.getElementById('filter-date');
   var filterSearch = document.getElementById('filter-search');
 
   function populateSourceFilter() {
@@ -218,23 +353,38 @@
   }
   populateSourceFilter();
 
-  [filterSource, filterStatus, filterSearch].forEach(function (el) {
+  [filterSource, filterStatus, filterDate, filterSearch].forEach(function (el) {
     el.addEventListener('input', renderSubmissionsTable);
     el.addEventListener('change', renderSubmissionsTable);
   });
 
-  function renderSubmissionsTable() {
+  function matchesDateFilter(createdAt, filterVal) {
+    if (!filterVal) return true;
+    if (!createdAt) return false;
+    var today = startOfDay(new Date());
+    if (filterVal === 'today') return createdAt >= today;
+    if (filterVal === 'week') return createdAt >= new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000);
+    if (filterVal === 'month') return createdAt >= new Date(today.getTime() - 29 * 24 * 60 * 60 * 1000);
+    return true;
+  }
+
+  function getFilteredSubmissions() {
     var sourceVal = filterSource.value;
     var statusVal = filterStatus.value;
+    var dateVal = filterDate.value;
     var searchVal = filterSearch.value.trim().toLowerCase();
 
-    var filtered = submissionsCache.filter(function (s) {
+    return submissionsCache.filter(function (s) {
       if (sourceVal && s.source !== sourceVal) return false;
       if (statusVal && s.status !== statusVal) return false;
+      if (!matchesDateFilter(s.createdAt, dateVal)) return false;
       if (searchVal && s.name.toLowerCase().indexOf(searchVal) === -1 && s.phone.toLowerCase().indexOf(searchVal) === -1) return false;
       return true;
     });
+  }
 
+  function renderSubmissionsTable() {
+    var filtered = getFilteredSubmissions();
     var tbody = document.getElementById('submissions-tbody');
     if (!filtered.length) {
       tbody.innerHTML = '<tr><td colspan="7" class="admin-empty">Hech narsa topilmadi.</td></tr>';
@@ -242,10 +392,9 @@
     }
 
     tbody.innerHTML = filtered.map(function (s) {
-      var statusClass = 'admin-status--' + s.status;
-      return '<tr>' +
-        '<td>' + escapeHtml(s.name) + '</td>' +
-        '<td><a href="tel:' + escapeHtml(s.phone) + '">' + escapeHtml(s.phone) + '</a></td>' +
+      return '<tr data-id="' + s.id + '"' + (s.status === 'yangi' ? ' class="is-new"' : '') + '>' +
+        '<td><span class="admin-table__name">' + (s.status === 'yangi' ? '<span class="admin-table__new-dot" aria-hidden="true"></span>' : '') + escapeHtml(s.name) + '</span></td>' +
+        '<td><a href="tel:' + escapeHtml(s.phone) + '" onclick="event.stopPropagation()">' + escapeHtml(s.phone) + '</a></td>' +
         '<td>' + escapeHtml(s.service) + '</td>' +
         '<td>' + escapeHtml(SOURCE_LABELS[s.source] || s.source) + '</td>' +
         '<td>' + escapeHtml(s.page) + '</td>' +
@@ -259,17 +408,109 @@
     }).join('');
 
     tbody.querySelectorAll('.admin-status-select').forEach(function (select) {
+      select.addEventListener('click', function (e) { e.stopPropagation(); });
       select.addEventListener('change', function () {
-        var id = select.getAttribute('data-id');
-        var newStatus = select.value;
-        window.ecoDb.collection('submissions').doc(id).update({ status: newStatus }).then(function () {
-          var item = submissionsCache.filter(function (s) { return s.id === id; })[0];
-          if (item) item.status = newStatus;
-        }).catch(function (err) {
-          console.error('Holatni yangilashda xatolik:', err);
-        });
+        updateSubmissionStatus(select.getAttribute('data-id'), select.value);
       });
     });
+
+    tbody.querySelectorAll('tr[data-id]').forEach(function (row) {
+      row.addEventListener('click', function () {
+        openDetailPanel(row.getAttribute('data-id'));
+      });
+    });
+  }
+
+  function updateSubmissionStatus(id, newStatus) {
+    window.ecoDb.collection('submissions').doc(id).update({ status: newStatus }).then(function () {
+      var item = submissionsCache.filter(function (s) { return s.id === id; })[0];
+      if (item) item.status = newStatus;
+      renderSubmissionsTable();
+    }).catch(function (err) {
+      console.error('Holatni yangilashda xatolik:', err);
+      showToast('Holatni yangilab bo\'lmadi', 'error');
+    });
+  }
+
+  /* ---------- Ariza tafsilotlari paneli ---------- */
+  var detailPanel = document.getElementById('detail-panel');
+  var detailBackdrop = document.getElementById('detail-backdrop');
+  var detailBody = document.getElementById('detail-body');
+  var detailCallBtn = document.getElementById('detail-call-btn');
+
+  function detailRow(iconName, label, value) {
+    if (!value) return '';
+    return '<div class="admin-detail-row">' +
+      '<svg class="icon admin-detail-row__icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-' + iconName + '"></use></svg>' +
+      '<div><div class="admin-detail-row__label">' + escapeHtml(label) + '</div><div class="admin-detail-row__value">' + escapeHtml(value) + '</div></div>' +
+      '</div>';
+  }
+
+  function openDetailPanel(id) {
+    var s = submissionsCache.filter(function (x) { return x.id === id; })[0];
+    if (!s) return;
+
+    detailBody.innerHTML =
+      detailRow('note', 'Ism', s.name) +
+      detailRow('phone', 'Telefon', s.phone) +
+      detailRow('briefcase', 'Tashkilot', s.organization) +
+      detailRow('mail', 'Email', s.email) +
+      detailRow('tools', 'Xizmat', s.service) +
+      detailRow('pin', "Bo'lim", SOURCE_LABELS[s.source] || s.source) +
+      detailRow('monitor', 'Sahifa', s.page) +
+      detailRow('timer', 'Sana', formatDate(s.createdAt)) +
+      detailRow('document', 'Izoh', s.message);
+
+    detailCallBtn.href = 'tel:' + s.phone;
+    detailPanel.classList.add('is-open');
+    detailPanel.setAttribute('aria-hidden', 'false');
+    detailBackdrop.classList.add('is-open');
+  }
+
+  function closeDetailPanel() {
+    detailPanel.classList.remove('is-open');
+    detailPanel.setAttribute('aria-hidden', 'true');
+    detailBackdrop.classList.remove('is-open');
+  }
+
+  document.getElementById('detail-close').addEventListener('click', closeDetailPanel);
+  detailBackdrop.addEventListener('click', closeDetailPanel);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDetailPanel();
+  });
+
+  /* ---------- CSV eksport ---------- */
+  document.getElementById('submissions-export').addEventListener('click', function () {
+    var rows = getFilteredSubmissions();
+    if (!rows.length) {
+      showToast('Eksport qilish uchun ariza topilmadi', 'error');
+      return;
+    }
+    var header = ['Ism', 'Telefon', 'Xizmat', "Bo'lim", 'Sahifa', 'Sana', 'Holat', 'Izoh'];
+    var lines = [header.join(',')];
+    rows.forEach(function (s) {
+      var cells = [
+        s.name, s.phone, s.service, SOURCE_LABELS[s.source] || s.source,
+        s.page, formatDate(s.createdAt), STATUS_LABELS[s.status] || s.status, s.message
+      ];
+      lines.push(cells.map(csvCell).join(','));
+    });
+    var csv = '﻿' + lines.join('\r\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'eco-service-arizalar-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast(rows.length + ' ta ariza CSV formatida yuklab olindi');
+  });
+
+  function csvCell(value) {
+    var str = String(value == null ? '' : value).replace(/"/g, '""');
+    return '"' + str + '"';
   }
 
   /* ---------- Narxlarni boshqarish ---------- */
@@ -342,10 +583,11 @@
             var statusEl = document.getElementById('save-status-' + key);
             statusEl.classList.add('is-visible');
             setTimeout(function () { statusEl.classList.remove('is-visible'); }, 2000);
+            showToast(PRICE_CATALOG[key].label + ' narxlari saqlandi');
           })
           .catch(function (err) {
             console.error('Narxlarni saqlashda xatolik:', err);
-            alert("Saqlashda xatolik yuz berdi. Internet aloqasini va Firestore qoidalarini tekshiring.");
+            showToast("Saqlashda xatolik yuz berdi. Internet aloqasini tekshiring.", 'error');
           })
           .finally(function () {
             btn.disabled = false;
