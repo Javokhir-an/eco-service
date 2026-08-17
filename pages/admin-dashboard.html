@@ -93,6 +93,29 @@
           </div>
         </div>
 
+        <div class="admin-stats" style="margin-bottom: var(--space-8);">
+          <button type="button" class="admin-stat-card admin-stat-card--clickable" data-goto-status="yangi">
+            <div class="admin-stat-card__icon admin-stat-card__icon--amber"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg></div>
+            <div class="admin-stat-card__label">Yangi (ishlov kutilmoqda)</div>
+            <div class="admin-stat-card__value" id="stat-status-yangi">0</div>
+          </button>
+          <button type="button" class="admin-stat-card admin-stat-card--clickable" data-goto-status="bog_langan">
+            <div class="admin-stat-card__icon admin-stat-card__icon--blue"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg></div>
+            <div class="admin-stat-card__label">Bog'lanildi (jarayonda)</div>
+            <div class="admin-stat-card__value" id="stat-status-bog_langan">0</div>
+          </button>
+          <button type="button" class="admin-stat-card admin-stat-card--clickable" data-goto-status="bajarildi">
+            <div class="admin-stat-card__icon admin-stat-card__icon--green"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-check"></use></svg></div>
+            <div class="admin-stat-card__label">Bajarildi</div>
+            <div class="admin-stat-card__value" id="stat-status-bajarildi">0</div>
+          </button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title">Holat bo'yicha taqsimot</div>
+          <div id="status-breakdown"></div>
+        </div>
+
         <div class="admin-card">
           <div class="admin-card__title">Bo'lim bo'yicha taqsimot</div>
           <div id="source-breakdown"></div>

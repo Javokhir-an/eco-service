@@ -189,12 +189,14 @@
   /* ---------- Nav almashish ---------- */
   var navButtons = document.querySelectorAll('.admin-nav__item[data-view]');
   var views = document.querySelectorAll('.admin-view');
+
+  function switchView(key) {
+    navButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-view') === key); });
+    views.forEach(function (v) { v.classList.toggle('is-active', v.id === 'view-' + key); });
+  }
+
   navButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var key = btn.getAttribute('data-view');
-      navButtons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
-      views.forEach(function (v) { v.classList.toggle('is-active', v.id === 'view-' + key); });
-    });
+    btn.addEventListener('click', function () { switchView(btn.getAttribute('data-view')); });
   });
 
   var submissionsCache = [];
@@ -271,6 +273,8 @@
     return x;
   }
 
+  var STATUS_BAR_COLORS = { yangi: 'amber', bog_langan: 'blue', bajarildi: 'green' };
+
   function renderStats() {
     var total = submissionsCache.length;
     var today = startOfDay(new Date());
@@ -278,6 +282,7 @@
 
     var todayCount = 0, weekCount = 0;
     var bySource = {};
+    var byStatus = { yangi: 0, bog_langan: 0, bajarildi: 0 };
 
     submissionsCache.forEach(function (s) {
       if (s.createdAt) {
@@ -285,11 +290,17 @@
         if (s.createdAt >= weekAgo) weekCount++;
       }
       bySource[s.source] = (bySource[s.source] || 0) + 1;
+      byStatus[s.status] = (byStatus[s.status] || 0) + 1;
     });
 
     document.getElementById('stat-total').textContent = total;
     document.getElementById('stat-today').textContent = todayCount;
     document.getElementById('stat-week').textContent = weekCount;
+
+    Object.keys(byStatus).forEach(function (key) {
+      var el = document.getElementById('stat-status-' + key);
+      if (el) el.textContent = byStatus[key];
+    });
 
     var sortedSources = Object.keys(bySource).sort(function (a, b) { return bySource[b] - bySource[a]; });
     document.getElementById('stat-top-source').textContent = sortedSources.length
@@ -308,6 +319,30 @@
         '</div>';
     }).join('');
     document.getElementById('source-breakdown').innerHTML = barsHtml || '<p class="text-secondary text-small">Hali arizalar yo\'q.</p>';
+
+    var maxStatusCount = Math.max(byStatus.yangi, byStatus.bog_langan, byStatus.bajarildi, 1);
+    var statusHtml = Object.keys(STATUS_LABELS).map(function (key) {
+      var count = byStatus[key] || 0;
+      var pct = Math.round((count / maxStatusCount) * 100);
+      return '<div class="admin-bar-row admin-bar-row--clickable" data-goto-status="' + key + '">' +
+        '<span>' + escapeHtml(STATUS_LABELS[key]) + '</span>' +
+        '<span class="admin-bar-row__track"><span class="admin-bar-row__fill admin-bar-row__fill--' + STATUS_BAR_COLORS[key] + '" style="width:' + pct + '%"></span></span>' +
+        '<span class="admin-bar-row__count">' + count + '</span>' +
+        '</div>';
+    }).join('');
+    document.getElementById('status-breakdown').innerHTML = statusHtml;
+
+    document.querySelectorAll('[data-goto-status]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        goToSubmissionsFiltered(el.getAttribute('data-goto-status'));
+      });
+    });
+  }
+
+  function goToSubmissionsFiltered(statusKey) {
+    switchView('submissions');
+    filterStatus.value = statusKey;
+    renderSubmissionsTable();
   }
 
   function escapeHtml(str) {

@@ -311,6 +311,28 @@ html, body.admin-body {
   transform: translateY(-2px);
 }
 
+.admin-stat-card--clickable {
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+}
+
+.admin-bar-row--clickable {
+  cursor: pointer;
+  border-radius: var(--radius-button);
+  padding: var(--space-1) var(--space-2);
+  margin-left: calc(var(--space-2) * -1);
+  margin-right: calc(var(--space-2) * -1);
+  transition: background-color 0.15s ease;
+}
+
+.admin-bar-row--clickable:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+
 .admin-stat-card__icon {
   width: 40px;
   height: 40px;
@@ -385,6 +407,10 @@ html, body.admin-body {
   background-color: var(--color-primary);
   border-radius: 999px;
 }
+
+.admin-bar-row__fill--amber { background-color: var(--admin-accent-amber); }
+.admin-bar-row__fill--blue { background-color: var(--admin-accent-blue); }
+.admin-bar-row__fill--green { background-color: #15803D; }
 
 .admin-bar-row__count {
   text-align: right;
