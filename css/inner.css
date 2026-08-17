@@ -84,6 +84,16 @@
   flex-shrink: 0;
 }
 
+.checklist__item--interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checklist__item--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
 /* --- Kafolat bloki --- */
 .guarantee {
   display: flex;
