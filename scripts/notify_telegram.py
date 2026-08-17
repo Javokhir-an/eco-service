@@ -69,10 +69,51 @@ PAGE_TO_SERVICE = {
     "b2b.html": "b2b",
 }
 
+# Telegram xabarida texnik URL o'rniga o'qiladigan sahifa nomini ko'rsatish uchun.
+PAGE_LABELS = {
+    "": "Bosh sahifa",
+    "index.html": "Bosh sahifa",
+    "narxlar.html": "Narxlar",
+    "mutaxassislar.html": "Mutaxassislar",
+    "sharhlar.html": "Sharhlar",
+    "aksiyalar.html": "Aksiyalar",
+    "aloqa.html": "Aloqa",
+    "biz-haqimizda.html": "Biz haqimizda",
+    "blog.html": "Blog",
+    "b2b.html": "B2B",
+    "kategoriya-kompyuter.html": "Kategoriya: Kompyuter va noutbuk",
+    "kategoriya-tarmoq.html": "Kategoriya: Tarmoq",
+    "kategoriya-dasturiy.html": "Kategoriya: Dasturiy ta'minot",
+    "kategoriya-malumot.html": "Kategoriya: Ma'lumotlarni tiklash",
+    "kategoriya-printer.html": "Kategoriya: Printer",
+    "xizmat-noutbuk-tamirlash.html": "Noutbuk ta'mirlash",
+    "xizmat-kompyuter-yigish.html": "Kompyuter yig'ish",
+    "xizmat-monobloq-tamirlash.html": "Monobloq ta'mirlash",
+    "xizmat-wifi-sozlash.html": "Wi-Fi tarmoq sozlash",
+    "xizmat-server-ornatish.html": "Server o'rnatish",
+    "xizmat-video-kuzatuv.html": "Video kuzatuv tizimi",
+    "xizmat-windows-ornatish.html": "Windows o'rnatish",
+    "xizmat-virus-tozalash.html": "Viruslardan tozalash",
+    "xizmat-dastur-ornatish.html": "Dastur o'rnatish",
+    "xizmat-hdd-tiklash.html": "HDD/SSD dan ma'lumot tiklash",
+    "xizmat-flash-tiklash.html": "Flash-kartadan tiklash",
+    "xizmat-zaxira-nusxalash.html": "Zaxira nusxalash xizmati",
+    "xizmat-printer-tamirlash.html": "Printer ta'mirlash",
+    "xizmat-kartrij-toldirish.html": "Kartrij to'ldirish",
+    "xizmat-mfu-xizmat.html": "MFU xizmat ko'rsatish",
+}
+
+
+def page_basename(page):
+    return page.rstrip("/").rsplit("/", 1)[-1]
+
 
 def infer_service_from_page(page):
-    basename = page.rstrip("/").rsplit("/", 1)[-1]
-    return PAGE_TO_SERVICE.get(basename, "")
+    return PAGE_TO_SERVICE.get(page_basename(page), "")
+
+
+def get_page_label(page):
+    return PAGE_LABELS.get(page_basename(page), page)
 
 
 REQUIRED_VARS = [
@@ -143,7 +184,7 @@ def build_message(data, service_key=""):
     phone = data.get("phone", "—")
     service_label = SERVICE_LABELS.get(service_key, service_key or "—")
     source_label = SOURCE_LABELS.get(data.get("source", ""), data.get("source", "—"))
-    page = data.get("page", "—")
+    page = get_page_label(data.get("page", ""))
     message_text = data.get("message", "")
 
     lines = [
