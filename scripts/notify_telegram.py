@@ -152,6 +152,15 @@ def main():
     print(f"{len(docs)} ta yangi ariza topildi.")
 
     for doc in docs:
+        # Ikki parallel ishga tushirish (masalan qo'lda va avtomatik signal bir
+        # vaqtga to'g'ri kelsa) bitta arizani ikki marta yubormasligi uchun,
+        # arizani xabar yuborishdan OLDIN atomik tarzda "egallab olamiz".
+        # Boshqa jarayon ulgurib egallab bo'lgan bo'lsa, bu yerda o'tkazib
+        # yuboriladi.
+        if not claim_submission(db, doc.reference):
+            print(f"  [O'TKAZILDI] {doc.id}: boshqa jarayon allaqachon yuborgan")
+            continue
+
         data = doc.to_dict()
         service_key = data.get("service") or infer_service_from_page(data.get("page", ""))
         topic_id = topics.get(service_key) or topics.get("umumiy")
@@ -173,10 +182,28 @@ def main():
         )
 
         if resp.status_code == 200:
-            doc.reference.update({"notified": True})
             print(f"  [OK] {doc.id} -> topic {topic_id}")
         else:
+            # Yuborish muvaffaqiyatsiz bo'lsa, keyingi ishga tushirishda qayta
+            # urinilishi uchun "notified"ni False holatiga qaytaramiz.
+            doc.reference.update({"notified": False})
             print(f"  [XATO] {doc.id}: {resp.status_code} {resp.text}", file=sys.stderr)
+
+
+def claim_submission(db, doc_ref):
+    transaction = db.transaction()
+    return _claim_in_transaction(transaction, doc_ref)
+
+
+@firestore.transactional
+def _claim_in_transaction(transaction, doc_ref):
+    snapshot = doc_ref.get(transaction=transaction)
+    if not snapshot.exists:
+        return False
+    if snapshot.to_dict().get("notified"):
+        return False
+    transaction.update(doc_ref, {"notified": True})
+    return True
 
 
 def build_message(data, service_key=""):
