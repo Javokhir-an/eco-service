@@ -32,6 +32,11 @@
           <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-note"></use></svg>
           <span>Arizalar</span>
         </button>
+        <button type="button" class="admin-nav__item" data-view="reviews">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-star"></use></svg>
+          <span>Sharhlar</span>
+          <span class="admin-nav__badge" id="reviews-pending-badge" hidden>0</span>
+        </button>
         <button type="button" class="admin-nav__item" data-view="prices">
           <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-receipt"></use></svg>
           <span>Narxlar</span>
@@ -172,6 +177,50 @@
               </tr>
             </thead>
             <tbody id="submissions-tbody">
+              <tr><td colspan="7" class="admin-empty">Yuklanmoqda...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ Sharhlar ============ -->
+      <section class="admin-view" id="view-reviews">
+        <div class="admin-header">
+          <div>
+            <h1>Sharhlar</h1>
+            <div class="admin-header__meta">Yangilangan: <span id="reviews-updated-at">—</span></div>
+          </div>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn" id="reviews-refresh">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-refresh"></use></svg>
+              <span>Yangilash</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-filters">
+          <select id="review-filter-status">
+            <option value="">Barcha holatlar</option>
+            <option value="kutilmoqda">Kutilmoqda</option>
+            <option value="tasdiqlangan">Tasdiqlangan</option>
+            <option value="rad_etilgan">Rad etilgan</option>
+          </select>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Ism</th>
+                <th>Xizmat</th>
+                <th>Baho</th>
+                <th>Matn</th>
+                <th>Sana</th>
+                <th>Holat</th>
+                <th>Amal</th>
+              </tr>
+            </thead>
+            <tbody id="reviews-tbody">
               <tr><td colspan="7" class="admin-empty">Yuklanmoqda...</td></tr>
             </tbody>
           </table>

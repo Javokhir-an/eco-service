@@ -35,6 +35,12 @@
     'bajarildi': 'Bajarildi'
   };
 
+  var REVIEW_STATUS_LABELS = {
+    'kutilmoqda': 'Kutilmoqda',
+    'tasdiqlangan': 'Tasdiqlangan',
+    'rad_etilgan': 'Rad etilgan'
+  };
+
   var SERVICE_LABELS = {
     kompyuter: 'Kompyuter va noutbuk',
     tarmoq: 'Tarmoq va server',
@@ -200,18 +206,20 @@
   });
 
   var submissionsCache = [];
+  var reviewsCache = [];
 
   function initDashboard() {
     loadSubmissions();
+    loadReviews();
     renderPriceEditor();
   }
 
   function setUpdatedNow() {
     var now = formatDate(new Date());
-    var a = document.getElementById('stats-updated-at');
-    var b = document.getElementById('submissions-updated-at');
-    if (a) a.textContent = now;
-    if (b) b.textContent = now;
+    ['stats-updated-at', 'submissions-updated-at', 'reviews-updated-at'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = now;
+    });
   }
 
   /* ---------- Arizalarni yuklash ---------- */
@@ -251,21 +259,119 @@
       });
   }
 
-  function bindRefreshButton(id) {
+  function bindRefreshButton(id, loader) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.addEventListener('click', function () {
       btn.classList.add('is-loading');
       btn.disabled = true;
-      loadSubmissions(function () {
+      loader(function () {
         btn.classList.remove('is-loading');
         btn.disabled = false;
         showToast("Ma'lumotlar yangilandi");
       });
     });
   }
-  bindRefreshButton('stats-refresh');
-  bindRefreshButton('submissions-refresh');
+  bindRefreshButton('stats-refresh', loadSubmissions);
+  bindRefreshButton('submissions-refresh', loadSubmissions);
+  bindRefreshButton('reviews-refresh', loadReviews);
+
+  /* ---------- Sharhlarni yuklash va moderatsiya ---------- */
+  function loadReviews(onDone) {
+    window.ecoDb.collection('reviews').orderBy('createdAt', 'desc').limit(200).get()
+      .then(function (snapshot) {
+        reviewsCache = [];
+        snapshot.forEach(function (doc) {
+          var d = doc.data();
+          reviewsCache.push({
+            id: doc.id,
+            name: d.name || '—',
+            serviceKey: d.service || '',
+            service: SERVICE_LABELS[d.service] || d.service || '—',
+            rating: parseInt(d.rating, 10) || 5,
+            text: d.text || '',
+            status: d.status || 'kutilmoqda',
+            createdAt: d.createdAt && d.createdAt.toDate ? d.createdAt.toDate() : null
+          });
+        });
+        renderReviewsTable();
+        updatePendingReviewsBadge();
+        setUpdatedNow();
+        if (onDone) onDone();
+      })
+      .catch(function (err) {
+        console.error('Sharhlarni yuklashda xatolik:', err);
+        var tbody = document.getElementById('reviews-tbody');
+        if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="admin-empty">Ma\'lumotlarni yuklab bo\'lmadi. Firestore qoidalarini (rules) tekshiring.</td></tr>';
+        if (onDone) onDone();
+      });
+  }
+
+  function updatePendingReviewsBadge() {
+    var badge = document.getElementById('reviews-pending-badge');
+    if (!badge) return;
+    var count = reviewsCache.filter(function (r) { return r.status === 'kutilmoqda'; }).length;
+    badge.textContent = count;
+    badge.hidden = count === 0;
+  }
+
+  var reviewFilterStatus = document.getElementById('review-filter-status');
+  reviewFilterStatus && reviewFilterStatus.addEventListener('change', renderReviewsTable);
+
+  function starsHtml(rating) {
+    var full = '★★★★★'.substring(0, rating);
+    var empty = '☆☆☆☆☆'.substring(0, 5 - rating);
+    return full + empty;
+  }
+
+  function renderReviewsTable() {
+    var statusVal = reviewFilterStatus ? reviewFilterStatus.value : '';
+    var filtered = reviewsCache.filter(function (r) {
+      return !statusVal || r.status === statusVal;
+    });
+
+    var tbody = document.getElementById('reviews-tbody');
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="admin-empty">Hech narsa topilmadi.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(function (r) {
+      return '<tr>' +
+        '<td>' + escapeHtml(r.name) + '</td>' +
+        '<td>' + escapeHtml(r.service) + '</td>' +
+        '<td><span class="admin-table__stars">' + starsHtml(r.rating) + '</span></td>' +
+        '<td><div class="admin-table__text-truncate">' + escapeHtml(r.text) + '</div></td>' +
+        '<td>' + formatDate(r.createdAt) + '</td>' +
+        '<td><span class="admin-status admin-status--' + r.status + '">' + REVIEW_STATUS_LABELS[r.status] + '</span></td>' +
+        '<td><div class="admin-table__actions">' +
+          '<button type="button" class="admin-icon-btn admin-icon-btn--approve" data-review-id="' + r.id + '" data-review-status="tasdiqlangan" aria-label="Tasdiqlash" title="Tasdiqlash">' +
+            '<svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-check"></use></svg></button>' +
+          '<button type="button" class="admin-icon-btn admin-icon-btn--reject" data-review-id="' + r.id + '" data-review-status="rad_etilgan" aria-label="Rad etish" title="Rad etish">' +
+            '<svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg></button>' +
+        '</div></td>' +
+        '</tr>';
+    }).join('');
+
+    tbody.querySelectorAll('[data-review-id]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        updateReviewStatus(btn.getAttribute('data-review-id'), btn.getAttribute('data-review-status'));
+      });
+    });
+  }
+
+  function updateReviewStatus(id, newStatus) {
+    window.ecoDb.collection('reviews').doc(id).update({ status: newStatus }).then(function () {
+      var item = reviewsCache.filter(function (r) { return r.id === id; })[0];
+      if (item) item.status = newStatus;
+      renderReviewsTable();
+      updatePendingReviewsBadge();
+      showToast('Sharh holati: ' + REVIEW_STATUS_LABELS[newStatus]);
+    }).catch(function (err) {
+      console.error('Sharh holatini yangilashda xatolik:', err);
+      showToast('Xatolik: holat yangilanmadi', 'error');
+    });
+  }
 
   function startOfDay(d) {
     var x = new Date(d);

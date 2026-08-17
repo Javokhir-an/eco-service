@@ -244,11 +244,12 @@
   function submitFormToFirestore(form) {
     if (!window.ecoDb || typeof firebase === 'undefined') return;
 
-    var collectionName = form.id === 'review-form' ? 'reviews' : 'submissions';
+    var isReview = form.id === 'review-form';
+    var collectionName = isReview ? 'reviews' : 'submissions';
     var data = {
       page: window.location.pathname,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      status: 'yangi',
+      status: isReview ? 'kutilmoqda' : 'yangi',
       notified: false
     };
 
@@ -432,6 +433,48 @@
 
   filterService && filterService.addEventListener('change', applyReviewsFilter);
   filterRating && filterRating.addEventListener('change', applyReviewsFilter);
+
+  /* ---------- Tasdiqlangan sharhlarni Firestore'dan yuklash (admin moderatsiyasidan o'tganlar) ---------- */
+  if (reviewsList && window.ecoDb) {
+    window.ecoDb.collection('reviews').where('status', '==', 'tasdiqlangan')
+      .orderBy('createdAt', 'desc').limit(50).get()
+      .then(function (snapshot) {
+        var cards = [];
+        snapshot.forEach(function (doc) {
+          var d = doc.data();
+          var name = (d.name || 'Mijoz').trim();
+          var initial = name.charAt(0).toUpperCase();
+          var rating = parseInt(d.rating, 10) || 5;
+          var stars = '★★★★★☆☆☆☆☆'.substring(5 - rating, 10 - rating);
+          var dateObj = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate() : new Date();
+          var pad = function (n) { return n < 10 ? '0' + n : n; };
+          var dateStr = pad(dateObj.getDate()) + '.' + pad(dateObj.getMonth() + 1) + '.' + dateObj.getFullYear();
+
+          var card = document.createElement('div');
+          card.className = 'card review-card';
+          card.setAttribute('data-service', d.service || 'all');
+          card.setAttribute('data-rating', rating);
+          card.innerHTML =
+            '<span class="badge badge--source">Sayt</span>' +
+            '<div class="review-card__head"><div class="review-card__avatar" aria-hidden="true">' + escapeHtmlMain(initial) + '</div>' +
+            '<div><div class="review-card__name">' + escapeHtmlMain(name) + '</div><div class="text-small text-secondary">' + dateStr + '</div></div></div>' +
+            '<p class="review-card__rating">' + stars + '</p>' +
+            '<p class="review-card__text">' + escapeHtmlMain(d.text || '') + '</p>';
+          cards.push(card);
+        });
+        cards.forEach(function (card) { reviewsList.insertBefore(card, reviewsList.firstChild); });
+        if (cards.length) applyReviewsFilter();
+      })
+      .catch(function (err) {
+        console.error('Sharhlarni yuklashda xatolik:', err);
+      });
+  }
+
+  function escapeHtmlMain(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
 
   /* ---------- Shahar tanlash (localStorage, TZ 6.3) ---------- */
   function applyCity(city) {

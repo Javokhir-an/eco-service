@@ -9,10 +9,13 @@ service cloud.firestore {
       allow read, update, delete: if request.auth != null;
     }
 
-    // Mijoz sharhlari — xuddi shu mantiq.
+    // Mijoz sharhlari — hamma yoza (create) va o'qiy (read) oladi, chunki
+    // tasdiqlangan sharhlar sayt sahifasida hammaga ko'rsatiladi. Faqat
+    // admin moderatsiya qila oladi (holatni o'zgartirish/o'chirish).
     match /reviews/{docId} {
       allow create: if true;
-      allow read, update, delete: if request.auth != null;
+      allow read: if true;
+      allow update, delete: if request.auth != null;
     }
 
     // Narxlar — hamma o'qiy oladi (sayt shu yerdan narxni ko'rsatadi),
