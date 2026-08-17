@@ -173,8 +173,8 @@ def main():
             "parse_mode": "HTML",
             "reply_markup": {
                 "inline_keyboard": [[
-                    {"text": "📞 Bog'landim", "callback_data": "st:bog_langan:" + doc.id},
-                    {"text": "✅ Bajarildi", "callback_data": "st:bajarildi:" + doc.id},
+                    {"text": "Bog'landim 📞", "callback_data": "st:bog_langan:" + doc.id},
+                    {"text": "Bajarildi ✅", "callback_data": "st:bajarildi:" + doc.id},
                 ]]
             },
         }
