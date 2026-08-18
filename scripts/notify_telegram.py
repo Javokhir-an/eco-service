@@ -41,6 +41,7 @@ SOURCE_LABELS = {
     "b2b-form": "B2B murojaat formasi",
     "b2b-checklist": "Afzallik kartochkasi",
     "modal-order": "Ariza tugmasi",
+    "promo-card": "Aksiya kartochkasi",
 }
 
 # Forma "service" maydonini to'ldirmaydi (masalan xizmat sahifasidagi

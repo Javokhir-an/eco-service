@@ -138,28 +138,30 @@
     }
   }
 
-  document.querySelectorAll('[data-modal-open]').forEach(function (trigger) {
-    trigger.addEventListener('click', function (e) {
-      e.preventDefault();
-      var id = trigger.getAttribute('data-modal-open');
-      var modal = document.getElementById(id);
-      if (modal) {
-        lastFocusedBeforeModal = trigger;
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        var firstField = modal.querySelector('input, select, textarea');
-        firstField && firstField.focus();
+  // Delegatsiya orqali — sahifa yuklangandan keyin (masalan Firestore'dan)
+  // qo'shilgan tugmalar uchun ham alohida bog'lash shart emas.
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('[data-modal-open]');
+    if (!trigger) return;
+    e.preventDefault();
+    var id = trigger.getAttribute('data-modal-open');
+    var modal = document.getElementById(id);
+    if (modal) {
+      lastFocusedBeforeModal = trigger;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      var firstField = modal.querySelector('input, select, textarea');
+      firstField && firstField.focus();
 
-        var sourceField = modal.querySelector('#order-source');
-        if (sourceField) {
-          sourceField.value = trigger.getAttribute('data-source') || 'modal-order';
-        }
+      var sourceField = modal.querySelector('#order-source');
+      if (sourceField) {
+        sourceField.value = trigger.getAttribute('data-source') || 'modal-order';
       }
-    });
+    }
   });
 
-  document.querySelectorAll('[data-modal-close]').forEach(function (el) {
-    el.addEventListener('click', closeAllModals);
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-modal-close]')) closeAllModals();
   });
 
   // Ochiq modal ichida Tab bilan fokusni ushlab turish — orqa fon elementlariga chiqmaydi
@@ -282,6 +284,146 @@
       });
     }).catch(function (err) {
       console.error('Narxlarni yuklashda xatolik:', err);
+    });
+  }
+
+  /* ---------- Sayt sozlamalarini (telefon, ish vaqti, email) sinxronlash ---------- */
+  if (window.ecoDb) {
+    window.ecoDb.collection('settings').doc('contact').get().then(function (doc) {
+      if (!doc.exists) return;
+      var data = doc.data();
+
+      if (data.phone) {
+        var digits = data.phone.replace(/\D/g, '');
+        var telHref = 'tel:+' + digits;
+        document.querySelectorAll('a[href="tel:+998901234567"]').forEach(function (a) {
+          a.setAttribute('href', telHref);
+          if (/^\+?\d/.test(a.textContent.trim())) {
+            a.textContent = data.phone;
+          }
+        });
+      }
+
+      if (data.email) {
+        document.querySelectorAll('a[href="mailto:info@ecoservice.uz"]').forEach(function (a) {
+          a.setAttribute('href', 'mailto:' + data.email);
+          a.textContent = data.email;
+        });
+      }
+
+      if (data.hoursWork) {
+        var hoursEl = document.getElementById('topbar-hours');
+        if (hoursEl) hoursEl.textContent = data.hoursWork;
+      }
+
+      if (data.telegram) {
+        document.querySelectorAll('a[href="https://t.me/ecoservice"]').forEach(function (a) {
+          a.setAttribute('href', data.telegram);
+        });
+      }
+    }).catch(function (err) {
+      console.error('Sozlamalarni yuklashda xatolik:', err);
+    });
+  }
+
+  /* ---------- Mutaxassislar: Firestore'dan dinamik yuklash ---------- */
+  var specialistsSlider = document.getElementById('specialists-slider');
+  var specialistsGrid = document.getElementById('specialists-grid');
+
+  if (window.ecoDb && (specialistsSlider || specialistsGrid)) {
+    window.ecoDb.collection('specialists').get().then(function (snapshot) {
+      var items = [];
+      snapshot.forEach(function (doc) {
+        var d = doc.data();
+        if (d.active === false) return;
+        items.push(d);
+      });
+      if (!items.length) return;
+
+      items.sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
+
+      function initials(name) {
+        return (name || '?').trim().split(/\s+/).map(function (p) { return p.charAt(0).toUpperCase(); }).slice(0, 2).join('');
+      }
+
+      function starsFor(rating) {
+        var n = Math.max(0, Math.min(5, Math.round(parseFloat(rating) || 5)));
+        return '★★★★★☆☆☆☆☆'.substring(5 - n, 10 - n);
+      }
+
+      function cardHtml(item, isLink) {
+        var inner =
+          '<div class="specialist-card__avatar" aria-hidden="true">' + escapeHtmlMain(initials(item.name)) + '</div>' +
+          '<h3>' + escapeHtmlMain(item.name || '') + '</h3>' +
+          '<p class="text-secondary">' + escapeHtmlMain(item.specialty || '') + '</p>' +
+          '<p class="text-small">Tajriba: ' + escapeHtmlMain(item.experience != null ? item.experience : '') + ' yil</p>' +
+          '<p class="specialist-card__rating">' + starsFor(item.rating) + ' <span class="text-secondary text-small">' +
+          escapeHtmlMain(item.rating || '') + ' (' + (item.reviewCount || 0) + ' baho)</span></p>';
+        return isLink
+          ? '<a href="' + (specialistsGrid ? '' : 'pages/') + 'mutaxassislar.html" class="card specialist-card">' + inner + '</a>'
+          : '<div class="card specialist-card">' + inner + '</div>';
+      }
+
+      if (specialistsSlider) specialistsSlider.innerHTML = items.map(function (i) { return cardHtml(i, true); }).join('');
+      if (specialistsGrid) specialistsGrid.innerHTML = items.map(function (i) { return cardHtml(i, false); }).join('');
+    }).catch(function (err) {
+      console.error('Mutaxassislarni yuklashda xatolik:', err);
+    });
+  }
+
+  /* ---------- Aksiyalar: Firestore'dan dinamik yuklash ---------- */
+  var promotionsList = document.getElementById('promotions-list');
+  if (window.ecoDb && promotionsList) {
+    window.ecoDb.collection('promotions').get().then(function (snapshot) {
+      var items = [];
+      snapshot.forEach(function (doc) {
+        var d = doc.data();
+        if (d.active === false) return;
+        items.push(d);
+      });
+      if (!items.length) return;
+
+      promotionsList.innerHTML = items.map(function (item) {
+        return '<div class="card promo-card">' +
+          (item.badge ? '<span class="badge promo-card__badge">' + escapeHtmlMain(item.badge) + '</span>' : '') +
+          '<h3>' + escapeHtmlMain(item.title || '') + '</h3>' +
+          (item.description ? '<p class="text-secondary">' + escapeHtmlMain(item.description) + '</p>' : '') +
+          (item.validUntil ? '<p class="promo-card__validity">Amal qilish muddati: ' + escapeHtmlMain(item.validUntil) + '</p>' : '') +
+          '<a href="#modal-order" class="btn btn--secondary" data-modal-open="modal-order" data-source="promo-card">Buyurtma berish</a>' +
+          '</div>';
+      }).join('');
+    }).catch(function (err) {
+      console.error('Aksiyalarni yuklashda xatolik:', err);
+    });
+  }
+
+  /* ---------- Blog: Firestore'dan boshqariladigan kartochkalarni qo'shish ---------- */
+  var blogPostsList = document.getElementById('blog-posts-list');
+  if (window.ecoDb && blogPostsList) {
+    window.ecoDb.collection('blogPosts').get().then(function (snapshot) {
+      var items = [];
+      snapshot.forEach(function (doc) {
+        var d = doc.data();
+        if (d.active === false) return;
+        items.push(d);
+      });
+      if (!items.length) return;
+
+      var cards = items.map(function (item) {
+        var meta = '<div class="blog-card__meta">' +
+          (item.readTime ? '<span>⏱ ' + escapeHtmlMain(item.readTime) + '</span>' : '') + '</div>';
+        var body = meta +
+          '<h3>' + escapeHtmlMain(item.title || '') + '</h3>' +
+          (item.excerpt ? '<p class="text-secondary">' + escapeHtmlMain(item.excerpt) + '</p>' : '');
+        var el = document.createElement(item.link ? 'a' : 'div');
+        if (item.link) el.setAttribute('href', item.link);
+        el.className = 'card blog-card';
+        el.innerHTML = body;
+        return el;
+      });
+      cards.forEach(function (el) { blogPostsList.insertBefore(el, blogPostsList.firstChild); });
+    }).catch(function (err) {
+      console.error('Blog postlarni yuklashda xatolik:', err);
     });
   }
 

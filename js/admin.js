@@ -26,7 +26,8 @@
     'aloqa-page-form': 'Aloqa formasi',
     'b2b-form': 'B2B murojaat formasi',
     'b2b-checklist': 'Afzallik kartochkasi',
-    'modal-order': 'Ariza tugmasi'
+    'modal-order': 'Ariza tugmasi',
+    'promo-card': 'Aksiya kartochkasi'
   };
 
   var STATUS_LABELS = {
@@ -761,9 +762,10 @@
       orderField: 'title',
       fields: [
         { key: 'title', label: 'Sarlavha', type: 'text', required: true },
+        { key: 'badge', label: "Belgi (masalan −20% yoki Bepul)", type: 'text', def: '−10%' },
         { key: 'description', label: 'Tavsif', type: 'textarea' },
         { key: 'terms', label: 'Shartlar', type: 'textarea' },
-        { key: 'validUntil', label: 'Amal qilish muddati', type: 'date' },
+        { key: 'validUntil', label: 'Amal qilish muddati (masalan 2026-yil 31-avgustgacha)', type: 'text' },
         { key: 'active', label: "Faol (saytda ko'rinadi)", type: 'checkbox', def: true }
       ]
     },
