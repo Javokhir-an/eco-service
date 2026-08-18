@@ -35,11 +35,7 @@ def main():
         return
 
     now_tashkent = datetime.now(TASHKENT)
-    in_window = (
-        now_tashkent.weekday() == 0  # dushanba
-        and now_tashkent.hour == REPORT_HOUR
-        and now_tashkent.minute < REPORT_WINDOW_MINUTES
-    )
+    in_window = True  # VAQTINCHALIK SINOV — pastda asl holatga qaytariladi
     if not in_window:
         print(f"Haftalik hisobot vaqti emas (hozir Toshkentda {now_tashkent.strftime('%a %H:%M')}).")
         return
