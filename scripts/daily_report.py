@@ -30,7 +30,7 @@ from stale_reminder import STALE_MINUTES
 
 TASHKENT = timezone(timedelta(hours=5))
 REPORT_HOUR = 13  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 9 ga o'zgartiriladi
-REPORT_WINDOW_MINUTES = 30  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 10 ga o'zgartiriladi
+REPORT_WINDOW_MINUTES = 55  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 10 ga o'zgartiriladi
 
 STATUS_LABELS = {
     "yangi": "Yangi",
