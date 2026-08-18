@@ -39,6 +39,11 @@ STATUS_HEADING = {
     "bajarildi": "✅ <b>Bajarildi</b>",
 }
 
+REVIEW_STATUS_TEXT = {
+    "tasdiqlangan": "✅ Tasdiqlangan",
+    "rad_etilgan": "❌ Rad etilgan",
+}
+
 REQUIRED_VARS = [
     "FIREBASE_SERVICE_ACCOUNT_JSON",
     "TELEGRAM_BOT_TOKEN",
@@ -85,28 +90,16 @@ def main():
             continue
 
         parts = (callback.get("data") or "").split(":")
-        if len(parts) != 3 or parts[0] != "st" or parts[1] not in STATUS_TEXT:
+        if len(parts) != 3:
             continue
-        _, status_key, doc_id = parts
+        kind, status_key, doc_id = parts
 
-        doc_ref = db.collection("submissions").document(doc_id)
-        snapshot = doc_ref.get()
-        if not snapshot.exists:
-            print(f"  [XATO] {doc_id}: hujjat topilmadi", file=sys.stderr)
-            answer_callback(bot_token, callback["id"], "Xatolik: ariza topilmadi", alert=True)
-            continue
-
-        submission = snapshot.to_dict()
-        doc_ref.update({"status": status_key, "statusUpdatedAt": firestore.SERVER_TIMESTAMP})
-
-        handler = format_handler(callback.get("from", {}))
-        answer_callback(bot_token, callback["id"], "Holat yangilandi: " + STATUS_TEXT[status_key])
-
-        edit_message_status_line(bot_token, callback["message"], status_key, handler)
-        forward_to_status_topic(bot_token, group_id, topics, status_key, submission, handler)
-
-        handled += 1
-        print(f"  [OK] {doc_id} -> {status_key} ({handler})")
+        if kind == "st" and status_key in STATUS_TEXT:
+            if handle_submission_callback(db, bot_token, group_id, topics, callback, status_key, doc_id):
+                handled += 1
+        elif kind == "rv" and status_key in REVIEW_STATUS_TEXT:
+            if handle_review_callback(db, bot_token, callback, status_key, doc_id):
+                handled += 1
 
     # Qayta ishlangan yangilanishlarni Telegram tomonida "tasdiqlaymiz" —
     # shu offset orqali ular keyingi safar qaytadan qaytarilmaydi.
@@ -117,6 +110,45 @@ def main():
     )
 
     print(f"{handled} ta tugma bosilishi qayta ishlandi.")
+
+
+def handle_submission_callback(db, bot_token, group_id, topics, callback, status_key, doc_id):
+    doc_ref = db.collection("submissions").document(doc_id)
+    snapshot = doc_ref.get()
+    if not snapshot.exists:
+        print(f"  [XATO] {doc_id}: hujjat topilmadi", file=sys.stderr)
+        answer_callback(bot_token, callback["id"], "Xatolik: ariza topilmadi", alert=True)
+        return False
+
+    submission = snapshot.to_dict()
+    doc_ref.update({"status": status_key, "statusUpdatedAt": firestore.SERVER_TIMESTAMP})
+
+    handler = format_handler(callback.get("from", {}))
+    answer_callback(bot_token, callback["id"], "Holat yangilandi: " + STATUS_TEXT[status_key])
+
+    edit_message_status_line(bot_token, callback["message"], status_key, handler)
+    forward_to_status_topic(bot_token, group_id, topics, status_key, submission, handler)
+
+    print(f"  [OK] {doc_id} -> {status_key} ({handler})")
+    return True
+
+
+def handle_review_callback(db, bot_token, callback, status_key, doc_id):
+    doc_ref = db.collection("reviews").document(doc_id)
+    snapshot = doc_ref.get()
+    if not snapshot.exists:
+        print(f"  [XATO] {doc_id}: sharh topilmadi", file=sys.stderr)
+        answer_callback(bot_token, callback["id"], "Xatolik: sharh topilmadi", alert=True)
+        return False
+
+    doc_ref.update({"status": status_key})
+
+    handler = format_handler(callback.get("from", {}))
+    answer_callback(bot_token, callback["id"], "Sharh holati: " + REVIEW_STATUS_TEXT[status_key])
+    edit_review_status_line(bot_token, callback["message"], status_key, handler)
+
+    print(f"  [OK] sharh {doc_id} -> {status_key} ({handler})")
+    return True
 
 
 def format_handler(user):
@@ -155,6 +187,29 @@ def edit_message_status_line(bot_token, message, status_key, handler):
             "text": new_text,
             "parse_mode": "HTML",
             "reply_markup": message.get("reply_markup"),
+        },
+        timeout=15,
+    )
+
+
+def edit_review_status_line(bot_token, message, status_key, handler):
+    old_text = message.get("text", "")
+    lines = [
+        line for line in old_text.split("\n")
+        if not line.startswith("📌 Holat:") and not line.startswith("👨‍💼 Kim:")
+    ]
+    lines.append("📌 Holat: " + REVIEW_STATUS_TEXT[status_key])
+    lines.append("👨‍💼 Kim: " + handler)
+    new_text = "\n".join(lines)
+
+    requests.post(
+        f"https://api.telegram.org/bot{bot_token}/editMessageText",
+        json={
+            "chat_id": message["chat"]["id"],
+            "message_id": message["message_id"],
+            "text": new_text,
+            "parse_mode": "HTML",
+            "reply_markup": {"inline_keyboard": []},
         },
         timeout=15,
     )
