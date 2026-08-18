@@ -97,7 +97,7 @@ def main():
             continue
 
         submission = snapshot.to_dict()
-        doc_ref.update({"status": status_key})
+        doc_ref.update({"status": status_key, "statusUpdatedAt": firestore.SERVER_TIMESTAMP})
 
         handler = format_handler(callback.get("from", {}))
         answer_callback(bot_token, callback["id"], "Holat yangilandi: " + STATUS_TEXT[status_key])

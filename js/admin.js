@@ -566,7 +566,10 @@
   }
 
   function updateSubmissionStatus(id, newStatus) {
-    window.ecoDb.collection('submissions').doc(id).update({ status: newStatus }).then(function () {
+    window.ecoDb.collection('submissions').doc(id).update({
+      status: newStatus,
+      statusUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function () {
       var item = submissionsCache.filter(function (s) { return s.id === id; })[0];
       if (item) item.status = newStatus;
       renderSubmissionsTable();
