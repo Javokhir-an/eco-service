@@ -29,8 +29,8 @@ from notify_telegram import SOURCE_LABELS, SERVICE_LABELS, get_page_label, infer
 from stale_reminder import STALE_MINUTES
 
 TASHKENT = timezone(timedelta(hours=5))
-REPORT_HOUR = 13  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 9 ga o'zgartiriladi
-REPORT_WINDOW_MINUTES = 55  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 10 ga o'zgartiriladi
+REPORT_HOUR = 9  # ertalab soat 9:00 (Toshkent) atrofida yuboriladi
+REPORT_WINDOW_MINUTES = 10  # shu oraliqda "hali bugun yuborilmagan" bo'lsa yuboradi
 
 STATUS_LABELS = {
     "yangi": "Yangi",
@@ -55,15 +55,15 @@ def build_pdf(date_label, total, by_status, by_source, problems, path):
     pdf.add_page()
 
     pdf.set_font("DejaVu", "B", 18)
-    pdf.cell(0, 12, "ECO SERVICE", ln=True)
+    pdf.cell(0, 12, "ECO SERVICE", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("DejaVu", "", 12)
     pdf.set_text_color(90, 90, 90)
-    pdf.cell(0, 8, f"Kunlik hisobot — {date_label}", ln=True)
+    pdf.cell(0, 8, f"Kunlik hisobot — {date_label}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_text_color(0, 0, 0)
     pdf.ln(4)
 
     pdf.set_font("DejaVu", "B", 13)
-    pdf.cell(0, 9, "Umumiy ko'rsatkichlar", ln=True)
+    pdf.cell(0, 9, "Umumiy ko'rsatkichlar", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("DejaVu", "", 11)
     rows = [
         ("Jami tushgan arizalar", str(total)),
@@ -75,32 +75,32 @@ def build_pdf(date_label, total, by_status, by_source, problems, path):
         pdf.set_font("DejaVu", "", 11)
         pdf.cell(90, 8, label, border=1)
         pdf.set_font("DejaVu", "B", 11)
-        pdf.cell(40, 8, value, border=1, ln=True)
+        pdf.cell(40, 8, value, border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.ln(6)
 
     pdf.set_font("DejaVu", "B", 13)
-    pdf.cell(0, 9, "Bo'limlar bo'yicha taqsimot", ln=True)
+    pdf.cell(0, 9, "Bo'limlar bo'yicha taqsimot", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     if by_source:
         pdf.set_font("DejaVu", "B", 11)
         pdf.cell(120, 8, "Bo'lim", border=1)
-        pdf.cell(30, 8, "Soni", border=1, ln=True)
+        pdf.cell(30, 8, "Soni", border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_font("DejaVu", "", 11)
         for source, count in sorted(by_source.items(), key=lambda kv: -kv[1]):
             label = SOURCE_LABELS.get(source, source)
             pdf.cell(120, 8, label, border=1)
-            pdf.cell(30, 8, str(count), border=1, ln=True)
+            pdf.cell(30, 8, str(count), border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     else:
         pdf.set_font("DejaVu", "", 11)
-        pdf.cell(0, 8, "Kecha ariza kelmadi.", ln=True)
+        pdf.cell(0, 8, "Kecha ariza kelmadi.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.ln(6)
 
     pdf.set_font("DejaVu", "B", 13)
     pdf.set_text_color(180, 40, 40) if problems else pdf.set_text_color(40, 130, 60)
-    pdf.cell(0, 9, "Muammolar va e'tibor talab qiladigan holatlar", ln=True)
+    pdf.cell(0, 9, "Muammolar va e'tibor talab qiladigan holatlar", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_text_color(0, 0, 0)
     pdf.set_font("DejaVu", "", 11)
     if not problems:
-        pdf.cell(0, 8, "Aniqlangan muammo yo'q — hammasi nazoratda.", ln=True)
+        pdf.cell(0, 8, "Aniqlangan muammo yo'q — hammasi nazoratda.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     else:
         for line in problems:
             pdf.multi_cell(0, 7, "•  " + line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -109,7 +109,7 @@ def build_pdf(date_label, total, by_status, by_source, problems, path):
     pdf.set_font("DejaVu", "", 9)
     pdf.set_text_color(140, 140, 140)
     generated = datetime.now(TASHKENT).strftime("%d.%m.%Y %H:%M")
-    pdf.cell(0, 6, f"Hisobot avtomatik yaratildi: {generated} (Toshkent vaqti)", ln=True)
+    pdf.cell(0, 6, f"Hisobot avtomatik yaratildi: {generated} (Toshkent vaqti)", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
     pdf.output(path)
 
@@ -208,7 +208,7 @@ def main():
     today_str = now_tashkent.strftime("%Y-%m-%d")
     log_ref = db.collection("settings").document("dailyReportLog")
     log_snapshot = log_ref.get()
-    if False and log_snapshot.exists and log_snapshot.to_dict().get("lastSentDate") == today_str:  # VAQTINCHALIK SINOV: o'chirilgan
+    if log_snapshot.exists and log_snapshot.to_dict().get("lastSentDate") == today_str:
         print("Bugungi hisobot allaqachon yuborilgan.")
         return
 
