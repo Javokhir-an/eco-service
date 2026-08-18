@@ -63,7 +63,10 @@ def main():
         return
 
     now_tashkent = datetime.now(TASHKENT)
-    in_window = True  # VAQTINCHALIK SINOV — pastda asl holatga qaytariladi
+    in_window = (
+        now_tashkent.hour == BACKUP_HOUR
+        and now_tashkent.minute < BACKUP_WINDOW_MINUTES
+    )
     if not in_window:
         print(f"Backup vaqti emas (hozir Toshkentda {now_tashkent.strftime('%H:%M')}).")
         return
