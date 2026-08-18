@@ -21,8 +21,8 @@ from google.oauth2 import service_account
 from notify_telegram import SOURCE_LABELS
 
 TASHKENT = timezone(timedelta(hours=5))
-REPORT_HOUR = 13  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 9 ga o'zgartiriladi
-REPORT_WINDOW_MINUTES = 30  # VAQTINCHALIK SINOV QIYMATI — pastda qayta 10 ga o'zgartiriladi
+REPORT_HOUR = 9  # ertalab soat 9:00 (Toshkent) atrofida yuboriladi
+REPORT_WINDOW_MINUTES = 10  # shu oraliqda "hali bugun yuborilmagan" bo'lsa yuboradi
 
 STATUS_LABELS = {
     "yangi": "Yangi",
