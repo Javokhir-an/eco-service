@@ -41,6 +41,22 @@
           <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-receipt"></use></svg>
           <span>Narxlar</span>
         </button>
+        <button type="button" class="admin-nav__item" data-view="specialists">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-user"></use></svg>
+          <span>Mutaxassislar</span>
+        </button>
+        <button type="button" class="admin-nav__item" data-view="promotions">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-bolt"></use></svg>
+          <span>Aksiyalar</span>
+        </button>
+        <button type="button" class="admin-nav__item" data-view="blog">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-document"></use></svg>
+          <span>Blog</span>
+        </button>
+        <button type="button" class="admin-nav__item" data-view="settings">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-settings"></use></svg>
+          <span>Sozlamalar</span>
+        </button>
       </nav>
 
       <div class="admin-sidebar__footer">
@@ -235,6 +251,81 @@
         <div class="pricing__tabs" role="tablist" id="price-tabs"></div>
         <div id="price-panels"></div>
       </section>
+
+      <!-- ============ Mutaxassislar ============ -->
+      <section class="admin-view" id="view-specialists">
+        <div class="admin-header">
+          <h1>Mutaxassislar</h1>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn admin-btn--primary" data-crud-add="specialists">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-plus"></use></svg>
+              <span>Yangi qo'shish</span>
+            </button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Ism</th><th>Mutaxassislik</th><th>Tajriba</th><th>Reyting</th><th>Faol</th><th>Amal</th></tr></thead>
+            <tbody id="specialists-tbody"><tr><td colspan="6" class="admin-empty">Yuklanmoqda...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ Aksiyalar ============ -->
+      <section class="admin-view" id="view-promotions">
+        <div class="admin-header">
+          <h1>Aksiyalar</h1>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn admin-btn--primary" data-crud-add="promotions">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-plus"></use></svg>
+              <span>Yangi qo'shish</span>
+            </button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Sarlavha</th><th>Amal qilish muddati</th><th>Faol</th><th>Amal</th></tr></thead>
+            <tbody id="promotions-tbody"><tr><td colspan="4" class="admin-empty">Yuklanmoqda...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ Blog ============ -->
+      <section class="admin-view" id="view-blog">
+        <div class="admin-header">
+          <h1>Blog</h1>
+          <div class="admin-header__actions">
+            <button type="button" class="admin-btn admin-btn--primary" data-crud-add="blogPosts">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-plus"></use></svg>
+              <span>Yangi qo'shish</span>
+            </button>
+          </div>
+        </div>
+        <p class="text-secondary" style="margin-bottom: var(--space-6);">Bu yerda blog sahifasidagi kartochkalar ro'yxati boshqariladi. To'liq maqola matni alohida HTML sahifa sifatida qo'shiladi, "Havola" maydoniga o'sha faylning nomini yozing.</p>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Sarlavha</th><th>Havola</th><th>Faol</th><th>Amal</th></tr></thead>
+            <tbody id="blogPosts-tbody"><tr><td colspan="4" class="admin-empty">Yuklanmoqda...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ Sozlamalar ============ -->
+      <section class="admin-view" id="view-settings">
+        <div class="admin-header"><h1>Sayt sozlamalari</h1></div>
+        <p class="text-secondary" style="margin-bottom: var(--space-6);">Bu ma'lumotlar saytning barcha sahifalarida (header, footer, kontaktlar) avtomatik yangilanadi.</p>
+        <div class="admin-card" style="max-width: 560px;">
+          <form id="settings-form">
+            <div class="field"><label class="field__label" for="settings-phone">Telefon raqami</label><input class="field__input" type="text" id="settings-phone" placeholder="+998 90 123-45-67"></div>
+            <div class="field"><label class="field__label" for="settings-address">Manzil</label><input class="field__input" type="text" id="settings-address" placeholder="Toshkent sh., ko'chasi, 1-uy"></div>
+            <div class="field"><label class="field__label" for="settings-hours-work">Ish kunlari vaqti</label><input class="field__input" type="text" id="settings-hours-work" placeholder="Dushanba–Juma: 09:00–20:00"></div>
+            <div class="field"><label class="field__label" for="settings-hours-weekend">Dam olish kunlari vaqti</label><input class="field__input" type="text" id="settings-hours-weekend" placeholder="Shanba–Yakshanba: 10:00–18:00"></div>
+            <div class="field"><label class="field__label" for="settings-email">Email</label><input class="field__input" type="email" id="settings-email" placeholder="info@ecoservice.uz"></div>
+            <div class="field"><label class="field__label" for="settings-telegram">Telegram havolasi</label><input class="field__input" type="text" id="settings-telegram" placeholder="https://t.me/ecoservice"></div>
+            <button type="submit" class="btn btn--primary">Saqlash</button>
+          </form>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -252,6 +343,27 @@
         <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-phone"></use></svg>
         <span>Qo'ng'iroq qilish</span>
       </a>
+    </div>
+  </aside>
+
+  <div class="admin-detail-backdrop" id="crud-backdrop"></div>
+  <aside class="admin-detail-panel" id="crud-panel" aria-hidden="true">
+    <div class="admin-detail-panel__header">
+      <h2 id="crud-panel-title">Qo'shish</h2>
+      <button type="button" class="admin-detail-panel__close" id="crud-close" aria-label="Yopish">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-close"></use></svg>
+      </button>
+    </div>
+    <form class="admin-detail-panel__body" id="crud-form"></form>
+    <div class="admin-detail-panel__footer">
+      <button type="button" class="admin-btn" id="crud-delete" style="color: #B91C1C;" hidden>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-trash"></use></svg>
+        <span>O'chirish</span>
+      </button>
+      <button type="submit" form="crud-form" class="admin-btn admin-btn--primary" id="crud-save">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-check"></use></svg>
+        <span>Saqlash</span>
+      </button>
     </div>
   </aside>
 

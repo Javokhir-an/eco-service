@@ -212,6 +212,8 @@
     loadSubmissions();
     loadReviews();
     renderPriceEditor();
+    initCrud();
+    loadSettings();
   }
 
   function setUpdatedNow() {
@@ -737,4 +739,278 @@
       });
     });
   }
+
+  /* ==========================================================================
+     Umumiy CRUD tizimi — Mutaxassislar, Aksiyalar, Blog uchun bir xil mantiq
+     ========================================================================== */
+  var CRUD_CONFIGS = {
+    specialists: {
+      title: 'Mutaxassis',
+      orderField: 'name',
+      fields: [
+        { key: 'name', label: 'Ism', type: 'text', required: true },
+        { key: 'specialty', label: 'Mutaxassislik', type: 'text', required: true },
+        { key: 'experience', label: 'Tajriba (yil)', type: 'number', def: 1 },
+        { key: 'rating', label: "Reyting (masalan 4.9)", type: 'text', def: '5.0' },
+        { key: 'reviewCount', label: 'Baholar soni', type: 'number', def: 0 },
+        { key: 'active', label: "Faol (saytda ko'rinadi)", type: 'checkbox', def: true }
+      ]
+    },
+    promotions: {
+      title: 'Aksiya',
+      orderField: 'title',
+      fields: [
+        { key: 'title', label: 'Sarlavha', type: 'text', required: true },
+        { key: 'description', label: 'Tavsif', type: 'textarea' },
+        { key: 'terms', label: 'Shartlar', type: 'textarea' },
+        { key: 'validUntil', label: 'Amal qilish muddati', type: 'date' },
+        { key: 'active', label: "Faol (saytda ko'rinadi)", type: 'checkbox', def: true }
+      ]
+    },
+    blogPosts: {
+      title: 'Blog maqolasi',
+      orderField: 'title',
+      fields: [
+        { key: 'title', label: 'Sarlavha', type: 'text', required: true },
+        { key: 'excerpt', label: 'Qisqacha tavsif', type: 'textarea' },
+        { key: 'link', label: 'Havola (masalan blog-noutbuk-qiziydi.html)', type: 'text' },
+        { key: 'readTime', label: "O'qish vaqti (masalan \"5 daqiqa\")", type: 'text', def: '5 daqiqa' },
+        { key: 'active', label: "Nashr etilgan (ko'rinadimi)", type: 'checkbox', def: true }
+      ]
+    }
+  };
+
+  var crudCaches = { specialists: [], promotions: [], blogPosts: [] };
+
+  function initCrud() {
+    Object.keys(CRUD_CONFIGS).forEach(function (key) {
+      loadCrudCollection(key);
+    });
+
+    document.querySelectorAll('[data-crud-add]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openCrudForm(btn.getAttribute('data-crud-add'), null);
+      });
+    });
+
+    document.getElementById('crud-close').addEventListener('click', closeCrudPanel);
+    document.getElementById('crud-backdrop').addEventListener('click', closeCrudPanel);
+    document.getElementById('crud-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      saveCrudForm();
+    });
+  }
+
+  function loadCrudCollection(key) {
+    window.ecoDb.collection(key).get()
+      .then(function (snapshot) {
+        var items = [];
+        snapshot.forEach(function (doc) {
+          items.push(Object.assign({ id: doc.id }, doc.data()));
+        });
+        var orderField = CRUD_CONFIGS[key].orderField;
+        items.sort(function (a, b) {
+          return (a[orderField] || '').toString().localeCompare((b[orderField] || '').toString());
+        });
+        crudCaches[key] = items;
+        renderCrudTable(key);
+      })
+      .catch(function (err) {
+        console.error('Yuklashda xatolik (' + key + '):', err);
+        var tbody = document.getElementById(key + '-tbody');
+        if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="admin-empty">Yuklab bo\'lmadi. Firestore qoidalarini tekshiring.</td></tr>';
+      });
+  }
+
+  function renderCrudTable(key) {
+    var config = CRUD_CONFIGS[key];
+    var tbody = document.getElementById(key + '-tbody');
+    if (!tbody) return;
+    var items = crudCaches[key];
+
+    if (!items.length) {
+      var colCount = tbody.closest('table').querySelectorAll('thead th').length;
+      tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="admin-empty">Hali hech narsa qo\'shilmagan.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = items.map(function (item) {
+      var cells = '';
+      if (key === 'specialists') {
+        cells =
+          '<td>' + escapeHtml(item.name || '') + '</td>' +
+          '<td>' + escapeHtml(item.specialty || '') + '</td>' +
+          '<td>' + escapeHtml(item.experience != null ? item.experience + ' yil' : '') + '</td>' +
+          '<td>' + escapeHtml(item.rating || '') + '</td>';
+      } else if (key === 'promotions') {
+        cells =
+          '<td>' + escapeHtml(item.title || '') + '</td>' +
+          '<td>' + escapeHtml(item.validUntil || '') + '</td>';
+      } else if (key === 'blogPosts') {
+        cells =
+          '<td>' + escapeHtml(item.title || '') + '</td>' +
+          '<td>' + escapeHtml(item.link || '') + '</td>';
+      }
+      cells += '<td>' + (item.active === false ? "Yashirilgan" : 'Faol') + '</td>';
+      cells += '<td><div class="admin-table__actions">' +
+        '<button type="button" class="admin-icon-btn" data-crud-edit="' + key + '" data-id="' + item.id + '" aria-label="Tahrirlash" title="Tahrirlash">' +
+          '<svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons/sprite.svg#icon-pen"></use></svg></button>' +
+        '</div></td>';
+      return '<tr>' + cells + '</tr>';
+    }).join('');
+
+    tbody.querySelectorAll('[data-crud-edit]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openCrudForm(btn.getAttribute('data-crud-edit'), btn.getAttribute('data-id'));
+      });
+    });
+  }
+
+  var crudCurrentKey = null;
+  var crudCurrentId = null;
+
+  function openCrudForm(key, id) {
+    var config = CRUD_CONFIGS[key];
+    crudCurrentKey = key;
+    crudCurrentId = id;
+
+    var item = id ? crudCaches[key].filter(function (x) { return x.id === id; })[0] : null;
+
+    document.getElementById('crud-panel-title').textContent = (id ? "Tahrirlash: " : "Qo'shish: ") + config.title;
+
+    var formEl = document.getElementById('crud-form');
+    formEl.innerHTML = config.fields.map(function (f) {
+      var value = item ? item[f.key] : f.def;
+      var fieldId = 'crud-field-' + f.key;
+      if (f.type === 'textarea') {
+        return '<div class="field"><label class="field__label" for="' + fieldId + '">' + escapeHtml(f.label) + '</label>' +
+          '<textarea class="field__input" id="' + fieldId + '" rows="3">' + escapeHtml(value || '') + '</textarea></div>';
+      }
+      if (f.type === 'checkbox') {
+        return '<div class="field"><div class="field__checkbox-row"><input type="checkbox" id="' + fieldId + '"' + (value ? ' checked' : '') + '>' +
+          '<label for="' + fieldId + '" class="text-small">' + escapeHtml(f.label) + '</label></div></div>';
+      }
+      return '<div class="field"><label class="field__label" for="' + fieldId + '">' + escapeHtml(f.label) + '</label>' +
+        '<input class="field__input" type="' + f.type + '" id="' + fieldId + '" value="' + escapeHtml(value == null ? '' : value) + '"' + (f.required ? ' required' : '') + '></div>';
+    }).join('');
+
+    var deleteBtn = document.getElementById('crud-delete');
+    if (id) {
+      deleteBtn.hidden = false;
+      deleteBtn.onclick = function () { deleteCrudItem(key, id); };
+    } else {
+      deleteBtn.hidden = true;
+      deleteBtn.onclick = null;
+    }
+
+    document.getElementById('crud-panel').classList.add('is-open');
+    document.getElementById('crud-panel').setAttribute('aria-hidden', 'false');
+    document.getElementById('crud-backdrop').classList.add('is-open');
+  }
+
+  function closeCrudPanel() {
+    document.getElementById('crud-panel').classList.remove('is-open');
+    document.getElementById('crud-panel').setAttribute('aria-hidden', 'true');
+    document.getElementById('crud-backdrop').classList.remove('is-open');
+  }
+
+  function saveCrudForm() {
+    var key = crudCurrentKey;
+    var config = CRUD_CONFIGS[key];
+    var data = {};
+
+    for (var i = 0; i < config.fields.length; i++) {
+      var f = config.fields[i];
+      var el = document.getElementById('crud-field-' + f.key);
+      if (f.type === 'checkbox') {
+        data[f.key] = el.checked;
+      } else if (f.type === 'number') {
+        if (f.required && !el.value.trim()) { el.focus(); return; }
+        data[f.key] = el.value === '' ? null : Number(el.value);
+      } else {
+        if (f.required && !el.value.trim()) { el.focus(); return; }
+        data[f.key] = el.value.trim();
+      }
+    }
+
+    var saveBtn = document.getElementById('crud-save');
+    saveBtn.disabled = true;
+
+    var promise = crudCurrentId
+      ? window.ecoDb.collection(key).doc(crudCurrentId).update(data)
+      : window.ecoDb.collection(key).add(data);
+
+    promise.then(function () {
+      showToast(config.title + (crudCurrentId ? ' yangilandi' : " qo'shildi"));
+      closeCrudPanel();
+      loadCrudCollection(key);
+    }).catch(function (err) {
+      console.error('Saqlashda xatolik:', err);
+      showToast('Xatolik: saqlanmadi', 'error');
+    }).finally(function () {
+      saveBtn.disabled = false;
+    });
+  }
+
+  function deleteCrudItem(key, id) {
+    if (!window.confirm("Rostdan ham o'chirilsinmi? Bu amalni ortga qaytarib bo'lmaydi.")) return;
+    window.ecoDb.collection(key).doc(id).delete().then(function () {
+      showToast("O'chirildi");
+      closeCrudPanel();
+      loadCrudCollection(key);
+    }).catch(function (err) {
+      console.error("O'chirishda xatolik:", err);
+      showToast("Xatolik: o'chirilmadi", 'error');
+    });
+  }
+
+  /* ---------- Sayt sozlamalari (telefon, manzil, ish vaqti) ---------- */
+  var SETTINGS_FIELDS = ['phone', 'address', 'hoursWork', 'hoursWeekend', 'email', 'telegram'];
+
+  function loadSettings() {
+    window.ecoDb.collection('settings').doc('contact').get().then(function (doc) {
+      if (!doc.exists) return;
+      var data = doc.data();
+      var map = {
+        phone: 'settings-phone',
+        address: 'settings-address',
+        hoursWork: 'settings-hours-work',
+        hoursWeekend: 'settings-hours-weekend',
+        email: 'settings-email',
+        telegram: 'settings-telegram'
+      };
+      Object.keys(map).forEach(function (key) {
+        var el = document.getElementById(map[key]);
+        if (el && data[key]) el.value = data[key];
+      });
+    }).catch(function (err) {
+      console.error('Sozlamalarni yuklashda xatolik:', err);
+    });
+  }
+
+  var settingsForm = document.getElementById('settings-form');
+  settingsForm && settingsForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = {
+      phone: document.getElementById('settings-phone').value.trim(),
+      address: document.getElementById('settings-address').value.trim(),
+      hoursWork: document.getElementById('settings-hours-work').value.trim(),
+      hoursWeekend: document.getElementById('settings-hours-weekend').value.trim(),
+      email: document.getElementById('settings-email').value.trim(),
+      telegram: document.getElementById('settings-telegram').value.trim()
+    };
+    var btn = settingsForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    window.ecoDb.collection('settings').doc('contact').set(data, { merge: true })
+      .then(function () {
+        showToast('Sozlamalar saqlandi');
+      })
+      .catch(function (err) {
+        console.error('Sozlamalarni saqlashda xatolik:', err);
+        showToast('Xatolik: saqlanmadi', 'error');
+      })
+      .finally(function () {
+        btn.disabled = false;
+      });
+  });
 })();

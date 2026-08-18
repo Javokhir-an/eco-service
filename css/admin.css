@@ -256,6 +256,10 @@ html, body.admin-body {
   gap: var(--space-3);
 }
 
+.admin-btn[hidden] {
+  display: none;
+}
+
 .admin-btn {
   display: inline-flex;
   align-items: center;
