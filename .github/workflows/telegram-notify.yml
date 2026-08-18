@@ -33,3 +33,19 @@ jobs:
           TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
           TELEGRAM_TOPICS_JSON: ${{ secrets.TELEGRAM_TOPICS_JSON }}
         run: python scripts/telegram_callbacks.py
+
+      - name: "Unutilgan (javobsiz) arizalar uchun eslatma"
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+          TELEGRAM_TOPICS_JSON: ${{ secrets.TELEGRAM_TOPICS_JSON }}
+        run: python scripts/stale_reminder.py
+
+      - name: Kunlik hisobot
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+          TELEGRAM_TOPICS_JSON: ${{ secrets.TELEGRAM_TOPICS_JSON }}
+        run: python scripts/daily_report.py
