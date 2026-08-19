@@ -7,7 +7,7 @@
 
 :root {
   --admin-bg: #F3F5F4;
-  --admin-sidebar-bg: #10241A;
+  --admin-sidebar-bg: var(--color-ink);
   --admin-sidebar-text: rgba(255, 255, 255, 0.72);
   --admin-sidebar-text-active: #FFFFFF;
   --admin-card-shadow: 0 1px 2px rgba(16, 36, 26, 0.06), 0 8px 24px rgba(16, 36, 26, 0.06);
@@ -24,39 +24,59 @@ html, body.admin-body {
 
 /* ---------- Login sahifasi ---------- */
 .admin-login {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-6);
-  background:
-    radial-gradient(circle at 15% 10%, rgba(27, 138, 90, 0.14), transparent 45%),
-    radial-gradient(circle at 85% 90%, rgba(255, 122, 0, 0.10), transparent 45%),
-    var(--admin-sidebar-bg);
+  overflow: hidden;
+  background-color: var(--color-ink);
+  background-image:
+    var(--gradient-mesh),
+    linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
+}
+
+.admin-login::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M0 .5H56M.5 0V56' stroke='%23FFFFFF' stroke-opacity='0.06'/%3E%3C/svg%3E");
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  pointer-events: none;
 }
 
 .admin-login__card {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 400px;
   background-color: var(--color-bg-primary);
   border-radius: var(--admin-radius);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-elevated);
   padding: var(--space-8);
 }
 
 .admin-login__logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   font-weight: var(--fw-bold);
   font-size: 20px;
-  color: var(--color-primary);
+  color: var(--color-text-primary);
   margin-bottom: var(--space-8);
 }
 
 .admin-login__logo .icon {
-  width: 28px;
-  height: 28px;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px -4px rgba(23, 184, 127, 0.55);
 }
 
 .admin-login__card h1 {
@@ -123,9 +143,14 @@ html, body.admin-body {
 }
 
 .admin-sidebar__logo .icon {
-  width: 24px;
-  height: 24px;
-  color: var(--color-primary);
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px -4px rgba(23, 184, 127, 0.55);
 }
 
 .admin-nav {
@@ -156,14 +181,19 @@ html, body.admin-body {
   flex-shrink: 0;
 }
 
+.admin-nav__item {
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
 .admin-nav__item:hover {
   background-color: rgba(255, 255, 255, 0.06);
   color: var(--admin-sidebar-text-active);
 }
 
 .admin-nav__item.is-active {
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: #FFFFFF;
+  box-shadow: 0 4px 14px -4px rgba(23, 184, 127, 0.55);
 }
 
 .admin-nav__badge {
@@ -172,13 +202,14 @@ html, body.admin-body {
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background-color: var(--admin-accent-amber);
+  background: linear-gradient(135deg, #FF7A00 0%, #FF9736 100%);
   color: #FFFFFF;
   font-size: 11px;
   font-weight: var(--fw-bold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 3px 8px -2px rgba(255, 122, 0, 0.55);
 }
 
 .admin-sidebar__footer {
@@ -200,7 +231,7 @@ html, body.admin-body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), #0F6B47);
+  background: var(--gradient-primary);
   color: #FFFFFF;
   display: flex;
   align-items: center;
@@ -208,6 +239,7 @@ html, body.admin-body {
   font-size: 13px;
   font-weight: var(--fw-bold);
   letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px -4px rgba(23, 184, 127, 0.55);
 }
 
 .admin-sidebar__user-email {
@@ -290,14 +322,16 @@ html, body.admin-body {
 }
 
 .admin-btn--primary {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--gradient-primary);
+  border-color: transparent;
   color: #FFFFFF;
+  box-shadow: 0 4px 12px -4px rgba(23, 184, 127, 0.5);
 }
 
 .admin-btn--primary:hover {
-  background-color: var(--color-primary-hover);
-  border-color: var(--color-primary-hover);
+  background: var(--gradient-primary-hover);
+  border-color: transparent;
+  box-shadow: 0 6px 18px -4px rgba(23, 184, 127, 0.6);
 }
 
 .admin-btn.is-loading .icon {
@@ -319,14 +353,16 @@ html, body.admin-body {
 
 .admin-stat-card {
   background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: var(--admin-radius);
   box-shadow: var(--admin-card-shadow);
   padding: var(--space-6);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .admin-stat-card:hover {
-  box-shadow: var(--admin-card-shadow-hover);
+  box-shadow: var(--shadow-elevated);
+  border-color: rgba(23, 184, 127, 0.3);
   transform: translateY(-2px);
 }
 
@@ -379,18 +415,24 @@ html, body.admin-body {
 }
 
 .admin-stat-card__value {
+  font-family: var(--font-family-mono);
   font-size: 32px;
   font-weight: var(--fw-bold);
   color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .admin-stat-card__value.is-accent {
-  color: var(--color-primary);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ---------- Bo'lim bo'yicha taqsimot (CSS bar chart) ---------- */
 .admin-card {
   background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: var(--admin-radius);
   box-shadow: var(--admin-card-shadow);
   padding: var(--space-6);
@@ -423,7 +465,7 @@ html, body.admin-body {
 .admin-bar-row__fill {
   display: block;
   height: 100%;
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   border-radius: 999px;
 }
 
@@ -458,6 +500,7 @@ html, body.admin-body {
 /* ---------- Jadval ---------- */
 .admin-table-wrap {
   background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: var(--admin-radius);
   box-shadow: var(--admin-card-shadow);
   overflow: auto;
@@ -672,9 +715,10 @@ html, body.admin-body {
   max-width: 360px;
   padding: var(--space-4);
   border-radius: var(--radius-button);
-  background-color: #10241A;
+  background-color: var(--color-ink);
+  border: 1px solid var(--color-ink-border);
   color: #FFFFFF;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   font-size: var(--fs-small);
   animation: admin-toast-in 0.25s ease;
 }
@@ -703,7 +747,7 @@ html, body.admin-body {
 .admin-detail-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(16, 36, 26, 0.45);
+  background-color: rgba(7, 13, 20, 0.55);
   z-index: 400;
   opacity: 0;
   pointer-events: none;
@@ -724,7 +768,7 @@ html, body.admin-body {
   max-width: 100%;
   background-color: var(--color-bg-primary);
   z-index: 401;
-  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.18);
+  box-shadow: -24px 0 60px rgba(6, 11, 20, 0.25);
   transform: translateX(100%);
   transition: transform 0.25s ease;
   display: flex;
