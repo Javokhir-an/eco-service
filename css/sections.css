@@ -5,7 +5,69 @@
 
 /* --- Hero (4.4) --- */
 .hero {
-  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, #EAF3EE 100%);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-ink);
+  background-image:
+    var(--gradient-mesh),
+    linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
+  color: var(--color-text-inverse);
+}
+
+/* Nozik "sxema" panjara naqshi — IT/texnik muhit hissi uchun */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M0 .5H56M.5 0V56' stroke='%23FFFFFF' stroke-opacity='0.06'/%3E%3C/svg%3E");
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__subtitle,
+.hero__perks li {
+  color: var(--color-ink-text-secondary);
+}
+
+.hero__perks li {
+  border-radius: 999px;
+}
+
+.hero__perk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(23, 184, 127, 0.16);
+  color: var(--color-primary-light);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.hero__form {
+  box-shadow: var(--shadow-elevated);
+  border: none;
+  position: relative;
+  color: var(--color-text-primary);
+}
+
+.hero__form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--space-6);
+  right: var(--space-6);
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--gradient-primary);
 }
 
 .hero__inner {
@@ -25,6 +87,7 @@
 
 .hero__title {
   margin-bottom: var(--space-4);
+  color: var(--color-text-inverse);
 }
 
 .hero__subtitle {
@@ -41,7 +104,7 @@
 
 @media (min-width: 576px) {
   .hero__perks {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -67,16 +130,16 @@
 /* --- Xizmatlar grid (4.5) --- */
 .services-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .services-cards { grid-template-columns: repeat(3, 1fr); }
+  .services-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1280px) {
-  .services-cards { grid-template-columns: repeat(4, 1fr); }
+  .services-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .service-card {
@@ -86,8 +149,23 @@
 }
 
 .service-card__icon {
-  font-size: 32px;
-  margin-bottom: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-button);
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, rgba(23, 184, 127, 0.14), rgba(23, 184, 127, 0.04));
+  color: var(--color-primary);
+  font-size: 26px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card--interactive:hover .service-card__icon {
+  transform: scale(1.06);
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
 }
 
 .service-card__list {
@@ -142,7 +220,7 @@
 @media (min-width: 992px) {
   .why-us__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     overflow: visible;
   }
 }
@@ -158,9 +236,13 @@
 
 .why-us__num {
   display: block;
-  font-size: 28px;
+  font-family: var(--font-family-mono);
+  font-size: 30px;
   font-weight: var(--fw-bold);
-  color: var(--color-primary);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: var(--space-2);
 }
 
@@ -178,7 +260,7 @@
 
 @media (min-width: 768px) {
   .process {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     position: relative;
   }
 
@@ -189,7 +271,7 @@
     left: calc(50% + 40px);
     width: calc(100% - 80px);
     height: 2px;
-    background-color: var(--color-border);
+    background: linear-gradient(90deg, rgba(23, 184, 127, 0.5), rgba(23, 184, 127, 0.05));
   }
 }
 
@@ -210,8 +292,10 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
+  color: var(--color-primary);
   position: relative;
   z-index: 1;
+  box-shadow: var(--shadow-glow-primary);
 }
 
 .process__step h3 {
@@ -237,10 +321,15 @@
   white-space: nowrap;
 }
 
+.pricing__tab {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
 .pricing__tab.is-active {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--gradient-primary);
+  border-color: transparent;
   color: var(--color-text-inverse);
+  box-shadow: 0 6px 16px -6px rgba(23, 184, 127, 0.55);
 }
 
 .pricing__panel[hidden] {
@@ -330,13 +419,14 @@
   margin-inline: auto;
   margin-bottom: var(--space-4);
   border-radius: 50%;
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--color-text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: var(--fw-bold);
   font-size: 20px;
+  box-shadow: var(--shadow-glow-primary);
 }
 
 .specialist-card h3 {
@@ -409,6 +499,12 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: var(--space-4) var(--space-6);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq__item:hover {
+  border-color: rgba(23, 184, 127, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .faq__item summary {
@@ -528,9 +624,13 @@
 }
 
 .calculator__price {
+  font-family: var(--font-family-mono);
   font-size: var(--fs-h2-mobile);
   font-weight: var(--fw-bold);
-  color: var(--color-primary);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin: var(--space-2) 0 var(--space-4);
 }
 

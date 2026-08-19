@@ -6,12 +6,12 @@
 /* --- Statistika qatori (Biz haqimizda) --- */
 .stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .stats { grid-template-columns: repeat(4, 1fr); }
+  .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .stats__item {
@@ -32,16 +32,16 @@
 /* --- Grid to'ri (mutaxassislar, jamoa) --- */
 .grid-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .grid-cards { grid-template-columns: repeat(3, 1fr); }
+  .grid-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1280px) {
-  .grid-cards { grid-template-columns: repeat(4, 1fr); }
+  .grid-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* --- Aksiya kartochkasi --- */
@@ -52,11 +52,11 @@
 }
 
 @media (min-width: 768px) {
-  .promo-cards { grid-template-columns: repeat(2, 1fr); }
+  .promo-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1280px) {
-  .promo-cards { grid-template-columns: repeat(3, 1fr); }
+  .promo-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .promo-card {
@@ -82,11 +82,11 @@
 }
 
 @media (min-width: 768px) {
-  .blog-cards { grid-template-columns: repeat(2, 1fr); }
+  .blog-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1280px) {
-  .blog-cards { grid-template-columns: repeat(3, 1fr); }
+  .blog-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .blog-card__meta {

@@ -6,7 +6,7 @@
 /* --- Top-bar (4.1) --- */
 .topbar {
   height: var(--topbar-height);
-  background-color: var(--color-text-primary);
+  background-color: var(--color-ink);
   color: var(--color-text-inverse);
   font-size: var(--fs-small);
   display: none;
@@ -52,14 +52,30 @@
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background-color: var(--color-bg-primary);
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
   height: var(--header-height);
-  transition: height 0.2s ease;
+  transition: height 0.2s ease, box-shadow 0.2s ease;
 }
 
 .site-header.is-scrolled {
   height: var(--header-height-sticky);
+  box-shadow: 0 8px 24px -12px rgba(6, 11, 20, 0.18);
+}
+
+.site-header__logo span[aria-hidden="true"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  font-size: 20px;
+  box-shadow: 0 4px 12px -4px rgba(23, 184, 127, 0.55);
 }
 
 .site-header__inner {
@@ -94,6 +110,7 @@
   border-radius: var(--radius-button);
   font-weight: var(--fw-semibold);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 @media (min-width: 992px) {
@@ -102,12 +119,13 @@
 
 .site-header__search {
   display: none;
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 160px;
   max-width: 420px;
   position: relative;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1600px) {
   .site-header__search { display: block; }
 }
 
@@ -122,7 +140,8 @@
 
 .site-header__nav {
   display: none;
-  gap: var(--space-6);
+  gap: var(--space-4);
+  flex-shrink: 0;
 }
 
 @media (min-width: 1280px) {
@@ -136,7 +155,7 @@
 .site-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex-shrink: 0;
 }
 
@@ -150,12 +169,15 @@
   .site-header__phone { display: block; }
 }
 
-.site-header__cta {
+/* Aniqlik (specificity) uchun .site-header__actions bilan qo'shib yozilgan —
+   .btn ning display:inline-flex qoidasidan ustun turishi kerak (mobil TZ 4.2:
+   pastki panelda "Ariza" allaqachon bor, header CTA faqat 992px+ da ko'rinadi). */
+.site-header__actions .site-header__cta {
   display: none;
 }
 
 @media (min-width: 992px) {
-  .site-header__cta { display: inline-flex; }
+  .site-header__actions .site-header__cta { display: inline-flex; }
 }
 
 .site-header__icon-btn {
@@ -166,7 +188,7 @@
   height: 44px;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1600px) {
   .site-header__icon-btn--search { display: none; }
 }
 
@@ -241,7 +263,7 @@
 @media (min-width: 992px) {
   .megamenu__services {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
   }
 }
@@ -254,7 +276,7 @@
   right: 0;
   z-index: var(--z-header);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   background-color: var(--color-bg-primary);
   border-top: 1px solid var(--color-border);
 }
@@ -274,15 +296,26 @@
 }
 
 .mobile-bar__item--cta {
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--color-text-inverse);
 }
 
 /* --- Footer (4.14) --- */
 .site-footer {
-  background-color: var(--color-text-primary);
+  position: relative;
+  background-color: var(--color-ink);
   color: var(--color-text-inverse);
   padding-block: var(--space-16);
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
 }
 
 .site-footer__grid {
@@ -293,13 +326,13 @@
 
 @media (min-width: 768px) {
   .site-footer__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 992px) {
   .site-footer__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -354,13 +387,18 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--color-text-inverse);
   display: none;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-glow-primary);
+  transition: transform 0.2s ease;
   z-index: var(--z-header);
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
 }
 
 @media (min-width: 992px) {

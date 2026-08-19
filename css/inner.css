@@ -67,7 +67,7 @@
 }
 
 @media (min-width: 768px) {
-  .checklist { grid-template-columns: repeat(2, 1fr); }
+  .checklist { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .checklist__item {

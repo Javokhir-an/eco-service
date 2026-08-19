@@ -71,7 +71,7 @@
 /* --- Shahar tanlash ro'yxati (TZ 6.3) --- */
 .city-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
   margin-top: var(--space-4);
 }
@@ -103,17 +103,20 @@
   font-weight: var(--fw-semibold);
   font-size: var(--fs-body);
   border: 1px solid transparent;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
 
 .btn--primary {
-  background-color: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--color-text-inverse);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.18) inset, 0 6px 16px -6px rgba(23, 184, 127, 0.55);
 }
 
 .btn--primary:hover {
-  background-color: var(--color-primary-hover);
+  background: var(--gradient-primary-hover);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.18) inset, 0 10px 24px -6px rgba(23, 184, 127, 0.6);
+  transform: translateY(-1px);
 }
 
 .btn--secondary {
@@ -124,6 +127,8 @@
 
 .btn--secondary:hover {
   background-color: var(--color-bg-secondary);
+  border-color: var(--color-primary-hover);
+  transform: translateY(-1px);
 }
 
 .btn--text {
@@ -154,7 +159,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: var(--space-6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .card--interactive {
@@ -163,7 +168,17 @@
 
 .card--interactive:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--shadow-elevated);
+  border-color: rgba(23, 184, 127, 0.35);
+}
+
+/* --- Shisha (glass) kartochka — quyuq/"tech" fon ustida ishlatiladi --- */
+.card--glass {
+  background-color: var(--color-glass-fill);
+  border-color: var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--color-text-inverse);
 }
 
 /* --- Forma elementlari --- */
@@ -187,8 +202,14 @@
   background-color: var(--color-bg-primary);
 }
 
+.field__input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 .field__input:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(23, 184, 127, 0.14);
+  outline: none;
 }
 
 .field__error {
@@ -219,8 +240,9 @@
   border-radius: 999px;
   font-size: var(--fs-small);
   font-weight: var(--fw-semibold);
-  background-color: var(--color-accent);
+  background: linear-gradient(135deg, #FF7A00 0%, #FF9736 100%);
   color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px -4px rgba(255, 122, 0, 0.55);
 }
 
 /* --- Modal --- */
@@ -253,6 +275,7 @@
   max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: var(--shadow-elevated);
 }
 
 .modal__close {

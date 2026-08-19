@@ -7,6 +7,7 @@
   /* --- Ranglar (TZ 7.2) --- */
   --color-primary: #1B8A5A;
   --color-primary-hover: #146B45;
+  --color-primary-light: #17B87F;
   --color-accent: #FF7A00;
 
   --color-text-primary: #1A1A1A;
@@ -19,11 +20,29 @@
   --color-border: #E5E7EB;
   --color-error: #DC2626;
 
+  /* --- "Tech" chuqur fon — premium/IT bo'limlar uchun (hero, footer, CTA) --- */
+  --color-ink: #070D14;
+  --color-ink-soft: #0E1A26;
+  --color-ink-border: rgba(255, 255, 255, 0.10);
+  --color-ink-text-secondary: rgba(255, 255, 255, 0.66);
+  --color-glass-fill: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+
+  /* --- Gradientlar --- */
+  --gradient-primary: linear-gradient(135deg, #146B45 0%, #1B8A5A 50%, #17B87F 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #10592F 0%, #146B45 50%, #12965F 100%);
+  --gradient-text: linear-gradient(135deg, #1FD08A 0%, #17B87F 55%, #63E6B4 100%);
+  --gradient-mesh:
+    radial-gradient(circle at 12% 18%, rgba(23, 184, 127, 0.35), transparent 55%),
+    radial-gradient(circle at 88% 12%, rgba(255, 122, 0, 0.16), transparent 50%),
+    radial-gradient(circle at 60% 100%, rgba(23, 184, 127, 0.22), transparent 60%);
+
   /* --- Tipografika (TZ 7.3) --- */
   --font-family-base: 'Inter', 'Manrope', system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-family-mono: 'SFMono-Regular', 'JetBrains Mono', ui-monospace, Consolas, monospace;
 
-  --fs-h1: 48px;
-  --fs-h1-mobile: 32px;
+  --fs-h1: 52px;
+  --fs-h1-mobile: 34px;
   --fs-h2: 36px;
   --fs-h2-mobile: 26px;
   --fs-h3: 24px;
@@ -34,6 +53,9 @@
   --fw-regular: 400;
   --fw-semibold: 600;
   --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --ls-tight: -0.02em;
 
   --lh-body: 1.6;
 
@@ -66,6 +88,8 @@
   /* --- Soyalar --- */
   --shadow-card: 0 4px 16px rgba(26, 26, 26, 0.08);
   --shadow-card-hover: 0 8px 24px rgba(26, 26, 26, 0.12);
+  --shadow-elevated: 0 24px 60px -20px rgba(6, 11, 20, 0.35);
+  --shadow-glow-primary: 0 0 0 1px rgba(23, 184, 127, 0.35), 0 10px 32px -8px rgba(23, 184, 127, 0.45);
 
   /* --- Header --- */
   --header-height: 88px;
