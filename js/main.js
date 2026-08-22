@@ -7,6 +7,28 @@
 (function () {
   'use strict';
 
+  /* ---------- Analitika: GA4 maqsadlarni yuborish (TZ 11.2) ---------- */
+  function trackEvent(name, params) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params || {});
+    }
+  }
+
+  /* Telefon va Telegram/WhatsApp tugmalariga bosishni kuzatish (butun sayt bo'ylab, delegatsiya orqali) */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (href.indexOf('tel:') === 0) {
+      trackEvent('phone_click', { link_url: href });
+    } else if (href.indexOf('t.me/') !== -1 || href.indexOf('wa.me/') !== -1) {
+      trackEvent('contact_click', { method: href.indexOf('t.me/') !== -1 ? 'telegram' : 'whatsapp' });
+    }
+  });
+
+  /* Sahifada 60 soniyadan ortiq turish (bir marta) */
+  setTimeout(function () { trackEvent('engaged_60s'); }, 60000);
+
   /* ---------- Sticky header ---------- */
   var header = document.getElementById('site-header');
   if (header) {
@@ -229,6 +251,7 @@
       }
 
       submitFormToFirestore(form);
+      trackEvent('generate_lead', { form_id: form.id || form.getAttribute('data-source') || 'boshqa' });
 
       setTimeout(function () {
         alert("Rahmat! Menejer 3 daqiqa ichida bog'lanadi.");
@@ -542,6 +565,7 @@
 
     calcPrice.textContent = formatSum(minPrice) + ' – ' + formatSum(maxPrice);
     calcResult.hidden = false;
+    trackEvent('calculator_used', { service: item.label });
   });
 
   calcOrderBtn && calcOrderBtn.addEventListener('click', function () {
