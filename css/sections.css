@@ -118,7 +118,7 @@
   box-shadow: var(--shadow-card);
 }
 
-.hero__form h3 {
+.hero__form h2 {
   margin-bottom: var(--space-4);
 }
 

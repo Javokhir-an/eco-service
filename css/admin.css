@@ -409,12 +409,14 @@ html, body.admin-body {
 .admin-stat-card__icon--violet { background-color: #EDE9FE; color: var(--admin-accent-violet); }
 
 .admin-stat-card__label {
+  display: block;
   font-size: var(--fs-small);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-2);
 }
 
 .admin-stat-card__value {
+  display: block;
   font-family: var(--font-family-mono);
   font-size: 32px;
   font-weight: var(--fw-bold);

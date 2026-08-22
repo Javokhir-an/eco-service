@@ -197,7 +197,7 @@
         </div>
 
         <form class="hero__form card" id="hero-order-form" novalidate aria-label="Qo'ng'iroqni buyurtma qilish">
-          <h3>Qo'ng'iroqni buyurtma qilish</h3>
+          <h2 class="h3">Qo'ng'iroqni buyurtma qilish</h2>
           <div class="field">
             <label class="field__label" for="hero-name">Ism</label>
             <input class="field__input" type="text" id="hero-name" name="name" required>
@@ -394,15 +394,15 @@
         </div>
 
         <div class="pricing__tabs" role="tablist" aria-label="Narx kategoriyalari">
-          <button class="pricing__tab is-active" type="button" role="tab" aria-selected="true" data-pricing-tab="kompyuter">Kompyuter va noutbuk</button>
-          <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-pricing-tab="tarmoq">Tarmoq</button>
-          <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-pricing-tab="dasturiy">Dasturiy ta'minot</button>
-          <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-pricing-tab="malumot">Ma'lumot tiklash</button>
-          <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-pricing-tab="printer">Printer</button>
-          <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-pricing-tab="b2b">B2B</button>
+          <button class="pricing__tab is-active" type="button" role="tab" aria-selected="true" id="pricing-tab-kompyuter" aria-controls="pricing-panel-kompyuter" data-pricing-tab="kompyuter">Kompyuter va noutbuk</button>
+          <button class="pricing__tab" type="button" role="tab" aria-selected="false" id="pricing-tab-tarmoq" aria-controls="pricing-panel-tarmoq" data-pricing-tab="tarmoq">Tarmoq</button>
+          <button class="pricing__tab" type="button" role="tab" aria-selected="false" id="pricing-tab-dasturiy" aria-controls="pricing-panel-dasturiy" data-pricing-tab="dasturiy">Dasturiy ta'minot</button>
+          <button class="pricing__tab" type="button" role="tab" aria-selected="false" id="pricing-tab-malumot" aria-controls="pricing-panel-malumot" data-pricing-tab="malumot">Ma'lumot tiklash</button>
+          <button class="pricing__tab" type="button" role="tab" aria-selected="false" id="pricing-tab-printer" aria-controls="pricing-panel-printer" data-pricing-tab="printer">Printer</button>
+          <button class="pricing__tab" type="button" role="tab" aria-selected="false" id="pricing-tab-b2b" aria-controls="pricing-panel-b2b" data-pricing-tab="b2b">B2B</button>
         </div>
 
-        <div class="pricing__panel is-active" data-pricing-panel="kompyuter">
+        <div class="pricing__panel is-active" role="tabpanel" id="pricing-panel-kompyuter" aria-labelledby="pricing-tab-kompyuter" tabindex="0" data-pricing-panel="kompyuter">
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -414,7 +414,7 @@
           </table>
         </div>
 
-        <div class="pricing__panel" data-pricing-panel="tarmoq" hidden>
+        <div class="pricing__panel" role="tabpanel" id="pricing-panel-tarmoq" aria-labelledby="pricing-tab-tarmoq" tabindex="0" data-pricing-panel="tarmoq" hidden>
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -425,7 +425,7 @@
           </table>
         </div>
 
-        <div class="pricing__panel" data-pricing-panel="dasturiy" hidden>
+        <div class="pricing__panel" role="tabpanel" id="pricing-panel-dasturiy" aria-labelledby="pricing-tab-dasturiy" tabindex="0" data-pricing-panel="dasturiy" hidden>
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -436,7 +436,7 @@
           </table>
         </div>
 
-        <div class="pricing__panel" data-pricing-panel="malumot" hidden>
+        <div class="pricing__panel" role="tabpanel" id="pricing-panel-malumot" aria-labelledby="pricing-tab-malumot" tabindex="0" data-pricing-panel="malumot" hidden>
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -447,7 +447,7 @@
           </table>
         </div>
 
-        <div class="pricing__panel" data-pricing-panel="printer" hidden>
+        <div class="pricing__panel" role="tabpanel" id="pricing-panel-printer" aria-labelledby="pricing-tab-printer" tabindex="0" data-pricing-panel="printer" hidden>
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -458,7 +458,7 @@
           </table>
         </div>
 
-        <div class="pricing__panel" data-pricing-panel="b2b" hidden>
+        <div class="pricing__panel" role="tabpanel" id="pricing-panel-b2b" aria-labelledby="pricing-tab-b2b" tabindex="0" data-pricing-panel="b2b" hidden>
           <table class="pricing__table">
             <thead><tr><th>Xizmat</th><th>Narx</th><th>Muddat</th><th></th></tr></thead>
             <tbody>
@@ -795,7 +795,7 @@
     <div class="modal__backdrop" data-modal-close></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
       <button class="modal__close" type="button" data-modal-close aria-label="Yopish"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-close"></use></svg></button>
-      <h3 id="modal-order-title">Ariza qoldirish</h3>
+      <h2 class="h3" id="modal-order-title">Ariza qoldirish</h2>
       <p class="text-secondary" style="margin-top: 8px; margin-bottom: 24px;">Menejer 3 daqiqa ichida bog'lanadi</p>
 
       <form id="order-form" novalidate>
@@ -838,7 +838,7 @@
     <div class="modal__backdrop" data-modal-close></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-city-title">
       <button class="modal__close" type="button" data-modal-close aria-label="Yopish"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-close"></use></svg></button>
-      <h3 id="modal-city-title">Shaharni tanlang</h3>
+      <h2 class="h3" id="modal-city-title">Shaharni tanlang</h2>
       <div class="city-list">
         <button type="button" class="city-list__item" data-city="Toshkent">Toshkent</button>
         <button type="button" class="city-list__item" data-city="Samarqand">Samarqand</button>

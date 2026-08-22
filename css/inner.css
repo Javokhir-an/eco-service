@@ -144,3 +144,7 @@
 .inline-form {
   max-width: 480px;
 }
+
+.inline-form h2 {
+  margin-bottom: var(--space-4);
+}
