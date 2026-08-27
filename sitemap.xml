@@ -2,85 +2,199 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ecoservice.uz/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/kategoriya-kompyuter.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/xizmatlar/dasturiy/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/xizmat-noutbuk-tamirlash.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/xizmatlar/kompyuter-va-noutbuk-tamirlash/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/narxlar.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/xizmatlar/malumotlarni-tiklash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/printer/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/tarmoq/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/dasturiy/dastur-ornatish/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/dasturiy/virus-tozalash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/dasturiy/windows-ornatish/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/kompyuter/kompyuter-yigish/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/kompyuter/monobloq-tamirlash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/kompyuter/noutbuk-tamirlash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/malumot/flash-tiklash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/malumot/hdd-tiklash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/malumot/zaxira-nusxalash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/printer/kartrij-toldirish/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/printer/mfu-xizmat/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/printer/printer-tamirlash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/tarmoq/server-ornatish/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/tarmoq/video-kuzatuv/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/xizmatlar/tarmoq/wifi-sozlash/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/narxlar/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/mutaxassislar.html</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ecoservice.uz/pages/sharhlar.html</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ecoservice.uz/pages/aksiyalar.html</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ecoservice.uz/pages/biz-haqimizda.html</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://ecoservice.uz/pages/b2b.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/b2b/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/blog.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/aksiyalar/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/aloqa.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/aloqa/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/sitemap.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/mutaxassislar/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/sharhlar/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/biz-haqimizda/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/blog/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/blog/noutbuk-nega-qiziydi/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://ecoservice.uz/sitemap/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/oferta.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/maxfiylik/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://ecoservice.uz/pages/maxfiylik.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://ecoservice.uz/oferta/</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
