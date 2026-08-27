@@ -18,7 +18,7 @@
 }
 
 .breadcrumbs a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .breadcrumbs__sep {
@@ -49,7 +49,7 @@
   display: inline-block;
   font-size: var(--fs-h3-mobile);
   font-weight: var(--fw-bold);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   margin-block: var(--space-4);
 }
 
@@ -137,7 +137,7 @@
 
 .related-services a:hover {
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 /* --- Sahifa ichidagi ariza formasi (inline, modalsiz) --- */

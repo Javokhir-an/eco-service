@@ -92,7 +92,7 @@
   gap: var(--space-2);
   font-size: 22px;
   font-weight: var(--fw-bold);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   flex-shrink: 0;
 }
 
@@ -149,7 +149,7 @@
 }
 
 .site-header__nav a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .site-header__actions {
@@ -252,7 +252,7 @@
 .megamenu__category:hover,
 .megamenu__category.is-active {
   background-color: var(--color-bg-secondary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .megamenu__services {

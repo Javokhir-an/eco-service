@@ -8,6 +8,11 @@
   --color-primary: #1B8A5A;
   --color-primary-hover: #146B45;
   --color-primary-light: #17B87F;
+  /* Oq/och fonda matn sifatida ishlatiladi (havolalar, hover holatlar) —
+     --color-primary o'zi oq fonda 4.35:1 beradi, WCAG AA (4.5:1) uchun
+     yetarli emas. Fon/tugma/logotip rangi o'zgarmaydi, faqat matn shu
+     birozroq to'qroq soyada (6.5:1) chiqadi. */
+  --color-primary-text: #146B45;
   --color-accent: #FF7A00;
 
   --color-text-primary: #1A1A1A;

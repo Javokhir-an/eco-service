@@ -157,7 +157,7 @@
   border-radius: var(--radius-button);
   margin-bottom: var(--space-4);
   background: linear-gradient(135deg, rgba(23, 184, 127, 0.14), rgba(23, 184, 127, 0.04));
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-size: 26px;
   transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -191,7 +191,7 @@
 }
 
 .service-card__list a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 /* --- Nega aynan biz (4.6) --- */
@@ -292,7 +292,7 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   position: relative;
   z-index: 1;
   box-shadow: var(--shadow-glow-primary);
@@ -524,7 +524,7 @@
 .faq__item summary::after {
   content: '+';
   font-size: 22px;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
@@ -571,7 +571,7 @@
 }
 
 .contacts__row dd a {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: var(--fw-semibold);
 }
 

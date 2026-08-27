@@ -54,7 +54,7 @@
 .search-results a:hover,
 .search-results a.is-active {
   background-color: var(--color-bg-secondary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .search-results__empty {
@@ -64,7 +64,7 @@
 }
 
 .search-results__empty a {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: var(--fw-semibold);
 }
 
@@ -87,7 +87,7 @@
 .city-list__item:hover,
 .city-list__item.is-active {
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   background-color: var(--color-bg-secondary);
 }
 
@@ -122,7 +122,7 @@
 .btn--secondary {
   background-color: transparent;
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .btn--secondary:hover {
@@ -132,7 +132,7 @@
 }
 
 .btn--text {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   min-height: auto;
   padding: 0;
   font-weight: var(--fw-semibold);
