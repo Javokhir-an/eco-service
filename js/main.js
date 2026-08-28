@@ -221,6 +221,29 @@
     });
   });
 
+  /* ---------- Spam himoyasi: bir qurilmadan 1 daqiqada 3 tadan ortiq yuborishni cheklash (TZ 6.1) ---------- */
+  function isFormRateLimited() {
+    var STORAGE_KEY = 'ecoFormSubmitTimes';
+    var WINDOW_MS = 60 * 1000;
+    var MAX_SUBMITS = 3;
+    var now = Date.now();
+    var times = [];
+    try {
+      times = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (e) {
+      times = [];
+    }
+    times = times.filter(function (t) { return now - t < WINDOW_MS; });
+    var limited = times.length >= MAX_SUBMITS;
+    if (!limited) times.push(now);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(times));
+    } catch (e) {
+      /* localStorage yo'q yoki to'la — cheklovsiz davom etamiz */
+    }
+    return limited;
+  }
+
   /* ---------- Forma validatsiyasi (frontend, skeleton bosqichi) ---------- */
   document.querySelectorAll('form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
@@ -243,6 +266,12 @@
       });
 
       if (!valid) return;
+
+      // Bir qurilmadan 1 daqiqada 3 tadan ortiq yuborishni cheklash (TZ 6.1)
+      if (isFormRateLimited()) {
+        alert("Juda ko'p urinish. Iltimos, 1 daqiqadan so'ng qayta urinib ko'ring.");
+        return;
+      }
 
       var submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
