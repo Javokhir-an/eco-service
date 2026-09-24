@@ -222,6 +222,11 @@
   border-color: var(--color-error);
 }
 
+.field--invalid .field__checkbox-row input[type="checkbox"] {
+  outline: 2px solid var(--color-error);
+  outline-offset: 2px;
+}
+
 .field--invalid .field__error {
   display: block;
 }

@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/.*/**",
+      "**/node_modules/**",
+      "scripts/**",
+      "*.md",
+      "start_ecoservice.cmd",
+      "firestore.rules"
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}
