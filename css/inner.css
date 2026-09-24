@@ -30,6 +30,74 @@
   font-weight: var(--fw-semibold);
 }
 
+/* --- Premium "tech" sarlavha bloki (xizmat va kategoriya sahifalari) ---
+   Bosh sahifadagi hero fonini ichki sahifalarga ham olib boradi ("IT
+   infratuzilma" dizayn yo'nalishi davomi) — JS animatsiyasiz, statik
+   holda (30+ sahifada performance uchun). :has() orqali struktura bo'yicha
+   avtomatik aniqlanadi, HTML fayllariga qo'l tekkizilmaydi. Safari <15.4
+   :has()ni tushunmasa, sahifa oddiy (avvalgi) ko'rinishda qoladi —
+   progressive enhancement, sinish yo'q. */
+.section:has(> .container > .service-hero),
+.section:has(> .container > h1 + .seo-text) {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-ink);
+  background-image:
+    var(--gradient-mesh),
+    linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
+  color: var(--color-text-inverse);
+}
+
+.section:has(> .container > .service-hero)::before,
+.section:has(> .container > h1 + .seo-text)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M0 .5H56M.5 0V56' stroke='%23FFFFFF' stroke-opacity='0.06'/%3E%3C/svg%3E");
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  pointer-events: none;
+}
+
+.section:has(> .container > .service-hero) > .container,
+.section:has(> .container > h1 + .seo-text) > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section:has(> .container > .service-hero) h1,
+.section:has(> .container > h1 + .seo-text) h1 {
+  color: var(--color-text-inverse);
+}
+
+.section:has(> .container > .service-hero) .service-hero p.text-secondary {
+  color: var(--color-ink-text-secondary);
+}
+
+.section:has(> .container > .service-hero) .service-hero__price {
+  color: var(--color-primary-light);
+}
+
+.section:has(> .container > .service-hero) .service-hero__actions .btn--secondary {
+  border-color: var(--color-glass-border);
+  color: var(--color-primary-light);
+}
+
+.section:has(> .container > .service-hero) .service-hero__actions .btn--secondary:hover {
+  background-color: var(--color-glass-fill);
+  border-color: var(--color-primary-light);
+}
+
+.section:has(> .container > h1 + .seo-text) .seo-text {
+  color: var(--color-ink-text-secondary);
+}
+
+.section:has(> .container > .service-hero) .service-hero .inline-form {
+  box-shadow: var(--shadow-elevated);
+  border: none;
+}
+
 /* --- Xizmat sahifasi: sarlavha bloki --- */
 .service-hero {
   display: grid;
