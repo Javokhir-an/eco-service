@@ -1,5 +1,5 @@
 """
-Eco Service — har oyning 1-kuni ertalab (Toshkent vaqti) o'tgan oyning
+ITexnika — har oyning 1-kuni ertalab (Toshkent vaqti) o'tgan oyning
 arizalar bo'yicha PDF hisobotini, o'tgan oyga nisbatan o'sish/pasayish
 tendensiyasi bilan birga, Telegram'ga yuboradi.
 

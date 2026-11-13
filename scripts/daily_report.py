@@ -1,5 +1,5 @@
 """
-Eco Service — har kuni ertalab (Toshkent vaqti bilan) o'tgan kunning
+ITexnika — har kuni ertalab (Toshkent vaqti bilan) o'tgan kunning
 arizalar bo'yicha rasmiy PDF hisobotini Telegram'ga yuboradi.
 
 Hisobotda, oddiy statistikadan tashqari, "Muammolar" bo'limi bor —

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Eco Service — Admin login logikasi
+   ITexnika — Admin login logikasi
    Faqat pages/admin-login.html sahifasida ishlatiladi.
    ========================================================================== */
 

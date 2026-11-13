@@ -1,5 +1,5 @@
 """
-Eco Service — yangi arizalarni Firestore'dan o'qib, Telegram guruhining
+ITexnika — yangi arizalarni Firestore'dan o'qib, Telegram guruhining
 tegishli mavzusiga (topic) yuboradi.
 
 GitHub Actions orqali har necha daqiqada ishga tushiriladi (bepul, kartasiz).

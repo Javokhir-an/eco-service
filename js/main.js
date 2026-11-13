@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Eco Service — asosiy JS
+   ITexnika — asosiy JS
    Skeleton bosqichi: sticky header, mega-menu, mobil menyu, modal,
    telefon maskasi, forma validatsiyasi, "yuqoriga qaytish"
    ========================================================================== */
@@ -357,7 +357,7 @@
       }
 
       if (data.email) {
-        document.querySelectorAll('a[href="mailto:info@ecoservice.uz"]').forEach(function (a) {
+        document.querySelectorAll('a[href="mailto:info@itexnika.uz"]').forEach(function (a) {
           a.setAttribute('href', 'mailto:' + data.email);
           a.textContent = data.email;
         });
@@ -514,7 +514,7 @@
     var iframe = document.createElement('iframe');
     iframe.src = 'https://yandex.uz/map-widget/v1/?ll=69.240562%2C41.311081&z=12';
     iframe.loading = 'lazy';
-    iframe.title = "Eco Service manzili xaritada";
+    iframe.title = "ITexnika manzili xaritada";
     mapContainer.innerHTML = '';
     mapContainer.appendChild(iframe);
   });
@@ -683,14 +683,14 @@
 
   var cityBtn = document.getElementById('topbar-city-name');
   if (cityBtn) {
-    var savedCity = localStorage.getItem('eco-service-city');
+    var savedCity = localStorage.getItem('itexnika-city');
     if (savedCity) applyCity(savedCity);
   }
 
   document.querySelectorAll('.city-list__item').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var city = btn.getAttribute('data-city');
-      localStorage.setItem('eco-service-city', city);
+      localStorage.setItem('itexnika-city', city);
       applyCity(city);
       closeAllModals();
     });

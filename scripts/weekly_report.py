@@ -1,5 +1,5 @@
 """
-Eco Service — har dushanba ertalab (Toshkent vaqti) o'tgan haftaning
+ITexnika — har dushanba ertalab (Toshkent vaqti) o'tgan haftaning
 arizalar bo'yicha PDF hisobotini, o'tgan haftaga nisbatan o'sish/pasayish
 tendensiyasi bilan birga, Telegram'ga yuboradi.
 

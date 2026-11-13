@@ -55,7 +55,7 @@ def build_report_pdf(title, subtitle, total, by_status, by_source, problems, pat
     pdf.add_page()
 
     pdf.set_font("DejaVu", "B", 18)
-    pdf.cell(0, 12, "ECO SERVICE", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 12, "ITEXNIKA", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("DejaVu", "", 12)
     pdf.set_text_color(90, 90, 90)
     pdf.cell(0, 8, f"{title} — {subtitle}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)

@@ -1,5 +1,5 @@
 """
-Eco Service — yangi (kutilmoqda) mijoz sharhlarini Firestore'dan o'qib,
+ITexnika — yangi (kutilmoqda) mijoz sharhlarini Firestore'dan o'qib,
 Telegram guruhiga yuboradi. Administrator to'g'ridan-to'g'ri guruhdagi
 tugmani bosib sharhni tasdiqlashi yoki rad etishi mumkin (telegram_callbacks.py
 "rv:" prefiksli tugmalarni qayta ishlaydi).

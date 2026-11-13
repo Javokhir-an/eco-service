@@ -1,5 +1,5 @@
 """
-Eco Service — har kuni kechasi (Toshkent vaqti bilan) barcha Firestore
+ITexnika — har kuni kechasi (Toshkent vaqti bilan) barcha Firestore
 ma'lumotlarini (arizalar, sharhlar, narxlar, mutaxassislar, aksiyalar,
 blog, sozlamalar) bitta JSON faylga yig'ib, Telegram guruhiga fayl
 sifatida yuboradi.
@@ -97,7 +97,7 @@ def main():
         backup["collections"][name] = entries
         total_docs += len(docs)
 
-    backup_path = os.path.join(tempfile.gettempdir(), f"eco-service-backup-{today_str}.json")
+    backup_path = os.path.join(tempfile.gettempdir(), f"itexnika-backup-{today_str}.json")
     with open(backup_path, "w", encoding="utf-8") as f:
         json.dump(backup, f, ensure_ascii=False, indent=2)
 

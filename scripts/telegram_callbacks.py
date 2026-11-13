@@ -1,5 +1,5 @@
 """
-Eco Service — Telegram xabaridagi "Bog'landim" / "Bajarildi" tugmalari
+ITexnika — Telegram xabaridagi "Bog'landim" / "Bajarildi" tugmalari
 bosilganini tekshirib:
   1. Tegishli arizaning holatini Firestore'da yangilaydi (admin panelga
      ham bevosita ta'sir qiladi);

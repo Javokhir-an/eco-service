@@ -1,5 +1,5 @@
 """
-Eco Service — "Yangi" holatida uzoq vaqt turib qolgan (hali bog'lanilmagan)
+ITexnika — "Yangi" holatida uzoq vaqt turib qolgan (hali bog'lanilmagan)
 arizalar uchun Telegram'ga eslatma yuboradi.
 
 GitHub Actions orqali notify_telegram.py bilan bir vaqtda ishga tushiriladi.

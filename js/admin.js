@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Eco Service — Admin dashboard logikasi
+   ITexnika — Admin dashboard logikasi
    Faqat pages/admin-dashboard.html sahifasida ishlatiladi.
    ========================================================================== */
 
@@ -648,7 +648,7 @@
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'eco-service-arizalar-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.download = 'itexnika-arizalar-' + new Date().toISOString().slice(0, 10) + '.csv';
     document.body.appendChild(a);
     a.click();
     a.remove();
