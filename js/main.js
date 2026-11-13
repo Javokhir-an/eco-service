@@ -369,7 +369,7 @@
       }
 
       if (data.telegram) {
-        document.querySelectorAll('a[href="https://t.me/ecoservice"]').forEach(function (a) {
+        document.querySelectorAll('a[href="https://t.me/itexnikauz"]').forEach(function (a) {
           a.setAttribute('href', data.telegram);
         });
       }
