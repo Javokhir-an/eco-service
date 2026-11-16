@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "audit | fix | rules"
+        description: "audit | fix | rules | test"
         required: true
         default: audit
   push:
