@@ -41,6 +41,11 @@ def main():
         os.makedirs(DST, exist_ok=True)
         git("init", "-b", "main", cwd=DST)
         git("remote", "add", "origin", REMOTE, cwd=DST)
+    else:
+        # GitHub sozlamalari (masalan, domenni qayta saqlash) repo'ga o'zi commit qo'shadi —
+        # push rad etilmasligi uchun HEAD'ni masofadagi holatga suramiz (fayllar quyida baribir yangilanadi).
+        git("fetch", "-q", "origin", cwd=DST)
+        git("reset", "-q", "--mixed", "origin/main", cwd=DST)
 
     # eski fayllarni tozalash
     for root, dirs, names in os.walk(DST, topdown=True):
