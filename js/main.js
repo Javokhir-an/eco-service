@@ -348,7 +348,7 @@
       if (data.phone) {
         var digits = data.phone.replace(/\D/g, '');
         var telHref = 'tel:+' + digits;
-        document.querySelectorAll('a[href="tel:+998901234567"]').forEach(function (a) {
+        document.querySelectorAll('a[href="tel:+998200048886"]').forEach(function (a) {
           a.setAttribute('href', telHref);
           if (/^\+?\d/.test(a.textContent.trim())) {
             a.textContent = data.phone;
@@ -801,7 +801,7 @@
     function render(items) {
       activeIndex = -1;
       if (!items.length) {
-        results.innerHTML = '<div class="search-results__empty">Topilmadi — <a href="tel:+998901234567">bizga qo\'ng\'iroq qiling</a></div>';
+        results.innerHTML = '<div class="search-results__empty">Topilmadi — <a href="tel:+998200048886">bizga qo\'ng\'iroq qiling</a></div>';
       } else {
         results.innerHTML = items.map(function (item) {
           var href = item.href === '#' ? '#' : pagesPrefix + item.href;
