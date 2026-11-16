@@ -50,29 +50,17 @@
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "ko'chasi, 1-uy",
       "addressLocality": "Toshkent",
       "addressCountry": "UZ"
     },
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         "opens": "09:00",
-        "closes": "20:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Saturday", "Sunday"],
-        "opens": "10:00",
-        "closes": "18:00"
+        "closes": "21:00"
       }
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "312"
-    }
+    ]
   }
   </script>
   <script type="application/ld+json">
@@ -80,12 +68,7 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ITexnika",
-    "url": "https://itexnika.uz/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://itexnika.uz/qidiruv?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "url": "https://itexnika.uz/"
   }
   </script>
 </head>
@@ -102,7 +85,7 @@
       </button>
       <div class="topbar__promo">Diagnostika bepul</div>
       <div class="topbar__right">
-        <span id="topbar-hours">Dush–Yak: 09:00–21:00</span>
+        <span id="topbar-hours">Har kuni: 09:00–21:00</span>
         <div class="topbar__social">
           <a href="#" aria-label="Telegram"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-telegram"></use></svg></a>
           <a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-instagram"></use></svg></a>
@@ -131,9 +114,7 @@
 
       <nav class="site-header__nav" aria-label="Asosiy menyu">
         <a href="pages/narxlar.html">Narxlar</a>
-        <a href="pages/mutaxassislar.html">Mutaxassislar</a>
         <a href="pages/sharhlar.html">Sharhlar</a>
-        <a href="pages/aksiyalar.html">Aksiyalar</a>
         <a href="pages/aloqa.html">Aloqa</a>
       </nav>
 
@@ -189,14 +170,12 @@
       <div class="container hero__inner">
         <div class="hero__content">
           <h1 class="hero__title"><span id="hero-city">Toshkentdagi</span> tekshirilgan IT mutaxassislar xizmati</h1>
-          <p class="hero__subtitle">100+ xizmat — bir klikda</p>
+          <p class="hero__subtitle">Kompyuter, printer va tarmoq — hammasi bir joyda</p>
           <ul class="hero__perks">
-            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> 50 000+ bajarilgan buyurtma</li>
-            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Bir joyda 100+ xizmat</li>
+            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Bepul diagnostika</li>
             <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Faqat tekshirilgan ustalar</li>
             <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Xizmatga 12 oygacha kafolat</li>
-            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Sifat nazorati bo'limi</li>
-            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> O'rtacha baho 4.9 ★</li>
+            <li><span class="hero__perk-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons/sprite.svg#icon-check"></use></svg></span> Uyga yoki ofisga chiqib xizmat</li>
           </ul>
         </div>
 
@@ -318,12 +297,12 @@
         <div class="why-us__grid">
           <div class="why-us__item">
             <span class="why-us__num">01</span>
-            <h3>500+ buyurtma / oyiga</h3>
-            <p class="text-secondary">Har oy shaharning turli hududlaridan yuzlab mijozlar bizga murojaat qiladi.</p>
+            <h3>Bepul diagnostika</h3>
+            <p class="text-secondary">Usta avval muammoni aniqlaydi va narxni ish boshlanishidan oldin aytadi.</p>
           </div>
           <div class="why-us__item">
             <span class="why-us__num">02</span>
-            <h3>100+ xizmat turi</h3>
+            <h3>Hammasi bir joyda</h3>
             <p class="text-secondary">Kompyuterdan tortib korporativ tarmoqqacha — barchasi bir joyda.</p>
           </div>
           <div class="why-us__item">
@@ -333,8 +312,8 @@
           </div>
           <div class="why-us__item">
             <span class="why-us__num">04</span>
-            <h3>24/7 sifat nazorati</h3>
-            <p class="text-secondary">Har bir buyurtma alohida nazorat bo'limi tomonidan tekshiriladi.</p>
+            <h3>Uyga yoki ofisga chiqamiz</h3>
+            <p class="text-secondary">Toshkent bo'ylab usta o'zi kelib, ishni joyida bajaradi.</p>
           </div>
           <div class="why-us__item">
             <span class="why-us__num">05</span>
@@ -483,99 +462,6 @@
       </div>
     </section>
 
-    <!-- ============ BLOK 9: Mutaxassislar (TZ 4.9) ============ -->
-    <section class="section section--alt" id="specialists" aria-label="Mutaxassislar">
-      <div class="container">
-        <div class="section__head">
-          <h2>Mutaxassislar</h2>
-          <p class="text-secondary">Har biri malaka sinovidan o'tgan va tekshirilgan</p>
-        </div>
-        <div class="slider" id="specialists-slider">
-          <a href="pages/mutaxassislar.html" class="card specialist-card">
-            <div class="specialist-card__avatar" aria-hidden="true">AK</div>
-            <h3>Akmal Karimov</h3>
-            <p class="text-secondary">Kompyuter va noutbuk ustasi</p>
-            <p class="text-small">Tajriba: 7 yil</p>
-            <p class="specialist-card__rating">★★★★★ <span class="text-secondary text-small">4.9 (312 baho)</span></p>
-          </a>
-          <a href="pages/mutaxassislar.html" class="card specialist-card">
-            <div class="specialist-card__avatar" aria-hidden="true">DR</div>
-            <h3>Dilnoza Rashidova</h3>
-            <p class="text-secondary">Tarmoq va server muhandisi</p>
-            <p class="text-small">Tajriba: 5 yil</p>
-            <p class="specialist-card__rating">★★★★★ <span class="text-secondary text-small">4.8 (198 baho)</span></p>
-          </a>
-          <a href="pages/mutaxassislar.html" class="card specialist-card">
-            <div class="specialist-card__avatar" aria-hidden="true">SB</div>
-            <h3>Sardor Boboyev</h3>
-            <p class="text-secondary">Dasturiy ta'minot mutaxassisi</p>
-            <p class="text-small">Tajriba: 4 yil</p>
-            <p class="specialist-card__rating">★★★★★ <span class="text-secondary text-small">4.9 (256 baho)</span></p>
-          </a>
-          <a href="pages/mutaxassislar.html" class="card specialist-card">
-            <div class="specialist-card__avatar" aria-hidden="true">NY</div>
-            <h3>Nodira Yusupova</h3>
-            <p class="text-secondary">Ma'lumot tiklash mutaxassisi</p>
-            <p class="text-small">Tajriba: 6 yil</p>
-            <p class="specialist-card__rating">★★★★★ <span class="text-secondary text-small">5.0 (147 baho)</span></p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ BLOK 10: Sharhlar (TZ 4.10) ============ -->
-    <section class="section" id="reviews" aria-label="Mijozlar sharhlari">
-      <div class="container">
-        <div class="section__head">
-          <h2>Mijozlar sharhlari</h2>
-        </div>
-        <div class="slider">
-          <div class="card review-card">
-            <span class="badge badge--source">Google</span>
-            <div class="review-card__head">
-              <div class="review-card__avatar" aria-hidden="true">B</div>
-              <div>
-                <div class="review-card__name">Bahodir T.</div>
-                <div class="text-small text-secondary">12.07.2026</div>
-              </div>
-            </div>
-            <p class="review-card__rating">★★★★★</p>
-            <p class="review-card__text">Noutbukim ekranini tez va sifatli almashtirishdi. Usta belgilangan vaqtda keldi, narx oldindan aytilgandek qoldi.</p>
-            <a href="pages/sharhlar.html" class="btn btn--text">To'liq o'qish</a>
-          </div>
-          <div class="card review-card">
-            <span class="badge badge--source">Telegram</span>
-            <div class="review-card__head">
-              <div class="review-card__avatar" aria-hidden="true">M</div>
-              <div>
-                <div class="review-card__name">Malika S.</div>
-                <div class="text-small text-secondary">03.07.2026</div>
-              </div>
-            </div>
-            <p class="review-card__rating">★★★★★</p>
-            <p class="review-card__text">Ofisimiz uchun tarmoqni to'liq sozlab berishdi, hozir internet tezligidan shikoyat yo'q. Tavsiya qilaman.</p>
-            <a href="pages/sharhlar.html" class="btn btn--text">To'liq o'qish</a>
-          </div>
-          <div class="card review-card">
-            <span class="badge badge--source">Sayt</span>
-            <div class="review-card__head">
-              <div class="review-card__avatar" aria-hidden="true">J</div>
-              <div>
-                <div class="review-card__name">Jasur Q.</div>
-                <div class="text-small text-secondary">28.06.2026</div>
-              </div>
-            </div>
-            <p class="review-card__rating">★★★★☆</p>
-            <p class="review-card__text">Diskim buzilib, muhim fayllarimni yo'qotgan edim — 90% ma'lumotni tiklab berishdi. Rahmat!</p>
-            <a href="pages/sharhlar.html" class="btn btn--text">To'liq o'qish</a>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 32px;">
-          <a href="pages/sharhlar.html" class="btn btn--secondary">Barcha sharhlar</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ BLOK 11: Narx kalkulyatori (TZ 4.11) ============ -->
     <section class="section" id="calculator" aria-label="Narx kalkulyatori">
       <div class="container">
@@ -706,19 +592,15 @@
           <dl class="contacts__list">
             <div class="contacts__row">
               <dt>Manzil</dt>
-              <dd>Toshkent sh., Chilonzor tumani, ko'chasi, 1-uy</dd>
+              <dd>Toshkent shahri</dd>
             </div>
             <div class="contacts__row">
               <dt>Telefon</dt>
               <dd><a href="tel:+998200048886">+998 20 004-88-86</a></dd>
             </div>
             <div class="contacts__row">
-              <dt>Ish kunlari</dt>
-              <dd>Dushanba–Juma: 09:00–20:00</dd>
-            </div>
-            <div class="contacts__row">
-              <dt>Dam olish kunlari</dt>
-              <dd>Shanba–Yakshanba: 10:00–18:00</dd>
+              <dt>Ish vaqti</dt>
+              <dd>Har kuni: 09:00–21:00</dd>
             </div>
           </dl>
           <a href="tel:+998200048886" class="btn btn--primary">Qo'ng'iroq qiling</a>
@@ -752,7 +634,6 @@
           <div class="site-footer__col-title">Kompaniya</div>
           <ul>
             <li><a href="pages/biz-haqimizda.html">Biz haqimizda</a></li>
-            <li><a href="pages/mutaxassislar.html">Mutaxassislar</a></li>
             <li><a href="pages/b2b.html">B2B mijozlar uchun</a></li>
             <li><a href="pages/blog.html">Blog</a></li>
           </ul>
@@ -761,7 +642,6 @@
           <div class="site-footer__col-title">Mijozlarga</div>
           <ul>
             <li><a href="pages/narxlar.html">Narxlar</a></li>
-            <li><a href="pages/aksiyalar.html">Aksiyalar</a></li>
             <li><a href="pages/sharhlar.html">Sharhlar</a></li>
             <li><a href="#">Ko'p beriladigan savollar</a></li>
           </ul>
@@ -771,13 +651,13 @@
           <ul>
             <li><a href="tel:+998200048886">+998 20 004-88-86</a></li>
             <li><a href="mailto:info@itexnika.uz">info@itexnika.uz</a></li>
-            <li>Toshkent sh., ko'chasi, 1-uy</li>
+            <li>Toshkent shahri</li>
           </ul>
         </div>
       </div>
 
       <div class="site-footer__bottom">
-        <span>© 2014–2026 ITexnika. Barcha huquqlar himoyalangan.</span>
+        <span>© 2026 ITexnika. Barcha huquqlar himoyalangan.</span>
         <div class="site-footer__legal">
           <a href="pages/oferta.html">Ommaviy oferta</a>
           <a href="pages/maxfiylik.html">Maxfiylik siyosati</a>

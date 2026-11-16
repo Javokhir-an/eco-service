@@ -9,7 +9,9 @@
       "scripts/**",
       "*.md",
       "start_ecoservice.cmd",
-      "firestore.rules"
+      "firestore.rules",
+      "pages/mutaxassislar.html",
+      "pages/aksiyalar.html"
     ]
   },
   "firestore": {
