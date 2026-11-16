@@ -1,12 +1,13 @@
 name: Firebase xavfsizligi
 
-# Qo'lda: audit (faqat ko'rish) | fix (ro'yxatdan o'tishni yopish + test telefon) | rules (qoidalarni joylash)
-# Avtomatik: firestore.rules o'zgarib main'ga push qilinsa, qoidalar Firebase'ga joylanadi.
+# Qo'lda: audit (faqat ko'rish) | fix (ro'yxatdan o'tishni yopish + test telefon)
+#         test (qoidalarni emulyatorda sinash) | rules (sinab, keyin Firebase'ga joylash)
+# Avtomatik: firestore.rules o'zgarib main'ga push qilinsa — sinov, o'tsa joylash.
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "audit | fix | rules | test"
+        description: "audit | fix | test | rules"
         required: true
         default: audit
   push:
@@ -14,7 +15,30 @@ on:
     paths: [firestore.rules]
 
 jobs:
+  rules-test:
+    if: github.event_name == 'push' || inputs.mode == 'test' || inputs.mode == 'rules'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Kutubxonalar
+        run: npm install --no-save --no-audit --no-fund firebase-tools@15.31.0 firebase@10.14.1 @firebase/rules-unit-testing@3.0.4
+
+      - name: Qoidalarni emulyatorda sinash
+        run: npx firebase emulators:exec --only firestore --project demo-itexnika "node scripts/rules_test.mjs"
+
   run:
+    needs: rules-test
+    if: ${{ !cancelled() && inputs.mode != 'test' && (needs.rules-test.result == 'success' || needs.rules-test.result == 'skipped') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

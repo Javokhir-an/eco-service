@@ -7,6 +7,7 @@ MODE muhit o'zgaruvchisi:
   audit  — faqat ko'rsatadi: admin foydalanuvchilar, Auth sozlamalari, joriy qoidalar
   fix    — audit + mijozlar o'zi ro'yxatdan o'tishini o'chiradi, sozlamalardagi test telefonni tuzatadi
   rules  — firestore.rules faylini Firebase'ga joylaydi
+  (qoidalar sinovi: scripts/rules_test.mjs, workflow'dagi rules-test bosqichi)
 """
 import json
 import os
@@ -111,70 +112,6 @@ def deploy_rules():
         print("   release ->", r.json().get("rulesetName"))
 
 
-def test_rules():
-    """firestore.rules ni ma'lumotga tegmasdan sinash (Rules API :test)."""
-    print("\n== Qoidalar sinovi")
-    T = "2026-11-16T10:00:00Z"
-    admin = {"uid": "V3PXTj7if2fq3qlvWwPFF0MCJny2", "token": {}}
-    stranger = {"uid": "begona-foydalanuvchi", "token": {}}
-    lead = {"name": "Ali", "phone": "+998901112233", "source": "hero", "page": "/", "consent": "on",
-            "status": "yangi", "notified": False, "createdAt": T}
-    review = {"name": "Ali", "rating": "5", "service": "all", "text": "Zo'r", "page": "/pages/sharhlar.html",
-              "status": "kutilmoqda", "notified": False, "createdAt": T}
-
-    def case(name, expect, method, path, auth=None, new=None, old=None):
-        req = {"auth": auth, "method": method, "time": T,
-               "path": "/databases/(default)/documents/" + path}
-        if new is not None:
-            req["resource"] = {"data": new}
-        c = {"expectation": expect, "request": req}
-        if old is not None:
-            c["resource"] = {"data": old}
-        return name, c
-
-    cases = [
-        case("ariza yuborish (mehmon)", "ALLOW", "create", "submissions/a1", new=lead),
-        case("ariza: soxta holat bilan", "DENY", "create", "submissions/a2", new=dict(lead, status="bajarildi")),
-        case("ariza: juda uzun xabar", "DENY", "create", "submissions/a3", new=dict(lead, message="x" * 5000)),
-        case("arizalarni o'qish (mehmon)", "DENY", "get", "submissions/a1", old=lead),
-        case("arizalarni o'qish (begona hisob)", "DENY", "get", "submissions/a1", auth=stranger, old=lead),
-        case("arizalarni o'qish (admin)", "ALLOW", "get", "submissions/a1", auth=admin, old=lead),
-        case("arizani yangilash (admin)", "ALLOW", "update", "submissions/a1", auth=admin, old=lead,
-             new=dict(lead, status="bajarildi")),
-        case("sharh yuborish (mehmon)", "ALLOW", "create", "reviews/r1", new=review),
-        case("sharh: o'zi tasdiqlab yuborish", "DENY", "create", "reviews/r2", new=dict(review, status="tasdiqlangan")),
-        case("tasdiqlangan sharhni o'qish", "ALLOW", "get", "reviews/r1", old=dict(review, status="tasdiqlangan")),
-        case("kutilayotgan sharhni o'qish", "DENY", "get", "reviews/r1", old=review),
-        case("sharhni tasdiqlash (admin)", "ALLOW", "update", "reviews/r1", auth=admin, old=review,
-             new=dict(review, status="tasdiqlangan")),
-        case("sharhni tasdiqlash (begona)", "DENY", "update", "reviews/r1", auth=stranger, old=review,
-             new=dict(review, status="tasdiqlangan")),
-        case("sozlamalarni o'qish (mehmon)", "ALLOW", "get", "settings/contact", old={"phone": "x"}),
-        case("telefonni o'zgartirish (mehmon)", "DENY", "update", "settings/contact", old={"phone": "x"}, new={"phone": "y"}),
-        case("telefonni o'zgartirish (begona)", "DENY", "update", "settings/contact", auth=stranger,
-             old={"phone": "x"}, new={"phone": "y"}),
-        case("telefonni o'zgartirish (admin)", "ALLOW", "update", "settings/contact", auth=admin,
-             old={"phone": "x"}, new={"phone": "y"}),
-        case("narxni o'zgartirish (begona)", "DENY", "update", "prices/services", auth=stranger, old={}, new={"a": 1}),
-        case("narxni o'zgartirish (admin)", "ALLOW", "update", "prices/services", auth=admin, old={}, new={"a": 1}),
-        case("noma'lum kolleksiya (begona)", "DENY", "create", "boshqa/x", auth=stranger, new={"a": 1}),
-    ]
-    src = open("firestore.rules", encoding="utf-8").read()
-    r = call("POST", "https://firebaserules.googleapis.com/v1/projects/%s:test" % P, json={
-        "source": {"files": [{"name": "firestore.rules", "content": src}]},
-        "testSuite": {"testCases": [c for _, c in cases]}})
-    if not r.ok:
-        return
-    global failed
-    for (name, c), res in zip(cases, r.json().get("testResults", [])):
-        ok = res.get("state") == "SUCCESS"
-        failed = failed or not ok
-        print("   %s %-38s kutilgan=%s%s" % ("OK " if ok else "XATO", name, c["expectation"],
-                                            "" if ok else "  " + json.dumps(res.get("debugMessages", []))[:300]))
-
-
-if MODE == "test":
-    test_rules()
 if MODE in ("audit", "fix"):
     audit()
 if MODE == "fix":
