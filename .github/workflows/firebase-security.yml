@@ -1,0 +1,33 @@
+name: Firebase xavfsizligi
+
+# Qo'lda: audit (faqat ko'rish) | fix (ro'yxatdan o'tishni yopish + test telefon) | rules (qoidalarni joylash)
+# Avtomatik: firestore.rules o'zgarib main'ga push qilinsa, qoidalar Firebase'ga joylanadi.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "audit | fix | rules"
+        required: true
+        default: audit
+  push:
+    branches: [main]
+    paths: [firestore.rules]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Kutubxonalar
+        run: pip install requests==2.32.3 google-auth==2.35.0
+
+      - name: Ishga tushirish
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          MODE: ${{ github.event_name == 'push' && 'rules' || inputs.mode }}
+        run: python scripts/security_fix.py
