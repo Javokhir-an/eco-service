@@ -90,6 +90,13 @@ def fix():
 
 
 def deploy_rules():
+    print("\n== Avvalgi qoidalar (almashtirishdan oldin)")
+    r = call("GET", RULES + "/releases/cloud.firestore")
+    if r.ok:
+        rs = call("GET", "https://firebaserules.googleapis.com/v1/" + r.json()["rulesetName"])
+        if rs.ok:
+            print(rs.json()["source"]["files"][0]["content"])
+
     print("\n== firestore.rules ni joylash")
     src = open("firestore.rules", encoding="utf-8").read()
     r = call("POST", RULES + "/rulesets", json={"source": {"files": [{"name": "firestore.rules", "content": src}]}})
